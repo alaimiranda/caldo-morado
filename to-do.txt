@@ -1,0 +1,10 @@
+PRACTICA 1 ---------------------------
+
+Estructura                      - DONE
+Estilos                         - TODO
+Index	                        - TODO
+Detalles	                    - TODO
+Bocetos	                        - TODO
+Miembros	                    - TODO
+Planificacion		            - TODO
+Contacto		                - TODO
