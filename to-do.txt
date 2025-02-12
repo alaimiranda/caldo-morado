@@ -1,10 +1,17 @@
-PRACTICA 1 ---------------------------
+PRACTICA 1 ---------------------------------------
 
-Estructura                      - DONE
-Estilos                         - TODO
-Index	                        - TODO
-Detalles	                    - TODO
-Bocetos	                        - TODO
-Miembros	                    - TODO
-Planificacion		            - TODO
-Contacto		                - TODO
+Estructura                                  - DONE
+Estilos                                     - TODO
+Index	                                    - DONE
+Detalles	                                - ALMOST
+Bocetos	                                    - TODO
+Miembros	                                - TODO
+Planificacion		                        - TODO
+Contacto		                            - TODO
+
+
+Info     ------------------------------------------
+- Nuevo color de fondo: #eddec9
+- el index.css hay que repartirlo bien entre otros
+    css. me ocuparé yo.
+- En detalles solo hace falta poner la info y ya
