@@ -2,41 +2,50 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <link id="estilo" rel="stylesheet" type="text/css" href="css/contacto.css"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacto</title>
+    <link rel="icon" href="imagen-corporativa/logosinfondo.png">
 </head>
 <body>
-    <h1>Formulario de Contacto</h1>
-        <form action="mailto:rubenmat@ucm.es">
-            <!--Nombre-->
-            <p>
-                <label for="nombre"><strong>Nombre:</strong></label>
-                <input id="nombre" type="text" name="nombre" value =""/>
-            <p>
-            <!--Email-->
-            <p>
-                <label for="email"><strong>Correo electrónico:</strong></label>
-                <input id="email" type="text" name="email" value =""/>
-            </p>
-            <!--Motivo de la consulta-->
-            <p><strong>Motivo de la consulta:</strong></p>
+    <h1 class="titulo">Formulario de Contacto</h1>
+    <form class="formulario" action="mailto:rubenmat@ucm.es">
+        <!--Nombre-->
+        <p>
+            <label for="nombre"><strong>Nombre:</strong></label>
+            <input id="nombre" type="text" name="nombre" value =""/>
+        <p>
+        <!--Email-->
+        <p>
+            <label for="email"><strong>Correo electrónico:</strong></label>
+            <input id="email" type="text" name="email" value =""/>
+        </p>
+        <!--Motivo de la consulta-->
+        <p><strong>Motivo de la consulta:</strong></p>
 
-            <label><input type="radio" name="motivo" value="evaluacion" checked/>Evaluación</label>
-            <label><input type="radio" name="motivo" value="sugerencias"/>Sugerencias</label>
-            <label><input type="radio" name="motivo" value="criticas"/>Críticas</label>
+        <label><input type="radio" name="motivo" value="evaluacion" checked/>Evaluación</label>
+        <label><input type="radio" name="motivo" value="sugerencias"/>Sugerencias</label>
+        <label><input type="radio" name="motivo" value="criticas"/>Críticas</label>
 
-            <!--Terminos-->
-            <p>
-                <input name="terminos" type="checkbox" value="accept" unchecked/> <em>Marque esta casilla para verificar que ha leído nuestros términos y condiciones del servicio</em>
-            </p>
-            <!--Consulta-->
-            <p>
-                <textarea name="razon" rows="5" cols="50">Escriba aquí su consulta</textarea>
-            </p>
+        <!--Terminos-->
+        <p>
+            <input name="terminos" type="checkbox" value="accept" unchecked/> <em>Marque esta casilla para verificar que ha leído nuestros términos y condiciones del servicio</em>
+        </p>
+        <!--Consulta-->
+        <p>
+            <textarea name="razon" rows="5" cols="50">Escriba aquí su consulta</textarea>
+        </p>
 
-            <input type="submit" name="enviar" value="Enviar" />
-            <input type="reset" name="borrar" value="Borrar formulario" />
+        <input type="submit" name="enviar" value="Enviar" />
+        <input type="reset" name="borrar" value="Borrar formulario" />
 
-        </form>
+    </form>
+    <p>
+        <a href="index.html">Índice</a>
+        <a href="detalles.html">Detalles</a>
+        <a href="bocetos.html">Bocetos</a>
+        <a href="planificacion.html">Planificacion</a>
+        <a href="miembros.html">Miembros</a>
+    </p>
 </body>
 </html>
