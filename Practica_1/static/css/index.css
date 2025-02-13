@@ -1,0 +1,23 @@
+
+.logo-presentacion{
+    margin-top: 20px;
+    width: 250px;
+    height: 250px;
+    align-items: center;
+}
+
+.parrafo-detalles{
+    font-family: "carlito-italic";
+    /*max-width: 500px;
+    align-items: center;*/
+}
+
+div{
+    margin: 100px;
+}
+
+
+p{
+    margin-left: 20px;
+    margin-right: 20px;
+}

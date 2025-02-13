@@ -3,7 +3,7 @@ PRACTICA 1 ---------------------------------------
 Estructura                                  - DONE
 Estilos                                     - TODO
 Index	                                    - DONE
-Detalles	                                - ALMOST
+Detalles	                                - DONE
 Bocetos	                                    - TODO
 Miembros	                                - TODO
 Planificacion		                        - TODO

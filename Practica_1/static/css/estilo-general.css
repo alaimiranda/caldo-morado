@@ -4,19 +4,26 @@ https://developer.mozilla.org/es/docs/Learn_web_development/Core/Text_styling/We
 */
 @font-face {
     font-family: "carlito";
-    src: url("imagen-corporativa/Carlito-Regular.ttf");
+    src: url("../imagen-corporativa/Carlito-Regular.ttf");
 }
 
 @font-face {
     font-family: "carlito-bold";
-    src: url("imagen-corporativa/Carlito-Bold.ttf");
+    src: url("../imagen-corporativa/Carlito-Bold.ttf");
 }
 
 @font-face {
     font-family: "carlito-italic";
-    src: url("imagen-corporativa/Carlito-Italic.ttf");
+    src: url("../imagen-corporativa/Carlito-Italic.ttf");
 }
 /* */
+
+
+.center{
+    text-align: center;
+    align-items: center;
+}
+
 
 h1{
     font-size: 40px;
@@ -30,28 +37,6 @@ h2{
 }
  
 
-.logo-presentacion{
-    margin-top: 20px;
-    width: 250px;
-    height: 250px;
-    align-items: center;
-}
-
-.center{
-    text-align: center;
-    align-items: center;
-}
-
-.parrafo-detalles{
-    font-family: "carlito-italic";
-    /*max-width: 500px;
-    align-items: center;*/
-}
-
-div{
-    margin: 100px;
-}
-
 body{
     background-color: #eddec9;
     font-family: "carlito";
@@ -61,11 +46,8 @@ body{
     margin: 20px;
 }
 
-li{
-    margin-left: 20px;
-    margin-right: 20px;
-}
 p{
+    text-align: justify;
     margin-left: 20px;
     margin-right: 20px;
 }
