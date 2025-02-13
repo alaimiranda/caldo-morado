@@ -9,6 +9,7 @@ ul{
     margin: 0.05%;
 }
 
+/* las dos columnas se han hecho así https://keepcoding.io/blog/como-hacer-dos-columnas-en-html/ */
 #columnas{
     display: flex;
     flex-direction: row;
@@ -17,4 +18,4 @@ ul{
 
 #columnas > div {
     width: 33.3%;
-  }
+}
