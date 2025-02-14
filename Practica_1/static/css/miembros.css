@@ -1,10 +1,59 @@
-.iago{
-    img{
-        margin-left: 87%;
-        width: 13%;
-    }
-    p{
-        margin-left: 50%;
-    }
+/*
+El siguiente código para importar la tipografía está sacado de la página web:
+https://developer.mozilla.org/es/docs/Learn_web_development/Core/Text_styling/Web_fonts
+*/
+@font-face {
+    font-family: "carlito";
+    src: url("../imagen-corporativa/Carlito-Regular.ttf");
 }
 
+@font-face {
+    font-family: "carlito-bold";
+    src: url("../imagen-corporativa/Carlito-Bold.ttf");
+}
+
+@font-face {
+    font-family: "carlito-italic";
+    src: url("../imagen-corporativa/Carlito-Italic.ttf");
+}
+/* */
+
+.iago{
+  
+    width: 60%;
+    
+}
+.alai{
+  
+    width: 60%;
+    
+}
+
+.ruben{
+    width: 60%;
+    margin-left: 40%;
+    text-align: right;
+
+}
+.catalina{
+    width: 60%;
+    margin-left: 40%;
+    text-align: right;
+
+}
+
+
+h3{
+    color: #1a2929;
+    font-family: "carlito-italic";
+}
+
+body{
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+}
+
+p{ /*esto hay q cambiarlo pero en estilos generales */
+    margin-left: 0px;
+    margin-right: 0px;
+}
