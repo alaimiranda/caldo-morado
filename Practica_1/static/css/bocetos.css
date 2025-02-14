@@ -1,8 +1,22 @@
 .noRegistrado{
     display: flex;
+    width: 50%;
+    margin: 2.5%;
 }
 
-img{
+.boceto{
     margin: 2.5%;
     margin-top: 0%;
+}
+
+.registrado{
+    display: flex;
+    width: 50%;
+    margin: 2.5%;
+}
+
+.moderador{
+    display: flex;
+    width: 50%;
+    margin: 2.5%;
 }
