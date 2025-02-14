@@ -1,8 +1,8 @@
 .noRegistrado{
-    img{
-        size: 50%;
-    }
-    align-items: center;
-    align-content: flex;
     display: flex;
+}
+
+img{
+    margin: 2.5%;
+    margin-top: 0%;
 }
