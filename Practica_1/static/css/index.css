@@ -1,6 +1,6 @@
 
 .logo-presentacion{
-    margin-top: 20px;
+    margin-top: 100px;
     width: 250px;
     height: 250px;
     align-items: center;
@@ -8,12 +8,15 @@
 
 .parrafo-detalles{
     font-family: "carlito-italic";
-    /*max-width: 500px;
-    align-items: center;*/
+    max-width: 1000px;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    font-size: 20px;
 }
 
 div{
-    margin: 100px;
+    margin-top: 20px;
 }
 
 

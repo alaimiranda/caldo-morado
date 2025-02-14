@@ -22,13 +22,15 @@ https://developer.mozilla.org/es/docs/Learn_web_development/Core/Text_styling/We
 .center{
     text-align: center;
     align-items: center;
+    margin-bottom: 30px;
 }
 
 
 h1{
-    font-size: 40px;
+    font-size: 80px;
     color: #1a2929;
     font-family: "carlito-bold";
+    font-style: bold;
 }
 
 h2{
@@ -50,4 +52,11 @@ p{
     text-align: justify;
     margin-left: 20px;
     margin-right: 20px;
+}
+
+.pie{
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 70px;
+    font-size: 20px;
 }
