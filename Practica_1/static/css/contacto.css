@@ -1,40 +1,5 @@
-/*
-El siguiente código para importar la tipografía está sacado de la página web:
-https://developer.mozilla.org/es/docs/Learn_web_development/Core/Text_styling/Web_fonts
-*/
-@font-face {
-    font-family: "carlito";
-    src: url("../imagen-corporativa/Carlito-Regular.ttf");
-}
-
-@font-face {
-    font-family: "carlito-bold";
-    src: url("../imagen-corporativa/Carlito-Bold.ttf");
-}
-
-@font-face {
-    font-family: "carlito-italic";
-    src: url("../imagen-corporativa/Carlito-Italic.ttf");
-}
 body{
     margin-left: 35%; 
-}
-h1{
-    font-size: 40px;
-    color: #1a2929;
-    font-family: "carlito-bold";
-}
-
-div{
-    margin: 100px;
-}
-body{
-    background-color: #eddec9;
-    font-family: "carlito";
-}
-.formulario{
-    font-family: "carlito-italic";
-    align-items: center;
 }
 p{
     margin-top: 30px;
