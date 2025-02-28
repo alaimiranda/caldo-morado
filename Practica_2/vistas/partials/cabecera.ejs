@@ -1,0 +1,18 @@
+<%
+/**
+ * Muestra el saludo si el usuario esta registrado, en caso de que no lo este,
+ * muestra que es un usuario desconocido.
+ */
+function mostrarSaludo(session){
+	if (session == null || ! session.login){
+		return `<p>Usuario desconocido. <a href="/usuarios/login">Login</a></p>`;
+	}
+
+	return `<p>Bienvenido ${session.nombre}. <a href="/usuarios/logout">(salir)</a></p>`;
+}
+%><header>
+		<h1>Caldo Morado</h1>
+		<div class="saludo">
+			<%- mostrarSaludo(session) %>
+		</div>
+</header>
