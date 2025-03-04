@@ -11,7 +11,10 @@ function mostrarSaludo(session){
 	return `<p>Bienvenido ${session.nombre}. <a href="/usuarios/logout">(salir)</a></p>`;
 }
 %><header>
-		<h1>Caldo Morado</h1>
+		<div class="logohead">
+			<img src="imagen-corporativa/logosinfondo.png" width="40" height="40" alt="Error al cargar">
+		</div>
+		<h1>CaldoMorado</h1>
 		<div class="saludo">
 			<%- mostrarSaludo(session) %>
 		</div>
