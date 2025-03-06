@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="/css/cocinar.css">
 <link rel="stylesheet" href="/css/estilo.css">
+
 <h1>Publica tu nueva receta!</h1>
 
 <form action="/publicaciones/nueva" method="POST">
@@ -7,15 +8,23 @@
     <div class="general">
         <div class = "titulo">
             <input class = "titulo_receta" type="text" id="titulo" name="titulo" required placeholder="Introduce el título de tu receta...">
-            <button class = "cancel-btn"> X </button>
+            <button type="reset" class = "cancel-btn"> X </button>
         </div>
         <div class="columnas">
             <div class = "col1">
                 <!--Carrusel de fotos-->
-                <div class="image-placeholder">Imagen</div>
-                <button class = "carroussel-btn">←</button>
-                <button class = "carroussel-btn">+</button>
-                <textarea class = "pie-de-foto">introduce un pie de foto...</textarea>
+                <button type="button" class = "carroussel-btn" id="anterior">←</button>
+                <div>
+                    <!--<div class="image-placeholder">Imagen</div>-->
+                    <div id="myImage"></div>
+                    <textarea class = "pie-de-foto">introduce un pie de foto...</textarea>
+                </div>
+                <button type="button" class = "carroussel-btn" id="siguiente">→</button>
+                <a href="#" class="carroussel-btn" id="add-image-btn">
+                    <button class="carroussel-btn">+</button>
+                </a>
+                <input name="files[]" id="imagenes" type="file" placeholder="imagenes" multiple class="input_foto" style="display: none;">
+                
             </div>
             <div class = col2>
                 <label>Colaboradores:</label>
@@ -27,6 +36,75 @@
         </div>
     </div>
 </form>
+
+<script>
+    document.getElementById('add-image-btn').addEventListener('click', function(event) {
+        event.preventDefault();
+        document.getElementById('imagenes').click();
+        IMAGENES.push('files');
+    });
+
+    window.onload = function () {
+        // Variables
+        const $imagen = document.getElementById("myImage");
+        const IMAGENES = [
+            '/imagen-corporativa/logosinfondo.png',
+            '/iconos/gluten.png',
+            '/iconos/pez.png'];
+        const TIEMPO_INTERVALO_MILESIMAS_SEG = 1000;
+        let posicionActual = 0;
+        let $botonRetroceder = document.querySelector('#anterior');
+        let $botonAvanzar = document.querySelector('#siguiente');
+        //let $imagen = document.querySelector('#image-placeholder');
+    
+        // Funciones
+    
+        /**
+         * Funcion que cambia la foto en la siguiente posicion
+         */
+        function pasarFoto() {
+            if(posicionActual >= IMAGENES.length - 1) {
+                posicionActual = 0;
+            } else {
+                posicionActual++;
+            }
+            renderizarImagen();
+        }
+    
+        /**
+         * Funcion que cambia la foto en la anterior posicion
+         */
+        function retrocederFoto() {
+            if(posicionActual <= 0) {
+                posicionActual = IMAGENES.length - 1;
+            } else {
+                posicionActual--;
+            }
+            renderizarImagen();
+        }
+    
+        /**
+         * Funcion que actualiza la imagen de imagen dependiendo de posicionActual
+         */
+        function renderizarImagen () {
+            if ($imagen) {
+                $imagen.style.backgroundImage = `url('${IMAGENES[posicionActual]}')`;
+                console.log("Mostrando imagen:", IMAGENES[posicionActual]); 
+            } else {
+                console.error("Image element not found.");
+            }
+        }
+    
+        // Eventos
+        $botonAvanzar.addEventListener('click', pasarFoto);
+        $botonRetroceder.addEventListener('click', retrocederFoto);
+    
+        // Iniciar
+        window.addEventListener('DOMContentLoaded', () => {
+            renderizarImagen();
+        });
+    }  
+    </script>
 <!--
 <script>
     document.getElementById('imagen').addEventListener('change', function(event) {
