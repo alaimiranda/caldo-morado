@@ -17,7 +17,10 @@ export function viewTop(req, res) {
     });
 }
 export function viewCocinar(req, res) {
-    let contenido = 'paginas/cocinar'   ;
+    let contenido = 'paginas/normal';
+    if (req.session !== null && req.session.login) {
+        contenido = 'paginas/cocinar';
+    }
     res.render('pagina', {
         contenido,
         session: req.session

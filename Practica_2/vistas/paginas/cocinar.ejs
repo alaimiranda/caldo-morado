@@ -15,16 +15,13 @@
                 <!--Carrusel de fotos-->
                 <button type="button" class = "carroussel-btn" id="anterior">←</button>
                 <div>
-                    <!--<div class="image-placeholder">Imagen</div>-->
                     <div id="myImage"></div>
-                    <textarea class = "pie-de-foto">introduce un pie de foto...</textarea>
+                    <button class="carroussel-btn" id="add-image-btn">+</button>
+                    <input name="files[]" id="imagenes" type="file" placeholder="imagenes" multiple class="input_foto" style="display: none;">
+                    <button class="carroussel-btn delete-btn" id="delete-image-btn">🗑</button>
+                    <textarea class = "pie-de-foto">Introduce un pie de foto...</textarea>
                 </div>
                 <button type="button" class = "carroussel-btn" id="siguiente">→</button>
-                <a href="#" class="carroussel-btn" id="add-image-btn">
-                    <button class="carroussel-btn">+</button>
-                </a>
-                <input name="files[]" id="imagenes" type="file" placeholder="imagenes" multiple class="input_foto" style="display: none;">
-                
             </div>
             <div class = col2>
                 <label>Colaboradores:</label>
@@ -38,84 +35,79 @@
 </form>
 
 <script>
+    // Array de imágenes iniciales
+    let fotos = [];
+    let posicionActual = 0;
+
     document.getElementById('add-image-btn').addEventListener('click', function(event) {
         event.preventDefault();
         document.getElementById('imagenes').click();
-        IMAGENES.push('files');
     });
 
-    window.onload = function () {
-        // Variables
-        const $imagen = document.getElementById("myImage");
-        const IMAGENES = [
-            '/imagen-corporativa/logosinfondo.png',
-            '/iconos/gluten.png',
-            '/iconos/pez.png'];
-        const TIEMPO_INTERVALO_MILESIMAS_SEG = 1000;
-        let posicionActual = 0;
-        let $botonRetroceder = document.querySelector('#anterior');
-        let $botonAvanzar = document.querySelector('#siguiente');
-        //let $imagen = document.querySelector('#image-placeholder');
-    
-        // Funciones
-    
-        /**
-         * Funcion que cambia la foto en la siguiente posicion
-         */
-        function pasarFoto() {
-            if(posicionActual >= IMAGENES.length - 1) {
-                posicionActual = 0;
-            } else {
-                posicionActual++;
+    document.getElementById('imagenes').addEventListener('change', function(event) {
+        const files = event.target.files; // Capturamos los archivos seleccionados
+        if (!files.length) return; // Si no se seleccionó nada, salir
+
+        for (let file of files) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                fotos.push(e.target.result); // Guardamos la imagen en el array
+                if (fotos.length === 1) {
+                    posicionActual = 0; // Si es la primera imagen, mostrarla inmediatamente
+                }
+                renderizarImagen();
+            };
+            reader.readAsDataURL(file); // Convertimos la imagen a base64
+        }
+
+        // Resetear input para poder seleccionar la misma imagen otra vez
+        event.target.value = "";
+    });
+
+    document.getElementById('delete-image-btn').addEventListener('click', function() {
+        if (fotos.length > 0) {
+            fotos.splice(posicionActual, 1); // Eliminar la imagen actual
+            if (posicionActual >= fotos.length) {
+                posicionActual = fotos.length - 1; // Ajustar la posición si es necesario
             }
             renderizarImagen();
         }
-    
-        /**
-         * Funcion que cambia la foto en la anterior posicion
-         */
-        function retrocederFoto() {
-            if(posicionActual <= 0) {
-                posicionActual = IMAGENES.length - 1;
-            } else {
-                posicionActual--;
-            }
-            renderizarImagen();
+    });
+
+    function pasarFoto() {
+        if (posicionActual >= fotos.length - 1) {
+            posicionActual = 0;
+        } else {
+            posicionActual++;
         }
-    
-        /**
-         * Funcion que actualiza la imagen de imagen dependiendo de posicionActual
-         */
-        function renderizarImagen () {
-            if ($imagen) {
-                $imagen.style.backgroundImage = `url('${IMAGENES[posicionActual]}')`;
-                console.log("Mostrando imagen:", IMAGENES[posicionActual]); 
-            } else {
-                console.error("Image element not found.");
-            }
+        renderizarImagen();
+    }
+
+    function retrocederFoto() {
+        if (posicionActual <= 0) {
+            posicionActual = fotos.length - 1;
+        } else {
+            posicionActual--;
         }
-    
-        // Eventos
-        $botonAvanzar.addEventListener('click', pasarFoto);
-        $botonRetroceder.addEventListener('click', retrocederFoto);
-    
-        // Iniciar
-        window.addEventListener('DOMContentLoaded', () => {
-            renderizarImagen();
-        });
-    }  
-    </script>
-<!--
-<script>
-    document.getElementById('imagen').addEventListener('change', function(event) {
-       var reader = new FileReader();
-       reader.onload = function() {
-           var output = document.getElementById('imagePreview');
-           output.src = reader.result;
-           output.style.display = 'block';
-       }
-       reader.readAsDataURL(event.target.files[0]);
-   });
-   </script>
-   -->
+        renderizarImagen();
+    }
+
+    function renderizarImagen() {
+        const imagenContainer = document.getElementById("myImage");
+        if (imagenContainer) {
+            imagenContainer.style.backgroundImage = `url('${fotos[posicionActual]}')`;
+            imagenContainer.style.backgroundSize = "contain"; 
+            imagenContainer.style.backgroundRepeat = "no-repeat";
+            imagenContainer.style.backgroundPosition = "center";
+            imagenContainer.style.width = "450px";
+            imagenContainer.style.height = "450px";
+        }
+    }
+
+    document.getElementById('anterior').addEventListener('click', retrocederFoto);
+    document.getElementById('siguiente').addEventListener('click', pasarFoto);
+
+    renderizarImagen();
+
+</script>
    
