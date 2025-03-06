@@ -146,6 +146,11 @@ label {
 	display: block;
 }
 
-button {
-	margin-left: 100px;
-} 
+button{
+    border-radius: 10%;
+    width: 100px;
+    height: 35px;
+    color: white;
+	background-color: #303030;
+	align-self: right;
+}

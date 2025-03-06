@@ -1,24 +1,29 @@
-<link rel="stylesheet" href="/static/css/cocinar.css">
+<link rel="stylesheet" href="/css/cocinar.css">
+<link rel="stylesheet" href="/css/estilo.css">
 <h1>Publica tu nueva receta!</h1>
 
 <form action="/publicaciones/nueva" method="POST">
     
     <div class="general">
-            <p>
-            <label for="titulo">Título:</label>
-            <input type="text" id="titulo" name="titulo" required>
-            </p>
+        <div class = "titulo">
+            <input class = "titulo_receta" type="text" id="titulo" name="titulo" required placeholder="Introduce el título de tu receta...">
+            <button class = "cancel-btn"> X </button>
+        </div>
         <div class="columnas">
-            <div>
+            <div class = "col1">
                 <!--Carrusel de fotos-->
-                <label>Hola</label>
-    
+                <div class="image-placeholder">Imagen</div>
+                <button class = "carroussel">←</button>
+                <button class = "carroussel">+</button>
+                <textarea class = "pie-de-foto">introduce un pie de foto...</textarea>
             </div>
-            <div>
-                <label for="colaboradores">Colaboradores:</label>
-                <textarea name="nombres" rows="3" cols="40">¿Con quién estabas?</textarea>
+            <div class = col2>
+                <label>Colaboradores:</label>
+                <p>
+                    <textarea class="colaboradores" rows="3" cols="40">¿Con quién estabas?</textarea>
+                </p>
+                <button class = "publish-btn">Publicar</button>
             </div>
-            
         </div>
     </div>
 </form>

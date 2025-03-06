@@ -1,8 +1,75 @@
-#principal_crear{
+
+.general {
+    padding: 20px;
+    width: 1100px;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
+.titulo_receta {
+    width:92%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 25px;
+}
+
+label{
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+
+.columnas {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    gap: 50px;
+    margin-top: 30px;
 }
-#principal_crear > div{
-    width: 50%;
+.col1{
+    align-items: center;
+    width: 25%;
+}
+.col2{
+    width: 65%;
+}
+
+
+.image-placeholder {
+    width: 280px;
+    height: 280px;
+    background: #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    
+}
+
+.cancel-btn {
+    background:  #a80e0e;
+    align-items: right;
+    margin-left: 20px;
+    height: 40px;
+    width: 40px;
+}
+.publish-btn {
+    background: #325d32;
+    color: white;
+    align-items: right;
+}
+
+.pie-de-foto{
+    margin-top: 10px;
+    width:280px;
+    height: 50px;
+}
+.colaboradores{
+    width: 100%;
+    height: 100px;
+}
+.carroussel{
+    width: 40px;
+    height: 40px;
 }
