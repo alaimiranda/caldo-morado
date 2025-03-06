@@ -5,6 +5,7 @@ import { inicializaModelos } from './modelos.js';
 
 const db = getConnection();
 checkConnection(db);
+createTables(db);
 inicializaModelos(db);
 
 const server = app.listen(config.port, (error) => {
