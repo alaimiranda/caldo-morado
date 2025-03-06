@@ -1,0 +1,38 @@
+<link rel="stylesheet" href="/static/css/cocinar.css">
+<h1>Publica tu nueva receta!</h1>
+
+<form action="/publicaciones/nueva" method="POST">
+    
+    <div class="general">
+            <p>
+            <label for="titulo">Título:</label>
+            <input type="text" id="titulo" name="titulo" required>
+            </p>
+        <div class="columnas">
+            <div>
+                <!--Carrusel de fotos-->
+                <label>Hola</label>
+    
+            </div>
+            <div>
+                <label for="colaboradores">Colaboradores:</label>
+                <textarea name="nombres" rows="3" cols="40">¿Con quién estabas?</textarea>
+            </div>
+            
+        </div>
+    </div>
+</form>
+<!--
+<script>
+    document.getElementById('imagen').addEventListener('change', function(event) {
+       var reader = new FileReader();
+       reader.onload = function() {
+           var output = document.getElementById('imagePreview');
+           output.src = reader.result;
+           output.style.display = 'block';
+       }
+       reader.readAsDataURL(event.target.files[0]);
+   });
+   </script>
+   -->
+   

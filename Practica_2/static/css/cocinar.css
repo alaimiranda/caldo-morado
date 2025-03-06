@@ -1,0 +1,8 @@
+#principal_crear{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+#principal_crear > div{
+    width: 50%;
+}

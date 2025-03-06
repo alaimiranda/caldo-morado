@@ -16,6 +16,13 @@ export function viewTop(req, res) {
         session: req.session
     });
 }
+export function viewCocinar(req, res) {
+    let contenido = 'paginas/cocinar'   ;
+    res.render('pagina', {
+        contenido,
+        session: req.session
+    });
+}
 
 export function viewContenidoAdmin(req, res) {
     let contenido = 'paginas/noPermisos';
