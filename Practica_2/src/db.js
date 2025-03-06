@@ -35,7 +35,7 @@ export function createTables(db = getConnection()) {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             username TEXT UNIQUE NOT NULL,
             password TEXT NOT NULL,
-            nombre TEXT NOT NULL,
+            email TEXT NOT NULL,
             rol TEXT CHECK(rol IN ('U', 'A')) NOT NULL
         );
     `);

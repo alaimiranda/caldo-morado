@@ -15,8 +15,8 @@ export class Usuario {
         if (this.#getByUsernameStmt !== null) return;
 
         this.#getByUsernameStmt = db.prepare('SELECT * FROM Usuarios WHERE username = @username');
-        this.#insertStmt = db.prepare('INSERT INTO Usuarios(username, password, nombre, rol) VALUES (@username, @password, @nombre, @rol)');
-        this.#updateStmt = db.prepare('UPDATE Usuarios SET username = @username, password = @password, rol = @rol, nombre = @nombre WHERE id = @id');
+        this.#insertStmt = db.prepare('INSERT INTO Usuarios(username, password, email, rol) VALUES (@username, @password, @email, @rol)');
+        this.#updateStmt = db.prepare('UPDATE Usuarios SET username = @username, password = @password, rol = @rol, email = @email WHERE id = @id');
     }
 
     static getUsuarioByUsername(username) {
@@ -81,12 +81,12 @@ export class Usuario {
     #username;
     #password;
     rol;
-    nombre;
+    email;
 
-    constructor(username, password, nombre, rol = RolesEnum.USUARIO, id = null) {
+    constructor(username, password, email, rol = RolesEnum.USUARIO, id = null) {
         this.#username = username;
         this.#password = password;
-        this.nombre = nombre;
+        this.email = email;
         this.rol = rol;
         this.#id = id;
     }
