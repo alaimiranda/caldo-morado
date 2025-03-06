@@ -8,7 +8,7 @@
     <div class="general">
         <div class = "titulo">
             <input class = "titulo_receta" type="text" id="titulo" name="titulo" required placeholder="Introduce el título de tu receta...">
-            <button type="reset" class = "cancel-btn"> X </button>
+            <button type="reset" class = "cancel-btn" onclick="borrarFotos()"> X </button>
         </div>
         <div class="columnas">
             <div class = "col1">
@@ -35,7 +35,7 @@
 </form>
 
 <script>
-    // Array de imágenes iniciales
+
     let fotos = [];
     let posicionActual = 0;
 
@@ -45,30 +45,30 @@
     });
 
     document.getElementById('imagenes').addEventListener('change', function(event) {
-        const files = event.target.files; // Capturamos los archivos seleccionados
-        if (!files.length) return; // Si no se seleccionó nada, salir
+        const files = event.target.files;
+        if (files.length === 0) return;
 
         for (let file of files) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                fotos.push(e.target.result); // Guardamos la imagen en el array
+                fotos.push(e.target.result); 
                 if (fotos.length === 1) {
-                    posicionActual = 0; // Si es la primera imagen, mostrarla inmediatamente
+                    posicionActual = 0; 
                 }
                 renderizarImagen();
             };
-            reader.readAsDataURL(file); // Convertimos la imagen a base64
+            reader.readAsDataURL(file);
         }
 
-        // Resetear input para poder seleccionar la misma imagen otra vez
+       
         event.target.value = "";
     });
 
     document.getElementById('delete-image-btn').addEventListener('click', function() {
         if (fotos.length > 0) {
-            fotos.splice(posicionActual, 1); // Eliminar la imagen actual
+            fotos.splice(posicionActual, 1); 
             if (posicionActual >= fotos.length) {
-                posicionActual = fotos.length - 1; // Ajustar la posición si es necesario
+                posicionActual = fotos.length - 1; 
             }
             renderizarImagen();
         }
@@ -89,6 +89,12 @@
         } else {
             posicionActual--;
         }
+        renderizarImagen();
+    }
+
+    function borrarFotos(){
+        fotos = [];
+        posicionActual = 0;
         renderizarImagen();
     }
 
