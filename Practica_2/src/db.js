@@ -29,19 +29,6 @@ export function checkConnection(db = getConnection()) {
     if (suma == null || suma !== 2) throw Error(`La bbdd no funciona correctamente`);
 }
 
-export function createTables(db = getConnection()) {
-    db.exec(`
-        CREATE TABLE IF NOT EXISTS Usuarios (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT UNIQUE NOT NULL,
-            password TEXT NOT NULL,
-            email TEXT NOT NULL,
-            rol TEXT CHECK(rol IN ('U', 'A')) NOT NULL
-        );
-    `);
-    console.log("Tablas creadas/verificadas correctamente.");
-}
-
 export class ErrorDatos extends Error {
     /**
      * 

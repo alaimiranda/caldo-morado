@@ -1,5 +1,5 @@
 import express from 'express';
-import { viewCocinar, viewContenidoAdmin, viewContenidoNormal, viewTop } from './controllers.js';
+import { publicar } from './controllers.js';
 
 const contenidoRouter = express.Router();
 

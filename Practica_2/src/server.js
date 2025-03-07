@@ -1,11 +1,10 @@
 import { config } from './config.js';
 import { app } from './app.js';
-import { getConnection, checkConnection, closeConnection, createTables} from './db.js';
+import { getConnection, checkConnection, closeConnection} from './db.js';
 import { inicializaModelos } from './modelos.js';
 
 const db = getConnection();
 checkConnection(db);
-createTables(db);
 inicializaModelos(db);
 
 const server = app.listen(config.port, (error) => {
