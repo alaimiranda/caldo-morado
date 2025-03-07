@@ -23,7 +23,6 @@ h1{
     font-size: 25px;
     /*color: #1a2929;*/
     font-family: "carlito-bold";
-    font-style: bold;
 }
 
 h2{
@@ -152,5 +151,15 @@ button{
     height: 35px;
     color: white;
 	background-color: #303030;
-	align-self: right;
+}
+
+button:hover{
+    background: #ebebeb;
+    color:black;
+    cursor: pointer;
+}
+
+.saludo{
+	padding-left: 30px;
+	padding-right: 30px;
 }
