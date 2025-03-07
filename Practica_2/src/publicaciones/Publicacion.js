@@ -1,93 +1,84 @@
-
 import bcrypt from "bcryptjs";
 
-export const RolesEnum = Object.freeze({
-    USUARIO: 'U',
-    ADMIN: 'A'
-});
-
-export class Usuario {
-    static #getByUsernameStmt = null;
+export class Publicacion {
+    static #getByTituloStmt = null;
     static #insertStmt = null;
     static #updateStmt = null;
 
     static initStatements(db) {
-        if (this.#getByUsernameStmt !== null) return;
+        if (this.#getByTituloStmt !== null) return;
 
-        this.#getByUsernameStmt = db.prepare('SELECT * FROM Usuarios WHERE username = @username');
-        this.#insertStmt = db.prepare('INSERT INTO Usuarios(username, password, email, rol) VALUES (@username, @password, @email, @rol)');
-        this.#updateStmt = db.prepare('UPDATE Usuarios SET username = @username, password = @password, rol = @rol, email = @email WHERE id = @id');
+        this.#getByTituloStmt = db.prepare('SELECT * FROM Posts WHERE titulo = @titulo');
+        this.#insertStmt = db.prepare('INSERT INTO Posts(titulo, creador_1, creador_2, creador_3, creador_4, creador_5, fecha) VALUES (@titulo, @creador_1, @creador_2, @creador_3, @creador_4, @creador_5, @fecha)');
+        this.#updateStmt = db.prepare('UPDATE Posts SET titulo = @titulo, creador_1 = @creador_1, creador_2 = @creador_2, creador_3 = @creador_3, creador_4 = @creador_4, creador_5 = @creador_5, fecha = @fecha WHERE titulo = @titulo');
     }
 
     static getUsuarioByUsername(username) {
-        const usuario = this.#getByUsernameStmt.get({ username });
-        if (usuario === undefined) throw new UsuarioNoEncontrado(username);
+        const publicacion = this.#getByTituloStmt.get({ username });
+        if (publicacion === undefined) throw new UsuarioNoEncontrado(titulo);
 
-        const { password, rol, email, id } = usuario;
+        const { creador_1, creador_2, creador_3, creador_4, creador_5, fecha, id} = publicacion;
 
-        return new Usuario(username, password, email, rol, id);
+        return new Publicacion(titulo, creador_1, creador_2, creador_3, creador_4, creador_5, fecha, id);
     }
 
     static #insert(usuario) {
         let result = null;
         try {
-            const username = usuario.#username;
-            const password = usuario.#password;
-            const email = usuario.email;
-            const rol = usuario.rol;
-            const datos = {username, password, email, rol};
+            const titulo = usuario.#titulo;
+            const creador_1 = usuario.#creador_1;
+            const creador_2 = usuario.#creador_2;
+            const creador_3 = usuario.#creador_3;
+            const creador_4 = usuario.#creador_4;
+            const creador_5 = usuario.#creador_5;
+            const fecha = usuario.#fecha;
+            const datos = {titulo, creador_1, creador_2, creador_3, creador_4, creador_5, fecha};
 
             result = this.#insertStmt.run(datos);
 
             usuario.#id = result.lastInsertRowid;
         } catch(e) { // SqliteError: https://github.com/WiseLibs/better-sqlite3/blob/master/docs/api.md#class-sqliteerror
             if (e.code === 'SQLITE_CONSTRAINT') {
-                throw new UsuarioYaExiste(usuario.#username);
+                throw new PublicacionYaExiste(usuario.#titulo);
             }
-            throw new ErrorDatos('No se ha insertado el usuario', { cause: e });
+            throw new ErrorDatos('No se ha insertado la publicacion', { cause: e });
         }
         return usuario;
     }
 
     static #update(usuario) {
-        const username = usuario.#username;
-        const password = usuario.#password;
-        const email = usuario.email;
-        const rol = usuario.rol;
-        const datos = {username, password, email, rol};
-
+        const titulo = usuario.#titulo;
+        const creador_1 = usuario.#creador_1;
+        const creador_2 = usuario.#creador_2;
+        const creador_3 = usuario.#creador_3;
+        const creador_4 = usuario.#creador_4;
+        const creador_5 = usuario.#creador_5;
+        const fecha = usuario.#fecha;
+        const datos = {titulo, creador_1, creador_2, creador_3, creador_4, creador_5, fecha};
+        
         const result = this.#updateStmt.run(datos);
         if (result.changes === 0) throw new UsuarioNoEncontrado(username);
 
         return usuario;
     }
 
-
-    static login(username, password) {
-        let usuario = null;
-        try {
-            usuario = this.getUsuarioByUsername(username);
-        } catch (e) {
-            throw new UsuarioOPasswordNoValido(username, { cause: e });
-        }
-
-        // XXX: En el ej3 / P3 lo cambiaremos para usar async / await o Promises
-        if ( ! bcrypt.compareSync(password, usuario.#password) ) throw new UsuarioOPasswordNoValido(username);
-
-        return usuario;
-    }
-
     #id;
-    #username;
-    #password;
-    rol;
-    email;
+    #titulo;
+    #creador_1;
+    #creador_2;
+    #creador_3;
+    #creador_4;
+    #creador_5;
+    #fecha;
 
-    constructor(username, password, email, rol = RolesEnum.USUARIO, id = null) {
-        this.#username = username;
-        this.#password = password;
-        this.email = email;
-        this.rol = rol;
+    constructor(titulo, creador_1, creador_2, creador_3, creador_4, creador_5, fecha, id = null) {
+        this.#titulo = titulo;
+        this.#creador_1 = creador_1;
+        this.#creador_2 = creador_2;
+        this.#creador_3 = creador_3;
+        this.#creador_4 = creador_4;
+        this.#creador_5 = creador_5;
+        this.#fecha = fecha;
         this.#id = id;
     }
 
@@ -95,18 +86,18 @@ export class Usuario {
         return this.#id;
     }
 
-    set password(nuevoPassword) {
+    set creador_1(nuevoCreador_1) {
         // XXX: En el ej3 / P3 lo cambiaremos para usar async / await o Promises
-        this.#password = bcrypt.hashSync(nuevoPassword);
+        this.#creador_1 = bcrypt.hashSync(nuevoCreador_1);
     }
 
-    get username() {
-        return this.#username;
+    get titulo() {
+        return this.#titulo;
     }
 
     persist() {
-        if (this.#id === null) return Usuario.#insert(this);
-        return Usuario.#update(this);
+        if (this.#id === null) return Publicacion.#insert(this);
+        return Publicacion.#update(this);
     }
 }
 
