@@ -40,6 +40,10 @@
     let descripciones = [];
     let posicionActual = 0;
 
+    const antBoton = document.getElementById('anterior');
+    const sigBoton = document.getElementById('siguiente');
+    const delBoton =  document.getElementById('delete-image-btn');
+
     document.getElementById('add-image-btn').addEventListener('click', function(event) {
         event.preventDefault();
         document.getElementById('imagenes').click();
@@ -86,19 +90,15 @@
 
     function pasarFoto() {
         guardarDescripcion();
-        if (posicionActual >= fotos.length - 1) {
-            posicionActual = 0;
-        } else {
+        if (posicionActual < fotos.length - 1) {
             posicionActual++;
-        }
+        } 
         renderizarImagen();
     }
 
     function retrocederFoto() {
         guardarDescripcion();
-        if (posicionActual <= 0) {
-            posicionActual = fotos.length - 1;
-        } else {
+        if (posicionActual > 0) {
             posicionActual--;
         }
         renderizarImagen();
@@ -114,6 +114,40 @@
     function renderizarImagen() {
         const imagenContainer = document.getElementById("myImage");
         const descripcionInput = document.getElementById("pie-de-foto");
+        // Solo se muestran los botones de siguiente y anterior si hay más de una foto
+        if(fotos.length === 0){
+            sigBoton.style.opacity = 0;
+            antBoton.style.opacity = 0;
+            delBoton.style.opacity = 0;
+            sigBoton.disabled = true;
+            antBoton.disabled = true;
+            delBoton.disabled = true;
+
+        }else if (fotos.length === 1){
+            sigBoton.style.opacity = 0;
+            antBoton.style.opacity = 0;
+            delBoton.style.opacity = 1;
+            delBoton.disabled = false;
+        }else{
+            delBoton.style.opacity = 1;
+            delBoton.disabled = false;
+            // Si hay más de una foto se comprueba si es la primera o última foto para mostrar u ocultar los botones 
+            if(posicionActual === 0){
+                antBoton.style.opacity = 0;
+                sigBoton.style.opacity = 1;
+                sigBoton.disabled = false;
+            }else if(posicionActual === fotos.length - 1){
+                antBoton.style.opacity = 1;
+                sigBoton.style.opacity = 0;
+                antBoton.disabled = false;
+            }else{
+                antBoton.style.opacity = 1;
+                sigBoton.style.opacity = 1;
+                antBoton.disabled = false;
+                sigBoton.disabled = false;
+            }
+        } 
+
         if (imagenContainer) {
             imagenContainer.style.backgroundImage = `url('${fotos[posicionActual]}')`;
             imagenContainer.style.backgroundSize = "contain"; 
