@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="/css/cocinar.css">
 <link rel="stylesheet" href="/css/estilo.css">
 
+
 <h1>Publica tu nueva receta!</h1>
 
 <form action="/publicaciones/nueva" method="POST">
@@ -17,9 +18,9 @@
                 <div>
                     <div id="myImage"></div>
                     <button class="carroussel-btn" id="add-image-btn">+</button>
-                    <input name="files[]" id="imagenes" type="file" placeholder="imagenes" multiple class="input_foto" style="display: none;">
+                    <input name="files" id="imagenes" type="file" multiple class="input_foto" style="display: none;">
                     <button class="carroussel-btn delete-btn" id="delete-image-btn">🗑</button>
-                    <textarea class = "pie-de-foto">Introduce un pie de foto...</textarea>
+                    <textarea id="pie-de-foto" class = "pie-de-foto">Introduce un pie de foto...</textarea>
                 </div>
                 <button type="button" class = "carroussel-btn" id="siguiente">→</button>
             </div>
@@ -35,8 +36,8 @@
 </form>
 
 <script>
-
     let fotos = [];
+    let descripciones = [];
     let posicionActual = 0;
 
     document.getElementById('add-image-btn').addEventListener('click', function(event) {
@@ -52,6 +53,7 @@
             const reader = new FileReader();
             reader.onload = function(e) {
                 fotos.push(e.target.result); 
+                descripciones.push("Introduce un pie de foto...");
                 if (fotos.length === 1) {
                     posicionActual = 0; 
                 }
@@ -60,13 +62,14 @@
             reader.readAsDataURL(file);
         }
 
-       
+    
         event.target.value = "";
     });
 
     document.getElementById('delete-image-btn').addEventListener('click', function() {
         if (fotos.length > 0) {
             fotos.splice(posicionActual, 1); 
+            descripciones.splice(posicionActual, 1);
             if (posicionActual >= fotos.length) {
                 posicionActual = fotos.length - 1; 
             }
@@ -74,7 +77,15 @@
         }
     });
 
+    function guardarDescripcion() {
+        const descripcionInput = document.getElementById("pie-de-foto");
+        if (descripcionInput) {
+            descripciones[posicionActual] = descripcionInput.value;
+        }
+    }
+
     function pasarFoto() {
+        guardarDescripcion();
         if (posicionActual >= fotos.length - 1) {
             posicionActual = 0;
         } else {
@@ -84,6 +95,7 @@
     }
 
     function retrocederFoto() {
+        guardarDescripcion();
         if (posicionActual <= 0) {
             posicionActual = fotos.length - 1;
         } else {
@@ -94,12 +106,14 @@
 
     function borrarFotos(){
         fotos = [];
+        descripciones = [];
         posicionActual = 0;
         renderizarImagen();
     }
 
     function renderizarImagen() {
         const imagenContainer = document.getElementById("myImage");
+        const descripcionInput = document.getElementById("pie-de-foto");
         if (imagenContainer) {
             imagenContainer.style.backgroundImage = `url('${fotos[posicionActual]}')`;
             imagenContainer.style.backgroundSize = "contain"; 
@@ -108,12 +122,14 @@
             imagenContainer.style.width = "450px";
             imagenContainer.style.height = "450px";
         }
+        if (descripcionInput) {
+            descripcionInput.value = fotos.length > 0 ? descripciones[posicionActual] : "Introduce un pie de foto...";
+        }
     }
 
     document.getElementById('anterior').addEventListener('click', retrocederFoto);
     document.getElementById('siguiente').addEventListener('click', pasarFoto);
+    document.getElementById('pie-de-foto').addEventListener('input', guardarDescripcion);
 
     renderizarImagen();
-
 </script>
-   

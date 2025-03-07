@@ -1,55 +1,78 @@
+let fotos = [];
+let posicionActual = 0;
 
-window.onload = function () {
-    // Variables
-    const IMAGENES = [
-        "/static/iconos/gamba.png",
-        "/static/iconos/gluten.png",
-        "/static/iconos/pez.png"
-    ];
-    const TIEMPO_INTERVALO_MILESIMAS_SEG = 1000;
-    let posicionActual = 0;
-    let $botonRetroceder = document.querySelector('#anterior');
-    let $botonAvanzar = document.querySelector('#siguiente');
-    let $imagen = document.querySelector('#image-placeholder');
+document.getElementById('add-image-btn').addEventListener('click', function(event) {
+    event.preventDefault();
+    document.getElementById('imagenes').click();
+});
 
-    // Funciones
+document.getElementById('imagenes').addEventListener('change', function(event) {
+    const files = event.target.files;
+    if (files.length === 0) return;
 
-    /**
-     * Funcion que cambia la foto en la siguiente posicion
-     */
-    function pasarFoto() {
-        if(posicionActual >= IMAGENES.length - 1) {
-            posicionActual = 0;
-        } else {
-            posicionActual++;
+    for (let file of files) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            fotos.push(e.target.result); 
+            if (fotos.length === 1) {
+                posicionActual = 0; 
+            }
+            renderizarImagen();
+        };
+        reader.readAsDataURL(file);
+    }
+
+   
+    event.target.value = "";
+});
+
+document.getElementById('delete-image-btn').addEventListener('click', function() {
+    if (fotos.length > 0) {
+        fotos.splice(posicionActual, 1); 
+        if (posicionActual >= fotos.length) {
+            posicionActual = fotos.length - 1; 
         }
         renderizarImagen();
     }
+});
 
-    /**
-     * Funcion que cambia la foto en la anterior posicion
-     */
-    function retrocederFoto() {
-        if(posicionActual <= 0) {
-            posicionActual = IMAGENES.length - 1;
-        } else {
-            posicionActual--;
-        }
-        renderizarImagen();
+function pasarFoto() {
+    if (posicionActual >= fotos.length - 1) {
+        posicionActual = 0;
+    } else {
+        posicionActual++;
     }
-
-    /**
-     * Funcion que actualiza la imagen de imagen dependiendo de posicionActual
-     */
-    function renderizarImagen () {
-        $imagen.style.backgroundImage = `url(${IMAGENES[posicionActual]})`;
-    }
-
-    // Eventos
-    $botonAvanzar.addEventListener('click', pasarFoto);
-    $botonRetroceder.addEventListener('click', retrocederFoto);
-
-    // Iniciar
     renderizarImagen();
 }
 
+function retrocederFoto() {
+    if (posicionActual <= 0) {
+        posicionActual = fotos.length - 1;
+    } else {
+        posicionActual--;
+    }
+    renderizarImagen();
+}
+
+function borrarFotos(){
+    fotos = [];
+    posicionActual = 0;
+    renderizarImagen();
+}
+
+function renderizarImagen() {
+    const imagenContainer = document.getElementById("myImage");
+    if (imagenContainer) {
+        imagenContainer.style.backgroundImage = `url('${fotos[posicionActual]}')`;
+        imagenContainer.style.backgroundSize = "contain"; 
+        imagenContainer.style.backgroundRepeat = "no-repeat";
+        imagenContainer.style.backgroundPosition = "center";
+        imagenContainer.style.width = "450px";
+        imagenContainer.style.height = "450px";
+    }
+}
+
+document.getElementById('anterior').addEventListener('click', retrocederFoto);
+document.getElementById('siguiente').addEventListener('click', pasarFoto);
+
+renderizarImagen();
