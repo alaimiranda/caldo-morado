@@ -29,7 +29,7 @@ export function viewCocinar(req, res) {
 
 export function viewContenidoAdmin(req, res) {
     let contenido = 'paginas/noPermisos';
-    if (req.session != null && req.session.login && req.session.nombre === 'Administrador') {
+    if (req.session != null && req.session.login && req.session.rol === 'A') { //CAMBIADO ALAI
         contenido = 'paginas/admin';
     }
     res.render('pagina', {

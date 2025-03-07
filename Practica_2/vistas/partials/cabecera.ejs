@@ -8,7 +8,7 @@ function mostrarSaludo(session){
 		return `<p>Usuario desconocido. <a href="/usuarios/login">Login</a></p>`;
 	}
 
-	return `<p>Bienvenido ${session.nombre}. <a href="/usuarios/logout">(salir)</a></p>`;
+	return `<p>Bienvenido ${session.username}. <a href="/usuarios/logout">(salir)</a></p>`;
 }
 %><header>
 		<div class="logohead">

@@ -1,4 +1,5 @@
 import { body } from 'express-validator';
+import { Usuario, RolesEnum } from './Usuario.js';
 
 export function viewLogin(req, res) {
     let contenido = 'paginas/login';
@@ -18,30 +19,24 @@ export function doLogin(req, res) {
     const username = req.body.username.trim();
     const password = req.body.password.trim();
     // Proceso las variables comprobando si es un usuario valido
-    if (username === "user" && password === "userpass"){
-        // Establecer la variable de sesion login a true y nombre a "Usuario"
+   
+    try {
+        const usuario = Usuario.login(username, password);
         req.session.login = true;
-        req.session.nombre = 'Usuario';
-        return res.render('pagina', {
-            contenido: 'paginas/home',
-            session: req.session
-        });
-    } else if (username === "admin" && password === "adminpass"){
-        // Establecer la variable de sesion login a true y nomnbre a "Administrador"
-        // Establecer la variable esAdmin a true
-        req.session.login = true;
-        req.session.nombre = 'Administrador';
-        req.session.esAdmin = true;
-        return res.render('pagina', {
-            contenido: 'paginas/home',
-            session: req.session
-        });
-    }
+        req.session.username = username;
+        req.session.email = usuario.email;
+        req.session.esAdmin = usuario.rol === RolesEnum.ADMIN;
 
-    res.render('pagina', {
-        contenido: 'paginas/login',
-        error: 'El usuario o contraseña no son válidos'
-    })
+        return res.render('pagina', {
+            contenido: 'paginas/home',
+            session: req.session
+        });
+    } catch (e) {
+        res.render('pagina', {
+            contenido: 'paginas/login',
+            error: 'El usuario o contraseña no son válidos'
+        })
+    }
 }
 
 export function doLogout(req, res, next) {
@@ -52,7 +47,7 @@ export function doLogout(req, res, next) {
     // this will ensure that re-using the old session id
     // does not have a logged in user
     req.session.login = null
-    req.session.nombre = null;
+    req.session.email = null;
     req.session.esAdmin = null;
     req.session.save((err) => {
         if (err) next(err);

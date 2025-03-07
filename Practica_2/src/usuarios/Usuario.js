@@ -23,9 +23,9 @@ export class Usuario {
         const usuario = this.#getByUsernameStmt.get({ username });
         if (usuario === undefined) throw new UsuarioNoEncontrado(username);
 
-        const { password, rol, nombre, id } = usuario;
+        const { password, rol, email, id } = usuario;
 
-        return new Usuario(username, password, nombre, rol, id);
+        return new Usuario(username, password, email, rol, id);
     }
 
     static #insert(usuario) {
@@ -33,9 +33,9 @@ export class Usuario {
         try {
             const username = usuario.#username;
             const password = usuario.#password;
-            const nombre = usuario.nombre;
+            const email = usuario.email;
             const rol = usuario.rol;
-            const datos = {username, password, nombre, rol};
+            const datos = {username, password, email, rol};
 
             result = this.#insertStmt.run(datos);
 
@@ -52,9 +52,9 @@ export class Usuario {
     static #update(usuario) {
         const username = usuario.#username;
         const password = usuario.#password;
-        const nombre = usuario.nombre;
+        const email = usuario.email;
         const rol = usuario.rol;
-        const datos = {username, password, nombre, rol};
+        const datos = {username, password, email, rol};
 
         const result = this.#updateStmt.run(datos);
         if (result.changes === 0) throw new UsuarioNoEncontrado(username);
