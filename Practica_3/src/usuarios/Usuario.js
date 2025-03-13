@@ -39,7 +39,8 @@ export class Usuario {
         let result = null;
         try {
             const username = usuario.#username;
-            const password = usuario.#password;
+            const nuevoPassword = usuario.#password;
+            const password = bcrypt.hashSync(nuevoPassword);
             const email = usuario.email;
             const rol = usuario.rol;
             const datos = {username, password, email, rol};

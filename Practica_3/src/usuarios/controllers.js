@@ -1,5 +1,5 @@
 import { body } from 'express-validator';
-import { Usuario, RolesEnum } from './Usuario.js';
+import { Usuario, RolesEnum, UsuarioYaExiste } from './Usuario.js';
 
 export function viewLogin(req, res) {
     let contenido = 'paginas/login';
@@ -59,4 +59,44 @@ export function doLogout(req, res, next) {
             res.redirect('/');
         })
     })
+}
+
+
+export function viewSignup(req, res) {
+    let contenido = 'paginas/signup';
+    if (req.session != null && req.session.login) {
+        contenido = 'paginas/home'
+    }
+    res.render('pagina', {
+        contenido,
+        session: req.session
+    });
+}
+
+export function doSignup(req, res) {
+    body('username').escape();
+    body('password').escape();
+    body('email').escape();
+    // Capturo las variables username y password
+    const username = req.body.username.trim();
+    const password = req.body.password.trim();
+    const email = req.body.email.trim();
+    const rol = 'U';
+
+    try {
+        const nuevaUsuario = new Usuario(username, password, email, rol);
+        nuevaUsuario.persist();
+
+        return res.render('pagina', {
+            contenido: 'paginas/home',
+            session: req.session
+        });
+
+    } catch (e) {
+        if (e instanceof UsuarioYaExiste) {
+            res.status(409).json({ message: e.message });
+        } else {
+            res.status(500).json({ message: 'Error creating user', e: e.message });
+        }
+    }
 }
