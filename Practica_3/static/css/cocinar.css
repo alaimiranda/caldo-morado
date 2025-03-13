@@ -88,3 +88,8 @@ label{
 #add-image-btn{
     margin-left: 45%;
 }
+
+.select-colab{
+    width: 80%;
+    min-height: 30px;
+}
