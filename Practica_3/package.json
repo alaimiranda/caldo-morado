@@ -1,0 +1,35 @@
+{
+  "name": "project-test",
+  "version": "0.1.0",
+  "description": "Ejercicio 2",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/server.js",
+    "dev:watch": "nodemon -w ./src ./src/server.js"
+  },
+  "author": "Alai",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "better-sqlite3": "^11.8.1",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "express-validator": "^7.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "proyecto prueba"
+  },
+  "keywords": [
+    "node",
+    "proyecto",
+    "aw",
+    "sw",
+    "prueba"
+  ]
+}

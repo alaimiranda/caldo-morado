@@ -1,0 +1,38 @@
+<link rel="stylesheet" href="/css/cocinar.css">
+
+
+
+
+<h1>Publica tu nueva receta!</h1>
+
+<form action="/publicaciones/nueva" method="POST">
+    
+    <div class="general">
+        <div class = "titulo">
+            <input class = "titulo_receta" type="text" id="titulo" name="titulo" required placeholder="Introduce el título de tu receta...">
+            <button type="reset" class = "cancel-btn" onclick="borrarFotos()"> X </button>
+        </div>
+        <div class="columnas">
+            <div class = "col1">
+                <!--Carrusel de fotos-->
+                <button type="button" class = "carroussel-btn" id="anterior">←</button>
+                <div>
+                    <div id="myImage"></div>
+                    <button class="carroussel-btn" id="add-image-btn">+</button>
+                    <input name="files" id="imagenes" type="file" multiple class="input_foto" style="display: none;">
+                    <button class="carroussel-btn delete-btn" id="delete-image-btn">🗑</button>
+                    <textarea id="pie-de-foto" class = "pie-de-foto">Introduce un pie de foto...</textarea>
+                </div>
+                <button type="button" class = "carroussel-btn" id="siguiente">→</button>
+            </div>
+            <div class = col2>
+                <label>Colaboradores:</label>
+                <p>
+                    <textarea class="colaboradores" rows="3" cols="40">¿Con quién estabas?</textarea>
+                </p>
+                <button class = "publish-btn">Publicar</button>
+            </div>
+        </div>
+    </div>
+</form>
+<script src="/js/carrusel.js"></script>
