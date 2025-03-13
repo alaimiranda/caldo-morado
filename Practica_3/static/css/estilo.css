@@ -163,3 +163,20 @@ button:hover{
 	padding-left: 30px;
 	padding-right: 30px;
 }
+
+div.cabecera_perfil{
+	display: flex;
+}
+
+div.cabecera_perfil_texto{
+	display: flex;
+}
+
+div.elemento_cabecera_perfil{
+	display: flex;
+	padding-left: 50px;
+	padding-left: 10px;
+}
+.username{
+	margin: 20px;
+}

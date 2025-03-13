@@ -3,3 +3,5 @@ Practica_2/node_modules/async/.anySeries 2.js.icloud
 *.icloud
 Practica_2/data/aw_sw.db-shm
 Practica_2/data/aw_sw.db-wal
+Practica_1/static/.DS_Store
+.DS_Store

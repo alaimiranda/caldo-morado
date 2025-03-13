@@ -37,3 +37,11 @@ export function viewContenidoAdmin(req, res) {
         session: req.session
     });
 }
+
+export function viewPerfil(req, res) {
+    let contenido = 'paginas/perfil';
+    res.render('pagina', {
+        contenido,
+        session: req.session
+    });
+}
