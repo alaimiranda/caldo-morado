@@ -10,6 +10,7 @@ export class Usuario {
     static #getByUsernameStmt = null;
     static #insertStmt = null;
     static #updateStmt = null;
+    static #searchall = null;
 
     static initStatements(db) {
         if (this.#getByUsernameStmt !== null) return;
@@ -17,6 +18,12 @@ export class Usuario {
         this.#getByUsernameStmt = db.prepare('SELECT * FROM Usuarios WHERE username = @username');
         this.#insertStmt = db.prepare('INSERT INTO Usuarios(username, password, email, rol) VALUES (@username, @password, @email, @rol)');
         this.#updateStmt = db.prepare('UPDATE Usuarios SET username = @username, password = @password, rol = @rol, email = @email WHERE id = @id');
+    }
+    
+    static getAllUsers(){
+        const usuarios = this.#searchall.all();
+        console.log(usuarios);
+        return usuarios;
     }
 
     static getUsuarioByUsername(username) {
