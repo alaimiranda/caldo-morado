@@ -1,14 +1,18 @@
 import { body } from 'express-validator';
+import { Publicacion } from './Publicacion';
 
 
 export function publicar(req, res) {
-    body('titulo').escape();
+    /*
+    body('titulo_receta').escape();
+    body('');
     // Capturo las variables username y password
     const titulo = req.body.titulo.trim();
     // Proceso las variables comprobando si es un usuario valido
    
     try {
-        //const publicacion = Publicacion.constructor(titulo, );
+        const publicacion = new Publicacion();
+        publicacion.persist();
 
         return res.render('pagina', {
             contenido: 'paginas/home',
@@ -20,4 +24,5 @@ export function publicar(req, res) {
             error: 'El usuario o contraseña no son válidos'
         })
     }
+        */
 }
