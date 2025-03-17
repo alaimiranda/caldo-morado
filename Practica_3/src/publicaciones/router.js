@@ -1,8 +1,8 @@
 import express from 'express';
 import { publicar } from './controllers.js';
 
-const contenidoRouter = express.Router();
+const publicacionesRouter = express.Router();
 
-contenidoRouter.get('/nueva', publicar);
+publicacionesRouter.post('/nueva', publicar);
 
-export default contenidoRouter;
+export default publicacionesRouter;
