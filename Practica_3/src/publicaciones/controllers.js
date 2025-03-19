@@ -7,15 +7,13 @@ export function publish(req, res) {
   
     const titulo = req.body.titulo.trim();
 
-    console.log(fotos[0]); 
-    console.log(descripciones[0]);
     
     try { 
         let date = new Date();
         let dateToString = date.getDate().toString() + "/" + date.getMonth().toString() + "/" + date.getFullYear().toString() + " " + date.getHours().toString() + ":" + date.getMinutes().toString() + ":" + date.getSeconds().toString();
 
         const publicacion = new Publicacion(titulo, "Ruben", "Alai", "Cata", "Gallo", "Pepe", dateToString);
-        //publicacion.persist();  
+        publicacion.persist();  
 
         return res.render('pagina', {
             contenido: 'paginas/postConExito',
