@@ -9,8 +9,8 @@ export class Publicacion {
     static initStatements(db) {
         if (this.#getByTituloStmt !== null) return;
 
-        this.#getByTituloStmt = db.prepare('SELECT * FROM Posts WHERE titulo = @titulo, creador_1 = @creador_1');
-        this.#insertStmt = db.prepare('INSERT INTO Posts(titulo, creador_1, creador_2, creador_3, creador_4, creador_5, fecha) VALUES (@titulo, @creador_1, @creador_2, @creador_3, @creador_4, @creador_5, @likes, @fecha)');
+        this.#getByTituloStmt = db.prepare('SELECT * FROM Posts WHERE titulo = @titulo and creador_1 = @creador_1');
+        this.#insertStmt = db.prepare('INSERT INTO Posts(titulo, creador_1, creador_2, creador_3, creador_4, creador_5, fecha, likes) VALUES (@titulo, @creador_1, @creador_2, @creador_3, @creador_4, @creador_5, @fecha, @likes)');
         this.#updateStmt = db.prepare('UPDATE Posts SET titulo = @titulo, creador_1 = @creador_1, creador_2 = @creador_2, creador_3 = @creador_3, creador_4 = @creador_4, creador_5 = @creador_5, likes = @likes, fecha = @fecha WHERE titulo = @titulo');
         this.#searchall = db.prepare('SELECT * FROM Posts');
     

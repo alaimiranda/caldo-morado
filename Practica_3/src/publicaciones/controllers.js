@@ -1,31 +1,31 @@
 import { body } from 'express-validator';
-import { Publicacion } from './Publicacion';
+import { Publicacion } from './Publicacion.js';
 
-
-export function publicar(req, res) {
+export function publish(req, res) {
     
-    body('titulo_receta').escape();
-    body('fotos').escape();
-    body('descripcioes').escape();
+    body('titulo').escape();
   
-    const titulo_receta = req.body.titulo_receta.trim();
-  
-   
-    try {
-        console.log(titulo_receta);
+    const titulo = req.body.titulo.trim();
+
+    console.log(fotos[0]); 
+    console.log(descripciones[0]);
+    
+    try { 
         let date = new Date();
-        console.log(date.getDate().toString());
-        const publicacion = new Publicacion(titulo_receta, null, null, null, null, null, date.getDate().toString());
-        publicacion.persist();
+        let dateToString = date.getDate().toString() + "/" + date.getMonth().toString() + "/" + date.getFullYear().toString() + " " + date.getHours().toString() + ":" + date.getMinutes().toString() + ":" + date.getSeconds().toString();
+
+        const publicacion = new Publicacion(titulo, "Ruben", "Alai", "Cata", "Gallo", "Pepe", dateToString);
+        //publicacion.persist();  
 
         return res.render('pagina', {
-            contenido: 'paginas/home',
+            contenido: 'paginas/postConExito',
             session: req.session
         });
+       
     } catch (e) {
         res.render('pagina', {
-            contenido: 'paginas/login',
-            error: 'El usuario o contraseña no son válidos'
+            contenido: 'paginas/cocinar',
+            error: 'Error al publicar la receta'
         })
     }
     

@@ -1,8 +1,8 @@
 import express from 'express';
-import { publicar } from './controllers.js';
+import { publish } from './controllers.js';
 
 const publicacionesRouter = express.Router();
 
-publicacionesRouter.post('/nueva', publicar);
+publicacionesRouter.post('/newPost', publish);
 
 export default publicacionesRouter;
