@@ -107,7 +107,7 @@ main {
 	padding: 30px;
 	float: left;
 	min-height: 600px;
-	width: 500px;
+	width: 80%;
 	background-color: #faf0e2;
 	margin-left: 20px;
 }
@@ -180,3 +180,15 @@ div.elemento_cabecera_perfil{
 .username{
 	margin: 20px;
 }
+
+.tabla-clasificacion{
+    width: 70%;
+	margin: 0 auto;
+	text-align: left; 
+	
+}
+
+thead{
+	font-size : 20px;
+}
+

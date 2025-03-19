@@ -27,6 +27,11 @@ export class Usuario {
         return usuarios;
     }
 
+    static getBestUsers(){
+        const usuarios = this.#searchall.orderBy('puntuacion').all();
+        return usuarios;
+    }
+
     static getUsuarioByUsername(username) {
         const usuario = this.#getByUsernameStmt.get({ username });
         if (usuario === undefined) throw new UsuarioNoEncontrado(username);

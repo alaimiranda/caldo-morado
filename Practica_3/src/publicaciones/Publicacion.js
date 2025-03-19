@@ -4,22 +4,30 @@ export class Publicacion {
     static #getByTituloStmt = null;
     static #insertStmt = null;
     static #updateStmt = null;
+    static #searchall = null;
 
     static initStatements(db) {
         if (this.#getByTituloStmt !== null) return;
 
         this.#getByTituloStmt = db.prepare('SELECT * FROM Posts WHERE titulo = @titulo, creador_1 = @creador_1');
-        this.#insertStmt = db.prepare('INSERT INTO Posts(titulo, creador_1, creador_2, creador_3, creador_4, creador_5, fecha) VALUES (@titulo, @creador_1, @creador_2, @creador_3, @creador_4, @creador_5, @fecha)');
-        this.#updateStmt = db.prepare('UPDATE Posts SET titulo = @titulo, creador_1 = @creador_1, creador_2 = @creador_2, creador_3 = @creador_3, creador_4 = @creador_4, creador_5 = @creador_5, fecha = @fecha WHERE titulo = @titulo');
+        this.#insertStmt = db.prepare('INSERT INTO Posts(titulo, creador_1, creador_2, creador_3, creador_4, creador_5, fecha) VALUES (@titulo, @creador_1, @creador_2, @creador_3, @creador_4, @creador_5, @likes, @fecha)');
+        this.#updateStmt = db.prepare('UPDATE Posts SET titulo = @titulo, creador_1 = @creador_1, creador_2 = @creador_2, creador_3 = @creador_3, creador_4 = @creador_4, creador_5 = @creador_5, likes = @likes, fecha = @fecha WHERE titulo = @titulo');
+        this.#searchall = db.prepare('SELECT * FROM Posts');
+    
+    }
+
+    static getMejorestPublicaciones(){
+        const publicaciones = this.#searchall.orderBy('likes').all();
+        return publicaciones;
     }
 
     static getPublicacionByTitulo(username) {
         const publicacion = this.#getByTituloStmt.get({ username });
         if (publicacion === undefined) throw new PublicacionNoEncontrada(titulo);
 
-        const { creador_1, creador_2, creador_3, creador_4, creador_5, fecha, id} = publicacion;
+        const { creador_1, creador_2, creador_3, creador_4, creador_5, fecha, likes, id} = publicacion;
 
-        return new Publicacion(titulo, creador_1, creador_2, creador_3, creador_4, creador_5, fecha, id);
+        return new Publicacion(titulo, creador_1, creador_2, creador_3, creador_4, creador_5, fecha, likes, id);
     }
 
     static #insert(publicacion) {
@@ -32,7 +40,8 @@ export class Publicacion {
             const creador_4 = publicacion.#creador_4;
             const creador_5 = publicacion.#creador_5;
             const fecha = publicacion.#fecha;
-            const datos = {titulo, creador_1, creador_2, creador_3, creador_4, creador_5, fecha};
+            const likes = publicacion.#likes;
+            const datos = {titulo, creador_1, creador_2, creador_3, creador_4, creador_5, likes, fecha};
 
             result = this.#insertStmt.run(datos);
 
@@ -53,8 +62,9 @@ export class Publicacion {
         const creador_3 = publicacion.#creador_3;
         const creador_4 = publicacion.#creador_4;
         const creador_5 = publicacion.#creador_5;
+        const likes = publicacion.#likes;
         const fecha = publicacion.#fecha;
-        const datos = {titulo, creador_1, creador_2, creador_3, creador_4, creador_5, fecha};
+        const datos = {titulo, creador_1, creador_2, creador_3, creador_4, creador_5, likes, fecha};
         
         const result = this.#updateStmt.run(datos);
         if (result.changes === 0) throw new PublicacionNoEncontrada(titulo);
@@ -69,9 +79,10 @@ export class Publicacion {
     #creador_3;
     #creador_4;
     #creador_5;
+    #likes;
     #fecha;
 
-    constructor(titulo, creador_1, creador_2, creador_3, creador_4, creador_5, fecha, id = null) {
+    constructor(titulo, creador_1, creador_2, creador_3, creador_4, creador_5, fecha, likes=0, id = null) {
         this.#titulo = titulo;
         this.#creador_1 = creador_1;
         this.#creador_2 = creador_2;
@@ -79,8 +90,12 @@ export class Publicacion {
         this.#creador_4 = creador_4;
         this.#creador_5 = creador_5;
         this.#fecha = fecha;
+        this.#likes = likes;
         this.#id = id;
     }
+
+
+    //getters
     get titulo() {
         return this.#titulo;
     }
@@ -102,10 +117,31 @@ export class Publicacion {
     get creador_5(){
         return this.#creador_5;
     }
+    get likes(){
+        return this.#likes;
+    }
     get fecha(){
         return this.#fecha;
     }
+    
+    get creators_tostring(){
+        if(this.#creador_1 == null|| this.#creador_2 == null)
+            throw NumeroDeColaboradoresNoValido();
 
+        let str = this.#creador_1 + ", " + this.#creador_2;
+        if(this.#creador_3 != null){
+            str += ", " + this.#creador_3;
+            if(this.#creador_4 != null){
+                str += ", " + this.#creador_4;
+                if(this.#creador_5 != null){
+                    str += ", " + this.#creador_5;
+                }
+            }
+        }
+        return str;
+    }
+
+    // setters
     set titulo(tituloNuevo){
         this.#titulo = tituloNuevo;
     }

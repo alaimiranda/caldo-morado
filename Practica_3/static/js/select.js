@@ -1,4 +1,4 @@
-//import { Usuario } from "../../src/usuarios/Usuario.js";
+import { Usuario } from "../../src/usuarios/Usuario.js";
 
 async function fillSelectWithUsers() {
     const select = document.getElementById("colab-select");
