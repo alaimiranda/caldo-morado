@@ -1,25 +1,31 @@
-import { Usuario } from "../../src/usuarios/Usuario.js";
-
-async function fillSelectWithUsers() {
+document.getElementById("add-colab").addEventListener("click", function() {
     const select = document.getElementById("colab-select");
-    if (!select) return;
-    //select.appendChild("<option value=''>Selecciona un colaborador</option>");
-    try {
-        
-        console.log("Intentando obtener los usuarios...");
-        const usuarios = await Usuario.getAllUsers();   // no consigue acceder a la clase usuario
-        console.log("Usuarios obtenidos:", usuarios);
-        select.innerHTML = "<option value=''>Selecciona un colaborador</option>";
-        usuarios.forEach(usuario => {
-            const option = document.createElement("option");
-            option.value = usuario.id;
-            option.textContent = usuario.nombre;
-            select.appendChild(option);
-        });
-        
-    } catch (error) {
-        console.error("Error al cargar los usuarios en el select:", error);
-    }
-}
+    const collaboratorName = select.options[select.selectedIndex].text;
+    document.getElementById("collaborator-name").textContent = collaboratorName;
+});
 
-document.addEventListener("DOMContentLoaded", fillSelectWithUsers);
+document.getElementById('add-colab').addEventListener('click', function() {
+    var select = document.getElementById('colab-select');
+    var selectedValue = select.value;
+    if (selectedValue !== "") {
+        // nuevo elemento
+        var li = document.createElement('li');
+        
+        // nombre
+        var nameSpan = document.createElement('span');
+        nameSpan.textContent = selectedValue;
+        li.appendChild(nameSpan);
+    
+        // eliminar
+        var deleteSpan = document.createElement('span');
+        deleteSpan.textContent = "×";
+        deleteSpan.addEventListener('click', function() {
+            li.remove();
+        });
+        li.appendChild(deleteSpan);
+        
+        document.getElementById('colab-list').appendChild(li);
+    } else {
+        alert("Por favor, selecciona un colaborador.");
+    }
+});

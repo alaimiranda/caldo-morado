@@ -27,17 +27,26 @@
             </div>
             <div class = col2>
                 <label>Colaboradores:</label>
-                <p>
-                    <select name ="Colaboradores" id="colab-select" class ="colab-select">
-                        <option value="">Cargando colaboradores...</option>
-                    </select>    
-                </p>
-                
-                <button type="submit" class = "publish-btn">Publicar</button>
+                <div class = "colab-container">
+                    <div class = "select-container">
+                        <select name ="Colaboradores" id="colab-select" class ="colab-select">
+                            <option value="">Selecciona colaboradores...</option>
+                            <option value="AnaCocina">AnaCocina</option>
+                            <option value="ChefJuan">ChefJuan</option>
+                            <option value="RecetasConAmor">RecetasConAmor</option>
+                            <option value="SaborLatino">SaborLatino</option>
+                        </select>
+                        <button type="button" class = "col-btn" id="add-colab">Añadir</button>
+                    </div>
+                    <ul id="colab-list"></ul>
+                </div>
+                <div class = "publish-container">
+                    <button type="submit" class = "publish-btn">Publicar</button>
+                </div>
             </div>
         </div>
     </div>
 </form>
 <script src="/js/carrusel.js"></script>
 
-<script type="module" src="/js/select.js"></script>
+<script src="/js/select.js"></script>
