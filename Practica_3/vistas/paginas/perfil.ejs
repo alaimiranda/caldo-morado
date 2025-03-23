@@ -1,34 +1,66 @@
-<link rel="stylesheet" href="/css/estilo.css">
+<link rel="stylesheet" href="/css/perfil.css">
 
+<!--
 <%
 function mostrarUsername(session){
 	return `<h1>${session.username}</h1>`;
 }
 %>
+-->
 
 <div class="general">
-    <div class = "cabecera_perfil">
-        <img src="/iconos/perfil_imagen.jpg" width="100" alt="Error al cargar">
-        <div class = "texto_cabecera_perfil">
+    <div class="cabecera-perfil">
+        <img src="/iconos/perfil_imagen.jpg" alt="Imagen de perfil" class="perfil-img">
+        <div class="texto-cabecera-perfil">
             <div class="username">
-            <%- mostrarUsername(session) %>
+                <%-`<h1>${session.username}</h1>` %>
             </div>
-            <div class = "cabecera_perfil">
-                <div class = "elemento_cabecera_perfil">
+            <div class="stats">
+                <div class="stat-item">
                     <h3>Seguidores</h3>
-                    <h3>0</h3>
+                    <p>0</p>
                 </div>
-                <div class = "elemento_cabecera_perfil">
+                <div class="stat-item">
                     <h3>Seguidos</h3>
-                    <h3>0</h3>
+                    <p>0</p>
                 </div>
-                <div class = "elemento_cabecera_perfil">
+                <div class="stat-item">
                     <h3>Ajustes</h3>
-                    <h3>0</h3>
+                    <p>0</p>
                 </div>
             </div>
         </div>
     </div>
+    
     <div class="publicaciones">
+        <div class="publicacion">
+            <img src="/iconos/perfil_imagen.jpg" alt="Imagen" class="contributor-img">
+            <div class="texto-publicacion">
+                <h3>Titulo de la receta</h3>
+                <p> Descripción de la receta</p>
+            </div> 
+        </div>
+        <div class="publicacion">
+            <img src="/iconos/perfil_imagen.jpg" alt="Imagen" class="contributor-img">
+            <div class="texto-publicacion">
+                <h3>Titulo de la receta</h3>
+                <p> Descripción de la receta</p>
+            </div> 
+        </div>
+        <div class="publicacion">
+            <img src="/iconos/perfil_imagen.jpg" alt="Imagen" class="contributor-img">
+            <div class="texto-publicacion">
+                <h3>Titulo de la receta</h3>
+                <p> Descripción de la receta</p>
+            </div> 
+        </div>
+        <div class="publicacion">
+            <img src="/iconos/perfil_imagen.jpg" alt="Imagen" class="contributor-img">
+            <div class="texto-publicacion">
+                <h3>Titulo de la receta</h3>
+                <p> Descripción de la receta</p>
+            </div> 
+        </div>
     </div>
 </div>
+
