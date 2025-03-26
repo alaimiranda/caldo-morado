@@ -5,4 +5,5 @@ const publicacionesRouter = express.Router();
 
 publicacionesRouter.post('/newPost', publish);
 
+
 export default publicacionesRouter;

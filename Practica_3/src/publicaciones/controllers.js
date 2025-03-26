@@ -42,3 +42,24 @@ export function publish(req, res) {
     }
     
 }
+
+export function getUserPosts(req, res) {
+    if (!req.session || !req.session.user) {
+        return res.redirect('/login');  // Si no hay sesión, redirigir a login
+    }
+
+    const username = req.session.user.username; // Obtener el username desde la sesión
+
+    try {
+        const publicaciones = Publicacion.getPublicacionesByCreador(username);
+        res.render('perfil', {
+            session: req.session,
+            publicaciones
+        });
+    } catch (error) {
+        res.render('perfil', {
+            session: req.session,
+            error: 'Error al cargar publicaciones'
+        });
+    }
+}
