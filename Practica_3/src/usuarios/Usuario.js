@@ -11,6 +11,8 @@ export class Usuario {
     static #insertStmt = null;
     static #updateStmt = null;
     static #searchall = null;
+    static #searchlike = null;
+
 
     static initStatements(db) {
         if (this.#getByUsernameStmt !== null) return;
@@ -19,6 +21,7 @@ export class Usuario {
         this.#insertStmt = db.prepare('INSERT INTO Usuarios(username, password, email, rol) VALUES (@username, @password, @email, @rol)');
         this.#updateStmt = db.prepare('UPDATE Usuarios SET username = @username, password = @password, rol = @rol, email = @email WHERE id = @id');
         this.#searchall = db.prepare('SELECT * FROM Usuarios');
+        this.#searchlike = db.prepare('SELECT * FROM Usuarios WHERE username LIKE @username');
     }
     
     static getAllUsers(){
@@ -39,6 +42,13 @@ export class Usuario {
         const { password, rol, email, id } = usuario;
 
         return new Usuario(username, password, email, rol, id);
+    }
+
+    static getUsuarioLike(username) {
+        const usuarios = this.#searchlike.all({ username });
+        if (usuarios === undefined) throw new UsuarioNoEncontrado(username);
+        return usuarios;
+
     }
 
     static #insert(usuario) {
