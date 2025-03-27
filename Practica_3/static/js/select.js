@@ -1,8 +1,6 @@
+let colaboradores= [];
 
-let colaboradores = [];
-
-
-document.getElementById('add-colab').addEventListener('click', function() {
+function addColab(){
     var select = document.getElementById('colab-select');
     var selectedValue = select.value;
     if (selectedValue !== "") {
@@ -34,20 +32,22 @@ document.getElementById('add-colab').addEventListener('click', function() {
     } else {
         alert("Por favor, selecciona un colaborador.");
     }
-});
-
+}
 
 //llenar el select
-function fillSelect(string){
+function fillSelect(){
     var select = document.getElementById('colab-select');
-    var colaboradores = Usuario.getUsuarioLike(string); // consulta de colaboradores en sql
+    var texto = document.getElementById('colaborador-input').value;
+    //var colaboradores = Usuario.getUsuarioLike(texto); // consulta de colaboradores en sql
 
+    //colaboradores= ["COL1", "COL2", "COL3", "COL4", "COL5"];
     colaboradores.forEach(colaborador => {
         var option = document.createElement('option');
         option.value = colaborador;
         option.textContent = colaborador;
         select.appendChild(option);
     });
-
-
 }
+
+document.getElementById('colab-select').addEventListener('input',fillSelect(this.value));
+document.getElementById('add-colab').addEventListener('click',addColab());

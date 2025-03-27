@@ -151,3 +151,11 @@ label{
     align-items: center;
     border: #000 1px solid;
 }
+
+.colaborador-input{
+    width: 70%;
+    height: 30px;
+    margin-bottom: 10px;
+    border-radius: 2px;
+    border: 1px;
+}

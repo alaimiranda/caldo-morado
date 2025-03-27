@@ -28,13 +28,12 @@
             <div class = col2>
                 <label>Colaboradores:</label>
                 <div class = "colab-container">
+                    <input type="text" id="colaborador-input" class="colaborador-input" placeholder="Busca colaboradores..." oninput="fillSelect()">
                     <div class = "select-container">
                         <select name ="Colaboradores" id="colab-select" class ="colab-select">
-                            <option value="">Selecciona colaboradores...</option>
-                            <option value="AnaCocina">AnaCocina</option>
-                            <option value="ChefJuan">ChefJuan</option>
-                            <option value="RecetasConAmor">RecetasConAmor</option>
-                            <option value="SaborLatino">SaborLatino</option>
+                            <% for (let i = 0; i < usuarios.length; i++) { %>
+                                <option value="<%= usuarios[i].nombre %>"><%= usuarios[i].username %></option>
+                            <% } %>
                         </select>
                         <button type="button" class = "col-btn" id="add-colab">Añadir</button>
                     </div>
