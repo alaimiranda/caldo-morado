@@ -1,3 +1,5 @@
+import { Usuario } from '../../src/usuarios/Usuario.js';
+
 export function viewContenidoNormal(req, res) {
     let contenido = 'paginas/noPermisos';
     if (req.session != null && req.session.nombre != null) {
@@ -21,9 +23,11 @@ export function viewCocinar(req, res) {
     if (req.session !== null && req.session.login) {
         contenido = 'paginas/cocinar';
     }
+    let usuarios = Usuario.getAllUsers();
     res.render('pagina', {
         contenido,
-        session: req.session
+        session: req.session,
+        usuarios
     });
 }
 
