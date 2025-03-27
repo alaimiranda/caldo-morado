@@ -35,6 +35,7 @@ export class Publicacion {
     static getPublicacionesByCreador(creador) {
         const datos = {creador, creador, creador, creador, creador};
         result = this.#searchByCreador.run(datos);
+        console.log("Resultados obtenidos:", result);
         return result;
     }
 
