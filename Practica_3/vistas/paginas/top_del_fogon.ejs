@@ -1,48 +1,32 @@
+<link rel="stylesheet" href="/css/tabla.css">
 <h1>Top del fogón</h1>
 <p>Este es el ranking de recetas de Caldo Morado</p>
 <div>
     <table id="tabla-clasificacion" class="tabla-clasificacion">
         <thead>
             <tr>
-                <th>Posición</th>
+                <th class = "col1">Posición</th>
+                <th class = "col2">Publicación</th>
                 <th>Usuarios</th>
-                <th>Publicación</th>
                 <th>Likes</th>
             </tr>
         </thead>
-        <tbody>
+        <% for (let i = 0; i < Math.min(publicaciones.length, 10); i++) { %>
             <tr>
-                <td>1</td>
-                <td>AnaCocina</td>
-                <td>Tarta de Chocolate</a></td>
-                <td>250</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>ChefJuan</td>
-                <td>Paella Valenciana</a></td>
-                <td>220</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>RecetasConAmor</td>
-                <td>Lasaña Casera</a></td>
-                <td>180</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>SaborLatino</td>
-                <td>Arepas Venezolanas</a></td>
-                <td>160</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>ComidaSaludable</td>
-                <td>Ensalada Detox</a></td>
-                <td>140</td>
-            </tr>
-        </tbody>
-    </table>
+                <td class="col1"><%= i + 1 %></td>
+                <td class="col2"><%= publicaciones[i].titulo %></td>
+                <td>
+                    <%= publicaciones[i].creador_1 %>, <%= publicaciones[i].creador_2 %>
+                    <% if (publicaciones[i].creador_3 != null) { %>
+                        , <%= publicaciones[i].creador_3%>
+                        <% if (publicaciones[i].creador_4 != null) { %>
+                            , <%= publicaciones[i].creador_4 %>
+                        <% } %>
+                    <% } %>
 
-    <script src="/js/tabla.js" type = "module"></script>
+                </td>
+                <td><%= publicaciones[i].likes %></td>
+            </tr>
+        <% } %>
+    </table>
 </div>

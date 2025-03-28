@@ -6,6 +6,7 @@ export class Publicacion {
     static #updateStmt = null;
     static #searchall = null;
     static #searchByCreador = null;
+    static #searchBest = null;
 
     static initStatements(db) {
         if (this.#getByTituloStmt !== null) return;
@@ -15,11 +16,12 @@ export class Publicacion {
         this.#updateStmt = db.prepare('UPDATE Posts SET titulo = @titulo, creador_1 = @creador_1, creador_2 = @creador_2, creador_3 = @creador_3, creador_4 = @creador_4, creador_5 = @creador_5, likes = @likes, fecha = @fecha WHERE titulo = @titulo');
         this.#searchall = db.prepare('SELECT * FROM Posts');
         this.#searchByCreador = db.prepare('SELECT * FROM Posts WHERE creador_1 = ? OR creador_2 = ? OR creador_3 = ? OR creador_4 = ? OR creador_5 = ?');
-
+        this.#searchBest = db.prepare('SELECT * FROM Posts ORDER BY likes DESC');
     }
 
-    static getMejorestPublicaciones(){
-        const publicaciones = this.#searchall.orderBy('likes').all();
+    static getMejoresPublicaciones(){
+        const publicaciones = this.#searchBest.all();
+        console.log(publicaciones);
         return publicaciones;
     }
 
@@ -35,7 +37,6 @@ export class Publicacion {
     static getPublicacionesByCreador(creador) {
         const datos = {creador, creador, creador, creador, creador};
         result = this.#searchByCreador.run(datos);
-        console.log("Resultados obtenidos:", result);
         return result;
     }
 

@@ -17,7 +17,8 @@ export function viewTop(req, res) {
     let contenido = 'paginas/top_del_fogon';
     res.render('pagina', {
         contenido,
-        session: req.session
+        session: req.session,
+        publicaciones: Publicacion.getMejoresPublicaciones()
     });
 }
 export function viewCocinar(req, res) {

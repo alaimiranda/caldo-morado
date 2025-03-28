@@ -32,7 +32,7 @@
                     <div class = "select-container">
                         <select name ="Colaboradores" id="colab-select" class ="colab-select">
                             <% for (let i = 0; i < usuarios.length; i++) { %>
-                                <option value="<%= usuarios[i].nombre %>"><%= usuarios[i].username %></option>
+                                <option><%= usuarios[i].username %></option>
                             <% } %>
                         </select>
                         <button type="button" class = "col-btn" id="add-colab">Añadir</button>
@@ -48,4 +48,4 @@
 </form>
 <script src="/js/carrusel.js"></script>
 
-<script src="/js/select.js"></script>
+<script src="/js/select.js" type = "module"></script>
