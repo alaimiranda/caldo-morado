@@ -21,9 +21,11 @@
                         , <%= publicaciones[i].creador_3%>
                         <% if (publicaciones[i].creador_4 != null) { %>
                             , <%= publicaciones[i].creador_4 %>
+                            <% if (publicaciones[i].creador_5 != null) { %>
+                                , <%= publicaciones[i].creador_5 %>
+                            <% } %>
                         <% } %>
                     <% } %>
-
                 </td>
                 <td><%= publicaciones[i].likes %></td>
             </tr>
