@@ -1,8 +1,5 @@
 <link rel="stylesheet" href="/css/cocinar.css">
 
-
-
-
 <h1>Publica tu nueva receta!</h1>
 
 <form action="/publicaciones/newPost" method="POST">
@@ -37,9 +34,12 @@
                         </select>
                         <button type="button" class = "col-btn" id="add-colab">Añadir</button>
                     </div>
-                    <ul id="colab-list"></ul>
+                    <ul id="colablist">
+                        <!-- aqui falta añadir el ${session.username} -->
+                    </ul>
                 </div>
                 <div class = "publish-container">
+                    <input type="hidden" name="colaboradores" id="colaboradores-hidden">
                     <button type="submit" class = "publish-btn">Publicar</button>
                 </div>
             </div>

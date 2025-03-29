@@ -140,7 +140,7 @@ label{
     justify-self: flex-end;
 }
 
-#colab-list li {
+#colablist li {
     width: 60%;
     background-color: #ddd;
     padding: 8px;
