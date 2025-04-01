@@ -15,7 +15,7 @@ export class Publicacion {
         this.#insertStmt = db.prepare('INSERT INTO Posts(titulo, creador_1, creador_2, creador_3, creador_4, creador_5, fecha, likes) VALUES (@titulo, @creador_1, @creador_2, @creador_3, @creador_4, @creador_5, @fecha, @likes)');
         this.#updateStmt = db.prepare('UPDATE Posts SET titulo = @titulo, creador_1 = @creador_1, creador_2 = @creador_2, creador_3 = @creador_3, creador_4 = @creador_4, creador_5 = @creador_5, likes = @likes, fecha = @fecha WHERE titulo = @titulo');
         this.#searchall = db.prepare('SELECT * FROM Posts');
-        this.#searchByCreador = db.prepare('SELECT * FROM Posts WHERE creador_1 = ? OR creador_2 = ? OR creador_3 = ? OR creador_4 = ? OR creador_5 = ?');
+        this.#searchByCreador = db.prepare('SELECT * FROM Posts WHERE creador_1 = @creador OR creador_2 = @creador OR creador_3 = @creador OR creador_4 = @creador OR creador_5 = @creador');
         this.#searchBest = db.prepare('SELECT * FROM Posts ORDER BY likes DESC');
     }
 
@@ -35,9 +35,11 @@ export class Publicacion {
     }
 
     static getPublicacionesByCreador(creador) {
-        const datos = {creador, creador, creador, creador, creador};
-        result = this.#searchByCreador.run(datos);
-        return result;
+        //const creadosql = creador;
+        const datos = {creador};
+        const publicaciones = this.#searchByCreador.all(datos);
+        console.log(publicaciones);
+        return publicaciones;
     }
 
     static #insert(publicacion) {

@@ -48,21 +48,13 @@ export function viewContenidoAdmin(req, res) {
 export function viewPerfil(req, res) {
     let contenido = 'paginas/perfil';
     const username = req.session.username; // Obtener el username desde la sesión
+    console.log(username);
+    res.render('pagina', {
+        contenido,
+        session: req.session,
+        publicaciones: Publicacion.getPublicacionesByCreador(username)
+    });
     
-    try {
-        const publicaciones = Publicacion.getPublicacionesByCreador(username);
-        res.render('pagina', {
-            contenido,
-            session: req.session,
-            publicaciones
-        });
-    } catch (error) {
-        res.render('pagina', {
-            contenido, 
-            session: req.session,
-            error: 'Error al cargar publicaciones'
-        });
-    }
     /*
     res.render('pagina', {
         contenido,
