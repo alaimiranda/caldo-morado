@@ -2,7 +2,7 @@ export class Chat{
     static #getChatByUsernames = null;
     static #insertStmt = null;
     static #getChatsByUsername = null;
-
+   /*
     static initStatemests(db) {
         if (this.#getChatByUsernames !== null) return;
 
@@ -11,6 +11,7 @@ export class Chat{
         this.#getChatsByUsername = db.prepare('SELECT * FROM Chats WHERE username_1 = @username OR username_2 = @username');
 
     }
+     
 
     static getChatByUsernames(username_1, username_2) {
         const chat = this.#getChatByUsernames.get({ username_1, username_2 });
@@ -69,6 +70,7 @@ export class Chat{
         if (this.#id === null) return Chat.#insert(this);
         return ChatNoEncontrado(this);
     }
+        */
 }
 export class ChatYaExiste extends Error {
     constructor(username_1, username_2) {

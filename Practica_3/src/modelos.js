@@ -5,5 +5,5 @@ import { Chat } from "./chat/Chat.js";
 export function inicializaModelos(db) {
     Usuario.initStatements(db);
     Publicacion.initStatements(db);
-    Chat.initStatemests(db);
+    //Chat.initStatemests(db);
 }
