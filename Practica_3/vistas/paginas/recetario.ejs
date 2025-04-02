@@ -9,23 +9,5 @@
         </div>
         <h3>Aquí encontrarás todas tus recetas guardadas</h3>
     </div>
-    
-    <div class="publicaciones">
-        <% for (let i = 0; i < publicaciones.length; i++) { %>
-            <div class="publicacion">
-                <img src="/iconos/perfil_imagen.jpg" alt="Imagen" class="contributor-img">
-                <div class="texto-publicacion">
-                    <h3><%= publicaciones[i].titulo %></h3>
-                    <%= publicaciones[i].creador_1 %>, <%= publicaciones[i].creador_2 %>
-                    <% if (publicaciones[i].creador_3 != null) { %> , <%= publicaciones[i].creador_3%>
-                        <% if (publicaciones[i].creador_4 != null) { %> , <%= publicaciones[i].creador_4 %>
-                            <% if (publicaciones[i].creador_5 != null) { %> , <%= publicaciones[i].creador_5 %>
-                            <% } %>
-                        <% } %>
-                    <% } %>
-                </div>
-            </div> 
-        <% } %>            
-    </div>
 </div>
 

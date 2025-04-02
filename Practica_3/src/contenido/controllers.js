@@ -1,5 +1,6 @@
 import { Usuario } from '../../src/usuarios/Usuario.js';
 import { Publicacion } from '../../src/publicaciones/Publicacion.js';
+import { Guardado } from '../../src/guardados/Guardado.js';
 
 
 export function viewContenidoNormal(req, res) {
@@ -54,10 +55,20 @@ export function viewPerfil(req, res) {
         session: req.session,
         publicaciones: Publicacion.getPublicacionesByCreador(username)
     });
-    
-    /*
+}
+
+export function viewRecetario(req, res) {
+    let contenido = 'paginas/normal';
+    const g = null;
+    if (req.session !== null && req.session.login) {
+        contenido = 'paginas/recetario';
+        const username = req.session.username; // Obtener el username desde la sesión
+        //g = Guardado.getGuardadosByUser(username);
+    }
     res.render('pagina', {
         contenido,
-        session: req.session
-    });*/
+        session: req.session,
+        guardados: g
+    });
+    
 }
