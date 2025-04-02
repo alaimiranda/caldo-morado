@@ -160,3 +160,6 @@ label{
     border-radius: 2px;
     border: 1px;
 }
+.hidden-item {
+    display: none !important; /* Oculta completamente el elemento */
+}

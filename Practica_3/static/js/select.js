@@ -9,7 +9,6 @@ document.querySelector('form').addEventListener('submit', function () {
 document.getElementById('add-colab').addEventListener('click', function() {
     var select = document.getElementById('colab-select');
     var selectedValue = select.value;
-    console.log(selectedValue);
     if (selectedValue !== "") {
         if(!colaboradores.includes(selectedValue)){
             if(colaboradores.length <4){
@@ -50,4 +49,15 @@ document.getElementById('colaborador-input').addEventListener('input', function(
     var input = this.value.toLowerCase();
 
     // to-do: filtrar los colaboradores en la lista desplegable
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const sessionUsername = "<%= session.username %>"; // ESTO NO FUNCIONA
+
+    const li = document.createElement('li');
+    li.classList.add('hidden-');    //ESTO DEBERIA SER hidden-item
+    li.textContent = sessionUsername;
+
+    //document.getElementById('colablist').appendChild(li);
+    //colaboradores.push(sessionUsername);
 });
