@@ -1,1 +1,12 @@
-<h1>Chats</h1>
+<h2>Mis chats</h2>
+<div id="chat-list">
+    <% if (chats.length > 0) { %>
+        <% chats.forEach(chat => { %>
+            <div class="chat-item id">
+                <strong><%= chat.contacto %></strong>: <%= chat.ultimo_mensaje %>
+            </div>
+        <% }) %>
+    <% } else { %>
+        <p>No hay chats disponibles</p>
+    <% } %>
+</div>

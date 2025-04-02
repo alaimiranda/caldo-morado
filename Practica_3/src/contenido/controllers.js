@@ -1,6 +1,7 @@
 import { Usuario } from '../../src/usuarios/Usuario.js';
 import { Publicacion } from '../../src/publicaciones/Publicacion.js';
 import { Guardado } from '../../src/guardados/Guardado.js';
+import { Chat } from '../../src/chat/Chat.js';
 
 
 export function viewContenidoNormal(req, res) {
@@ -78,8 +79,15 @@ export function viewChat(req, res) {
     if (req.session !== null && req.session.login) {
         contenido = 'paginas/chat';
     }
+    //let chats = Chat.getChatsByUsername(req.session.username);
+    const chats = [
+        { contacto: "Juan", ultimo_mensaje: "Hola, ¿cómo estás?" },
+        { contacto: "María", ultimo_mensaje: "Nos vemos mañana" },
+        { contacto: "Carlos", ultimo_mensaje: "Te envío los documentos" }
+    ];
     res.render('pagina', {
         contenido,
-        session: req.session
+        session: req.session,
+        chats
     });
 }
