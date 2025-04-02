@@ -2,7 +2,7 @@ export class Chat{
     static #getChatByUsernames = null;
     static #insertStmt = null;
     static #getChatsByUsername = null;
-   /*
+   
     static initStatemests(db) {
         if (this.#getChatByUsernames !== null) return;
 
@@ -17,7 +17,7 @@ export class Chat{
         const chat = this.#getChatByUsernames.get({ username_1, username_2 });
         if (chat === undefined) throw new ChatNoEncontrado(username_1, username_2);
 
-        const { id, username_1, username_2 } = chat;
+        const {id} = chat;
         return new Chat(id, username_1, username_2);
     }
 
@@ -70,7 +70,7 @@ export class Chat{
         if (this.#id === null) return Chat.#insert(this);
         return ChatNoEncontrado(this);
     }
-        */
+        
 }
 export class ChatYaExiste extends Error {
     constructor(username_1, username_2) {
