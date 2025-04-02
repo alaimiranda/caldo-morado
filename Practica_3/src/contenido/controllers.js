@@ -72,3 +72,14 @@ export function viewRecetario(req, res) {
     });
     
 }
+
+export function viewChat(req, res) {
+    let contenido = 'paginas/normal';
+    if (req.session !== null && req.session.login) {
+        contenido = 'paginas/chat';
+    }
+    res.render('pagina', {
+        contenido,
+        session: req.session
+    });
+}
