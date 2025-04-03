@@ -60,11 +60,12 @@ export function viewPerfil(req, res) {
 
 export function viewRecetario(req, res) {
     let contenido = 'paginas/normal';
-    const g = null;
+    const g = [ {user: "raquel", id: 18} ];
     if (req.session !== null && req.session.login) {
         contenido = 'paginas/recetario';
         const username = req.session.username; // Obtener el username desde la sesión
-        //g = Guardado.getGuardadosByUser(username);
+        g = Guardado.getGuardadosByUser(username);
+        g.forEach((element) => console.log(element.id));
     }
     res.render('pagina', {
         contenido,
