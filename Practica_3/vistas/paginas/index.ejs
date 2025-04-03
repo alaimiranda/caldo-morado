@@ -1,23 +1,26 @@
-<div class="feed_post">
 
-    <div class="feed_head">
-      <div class="feed_tit"><h2>Titulo</h2></div>
-      <div class="feed_butt">
-          <button class="feed_like"><img src="/iconos/like_vacio.png" width="30" alt="a"></button>
-          <button class="feed_save"><img src="/iconos/save_vacio.png" width="30" alt="a"></button>
-          <button class="feed_comment"><img src="/iconos/comentario.png" width="30" alt="a"></button>
-      </div>
-    </div>
+<% for (let i = 0; i < publicaciones.length; i++) { %>
+    <div class="feed_post">
 
-    <div class = "imgs">
-    <!--Carrusel de fotos-->
-      <button type="button" class = "carroussel-btn" id="anterior">←</button>
-      <div>
-        <div id="myImage"></div>
-        <input name="files" id="imagenes" type="file" multiple class="input_foto" style="display: none;">
-        <p id="pie-de-foto" class = "pie-de-foto">Aqui va el pie de foto</textarea>
-    </div>
-    <button type="button" class = "carroussel-btn" id="siguiente">→</button>
-    </div>
+        <div class="feed_head">
+        <div class="feed_tit"><h2><%= publicaciones[i].titulo %></h2></div>
+        <div class="feed_butt">
+            <button class="feed_like"><img src="/iconos/like_vacio.png" width="30" alt="a"></button>
+            <button class="feed_save"><img src="/iconos/save_vacio.png" width="30" alt="a"></button>
+            <button class="feed_comment"><img src="/iconos/comentario.png" width="30" alt="a"></button>
+        </div>
+        </div>
 
-  </div>
+        <div class = "imgs">
+        <!--Carrusel de fotos-->
+        <button type="button" class = "carroussel-btn" id="anterior">←</button>
+        <div>
+            <div id="myImage"></div>
+            <input name="files" id="imagenes" type="file" multiple class="input_foto" style="display: none;">
+            <p id="pie-de-foto" class = "pie-de-foto">Aqui va el pie de foto</textarea>
+        </div>
+        <button type="button" class = "carroussel-btn" id="siguiente">→</button>
+        </div>
+
+    </div>
+  <% } %>
