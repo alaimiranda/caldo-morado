@@ -28,6 +28,7 @@
                     <input type="text" id="colaborador-input" class="colaborador-input" placeholder="Busca colaboradores..." oninput="fillSelect()">
                     <div class = "select-container">
                         <select name ="Colaboradores" id="colab-select" class ="colab-select">
+                            <option>Elige un colaborador...</option>
                             <% for (let i = 0; i < usuarios.length; i++) { %>
                                 <option><%= usuarios[i].username %></option>
                             <% } %>
@@ -35,9 +36,9 @@
                         <button type="button" class = "col-btn" id="add-colab">Añadir</button>
                     </div>
                     <ul id="colablist">
-                        <!-- aqui falta añadir el ${session.username} -->
+                        <%-`<li class = "hidden-item">${session.username}</li>` %>
                     </ul>
-                </div>
+                    </div>
                 <div class = "publish-container">
                     <input type="hidden" name="colaboradores" id="colaboradores-hidden">
                     <button type="submit" class = "publish-btn">Publicar</button>
