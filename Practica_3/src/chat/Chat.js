@@ -2,6 +2,7 @@ export class Chat{
     static #getChatByUsernames = null;
     static #insertStmt = null;
     static #getChatsByUsername = null;
+    static #getChatById = null;
    
     static initStatemests(db) {
         if (this.#getChatByUsernames !== null) return;
@@ -9,9 +10,15 @@ export class Chat{
         this.#getChatByUsernames = db.prepare('SELECT * FROM Chats WHERE username_1 = @username_1 AND username_2 = @username_2');
         this.#insertStmt = db.prepare('INSERT INTO Chats(username_1, username_2) VALUES (@username_1, @username_2)');
         this.#getChatsByUsername = db.prepare('SELECT * FROM Chats WHERE username_1 = @username OR username_2 = @username');
-
+        this.#getChatById = db.prepare('SELECT * FROM Chats WHERE id = @id');
     }
      
+    static getChatById(id) {
+        const chat = this.#getChatById.get({ id });
+        if (chat === undefined) throw new ChatNoEncontrado(id);
+        const {username_1, username_2} = chat;
+        return new Chat(id, username_1, username_2);
+    }
 
     static getChatByUsernames(username_1, username_2) {
         const chat = this.#getChatByUsernames.get({ username_1, username_2 });
@@ -22,8 +29,7 @@ export class Chat{
     }
 
     static getChatsByUsername(username) {
-        const chats = this.#getChatsByUsername.get({ username });
-        console.log(chats);
+        const chats = this.#getChatsByUsername.all({ username });
         if (chats === undefined) throw new ChatNoEncontrado(username);
         return chats;
     }

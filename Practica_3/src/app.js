@@ -11,6 +11,7 @@ import { config } from './config.js';
 import usuariosRouter from './usuarios/router.js';
 import contenidoRouter from './contenido/router.js';
 import publicacionesRouter from './publicaciones/router.js';
+import chatRouter from './chat/router.js';
 
 export const app = express();
 
