@@ -9,9 +9,9 @@ export class Guardado {
     static initStatements(db) {
         //if (this.#getByTituloStmt !== null) return;
 
-        //this.#getByTituloStmt = db.prepare('SELECT * FROM Guardados WHERE titulo = @titulo and creador_1 = @creador_1');
+        //this.#getByTituloStmt = db.prepare('SELECT * FROM Guardados WHERE user = @user and id = @id');
         this.#insertStmt = db.prepare('INSERT INTO Guardados(user, id) VALUES (@user, @id)');
-        this.#updateStmt = db.prepare('UPDATE Guardados SET titulo = @titulo, creador_1 = @creador_1, creador_2 = @creador_2, creador_3 = @creador_3, creador_4 = @creador_4, creador_5 = @creador_5, likes = @likes, fecha = @fecha WHERE titulo = @titulo');
+        //this.#updateStmt = db.prepare('UPDATE Guardados SET titulo = @titulo, creador_1 = @creador_1, creador_2 = @creador_2, creador_3 = @creador_3, creador_4 = @creador_4, creador_5 = @creador_5, likes = @likes, fecha = @fecha WHERE titulo = @titulo');
         this.#searchall = db.prepare('SELECT * FROM Guardados');
         this.#searchByUser = db.prepare('SELECT * FROM Guardados WHERE user = @user');
     }
@@ -19,10 +19,10 @@ export class Guardado {
 
     static getGuardadosByUser(user) {
         //const creadosql = creador;
-        const datos = {user};
-        const guardados = this.#searchByUser.all(datos);//llega aquí
-        //const guardados = this.#searchall.all();
-        //console.log(guardados);
+        //const datos = {user};
+        //const guardados = this.#searchByUser.all(datos);//llega aquí
+        const guardados = this.#searchall.all();
+        console.log(guardados);
         return guardados;
     }
 
@@ -41,7 +41,7 @@ export class Guardado {
             }
             throw new ErrorDatos('No se ha insertado el guardado', { cause: e });
         }
-        return publicacion;
+        return result;
     }
 
     #id;
