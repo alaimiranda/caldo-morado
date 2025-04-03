@@ -3,7 +3,11 @@
     <% if (chats.length > 0) { %>
         <% chats.forEach(chat => { %>
             <div class="chat-item id">
-                <strong><%= chat.contacto %></strong>: <%= chat.ultimo_mensaje %>
+                <% if (chat.username_1 === sessionUsername) { %>
+                    <strong><%= chat.username_2 %></strong>
+                <% } else if (chat.username_2 === sessionUsername) { %>
+                    <strong><%= chat.username_1 %></strong>
+                <% } %>
             </div>
         <% }) %>
     <% } else { %>

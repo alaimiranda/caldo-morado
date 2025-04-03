@@ -22,7 +22,8 @@ export class Chat{
     }
 
     static getChatsByUsername(username) {
-        const chats = this.#getChatsByUsername.all({ username });
+        const chats = this.#getChatsByUsername.get({ username });
+        console.log(chats);
         if (chats === undefined) throw new ChatNoEncontrado(username);
         return chats;
     }

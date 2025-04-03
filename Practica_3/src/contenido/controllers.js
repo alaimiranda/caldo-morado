@@ -78,16 +78,20 @@ export function viewChat(req, res) {
     let contenido = 'paginas/normal';
     if (req.session !== null && req.session.login) {
         contenido = 'paginas/chat';
+        const sessionUsername = req.session.username; 
+        const chats = Chat.getChatsByUsername(sessionUsername);
+    
+        res.render('pagina', {
+            contenido,
+            session: req.session,
+            chats, 
+            sessionUsername
+        });
+    }else{
+        res.render('pagina', {
+            contenido,
+            session: req.session
+        });
     }
-    //let chats = Chat.getChatsByUsername(req.session.username);
-    const chats = [
-        { contacto: "Juan", ultimo_mensaje: "Hola, ¿cómo estás?" },
-        { contacto: "María", ultimo_mensaje: "Nos vemos mañana" },
-        { contacto: "Carlos", ultimo_mensaje: "Te envío los documentos" }
-    ];
-    res.render('pagina', {
-        contenido,
-        session: req.session,
-        chats
-    });
+    
 }
