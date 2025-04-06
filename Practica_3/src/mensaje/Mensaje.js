@@ -5,8 +5,8 @@ export class Mensaje{
     static initStatements(db) {
         if (this.#getMessagesByChat !== null) return;
     
-        this.#getMessagesByChat = db.prepare('SELECT * FROM Mensajes WHERE id_chat = @id_chat');
-        this.#insertStmt = db.prepare('INSERT INTO Mensajes(id_chat, username, mensaje, fecha) VALUES (@id_chat, @username, @mensaje, #fecha)');
+        this.#getMessagesByChat = db.prepare('SELECT * FROM Mensajes WHERE id_chat = @id_chat ORDER BY fecha ASC');
+        this.#insertStmt = db.prepare('INSERT INTO Mensajes(id_chat, username, mensaje, fecha) VALUES (@id_chat, @username, @mensaje, @fecha)');
     }
 
     static getMessagesByChat(id_chat) {
