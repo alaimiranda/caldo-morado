@@ -1,12 +1,22 @@
-<h2>Mis chats</h2>
-<div id="chat-list">
-    <% if (chats.length > 0) { %>
-        <% chats.forEach(chat => { %>
-            <div class="chat-item id">
-                <strong><%= chat.contacto %></strong>: <%= chat.ultimo_mensaje %>
-            </div>
-        <% }) %>
-    <% } else { %>
-        <p>No hay chats disponibles</p>
-    <% } %>
-</div>
+<link rel="stylesheet" href="/css/chat.css">
+<h2>Mis Chats</h2>
+    <div id="chat-list">
+        <% if (chats && chats.length > 0) { %>
+            <% chats.forEach(chat => { %>
+                <a href="/chat/<%= chat.id %>" class="chat-item">
+                    <div class="chat-avatar"></div>
+                    <div class="chat-info">
+                        <% if (chat.username_1 === sessionUsername) { %>
+                            <strong><%= chat.username_2 %></strong>
+                        <% } else { %>
+                            <strong><%= chat.username_1 %></strong>
+                        <% } %>
+                        <span class="last-message">Último mensaje...</span>
+                    </div>
+                    <div class="chat-time">12:34</div>
+                </a>
+            <% }) %>
+        <% } else { %>
+            <p>No hay chats disponibles</p>
+        <% } %>
+    </div>

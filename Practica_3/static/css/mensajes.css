@@ -1,0 +1,45 @@
+.msg-container {
+	display: flex;
+	flex-direction: column;
+	height: 1000px;
+}
+
+.msg-header {
+	padding: 10px;
+	background: #eddec9;
+	display: flex;
+	align-items: center;
+}
+
+.msg-messages {
+	flex: 1;
+	overflow-y: auto;
+	padding: 10px;
+	background: #faf0e2;
+}
+
+.msg-mensaje {
+	max-width: 60%;
+	margin: 5px 0;
+	padding: 10px;
+	border-radius: 10px;
+}
+
+.msg-mio {
+	background: #eddec9;
+	margin-left: auto;
+	text-align: right;
+}
+
+.msg-otro {
+	background: #eddec9;
+	margin-right: auto;
+	text-align: left;
+}
+
+.msg-input {
+	display: flex;
+	padding: 10px;
+	border-top: 1px solid #eddec9;
+	background: #faf0e2;
+}
