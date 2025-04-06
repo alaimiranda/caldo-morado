@@ -59,19 +59,25 @@ export function viewPerfil(req, res) {
 }
 
 export function viewRecetario(req, res) {
-    let contenido = 'paginas/normal';
-    const g = [ {user: "raquel", id: 18} ];
+    let contenido = 'paginas/normal';  //variable con alcance limitado al bloque
     if (req.session !== null && req.session.login) {
         contenido = 'paginas/recetario';
         const username = req.session.username; // Obtener el username desde la sesión
-        g = Guardado.getGuardadosByUser(username);
-        g.forEach((element) => console.log(element.id));
+        const g = Guardado.getGuardadosByUser(username);
+        const guardados = [];
+        g.forEach((guardado) => guardados.push(Publicacion.getPublicacionById(guardado.id)));
+        //guardados.forEach((element) => console.log(element));
+        res.render('pagina', {
+            contenido,
+            session: req.session,
+            guardados: guardados
+        });
+    } else {
+        res.render('pagina', {
+            contenido,
+            session: req.session
+        });
     }
-    res.render('pagina', {
-        contenido,
-        session: req.session,
-        guardados: g
-    });
     
 }
 
