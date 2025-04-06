@@ -62,12 +62,19 @@ label{
     margin-left: 20px;
     height: 40px;
     width: 40px;
+    border-radius: 5px;
+    border: 0px;
+    color: white;
 }
 .publish-btn {
     background: #325d32;
     color: white;
     align-self: flex-end;
     margin-top: 20px;
+    border-radius: 5%;
+    border: 0px;
+    width: 60px;
+    height: 30px;
 }
 
 .pie-de-foto{
@@ -111,9 +118,10 @@ label{
     width: 60px; 
     display: flex;
     align-items: center;
+    border: 1px solid #000;
     justify-content: center;
-    padding: 0; /* Asegura que el padding no afecte el tamaño */
-    border: 1px solid #000; /* Opcional, para ver los bordes */
+    padding: 0;
+    border-radius: 5px;
 }
 
 .select-container {
@@ -157,7 +165,7 @@ label{
     height: 30px;
     min-height: 30px;
     margin-bottom: 10px;
-    border-radius: 2px;
+    border-radius: 5px;
     border: 1px;
 }
 .hidden-item {

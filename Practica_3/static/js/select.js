@@ -9,7 +9,7 @@ document.querySelector('form').addEventListener('submit', function () {
 document.getElementById('add-colab').addEventListener('click', function() {
     var select = document.getElementById('colab-select');
     var selectedValue = select.value;
-    if (selectedValue !== "") {
+    if (selectedValue !== "" && selectedValue !== "Elige un colaborador...") {
         if(!colaboradores.includes(selectedValue)){
             if(colaboradores.length <4){
                 // nuevo elemento
@@ -47,17 +47,21 @@ document.getElementById('add-colab').addEventListener('click', function() {
 
 document.getElementById('colaborador-input').addEventListener('input', function() {
     var input = this.value.toLowerCase();
-
     // to-do: filtrar los colaboradores en la lista desplegable
+    var options = document.querySelectorAll('#colab-select option');
+    options.forEach(option => {
+        if (option.value.toLowerCase().includes(input)) {
+            option.style.display = 'block';
+        } else {
+            option.style.display = 'none';
+        }
+    }
+    );
+
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-    const sessionUsername = "<%= session.username %>"; // ESTO NO FUNCIONA
-
-    const li = document.createElement('li');
-    li.classList.add('hidden-');    //ESTO DEBERIA SER hidden-item
-    li.textContent = sessionUsername;
-
-    //document.getElementById('colablist').appendChild(li);
-    //colaboradores.push(sessionUsername);
+    const hiddenItem = document.querySelector('#colablist .hidden-item');
+    const sessionUsername = hiddenItem.textContent.trim();
+    colaboradores.push(sessionUsername);
 });
