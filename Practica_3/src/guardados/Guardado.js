@@ -18,11 +18,9 @@ export class Guardado {
 
 
     static getGuardadosByUser(user) {
-        //const creadosql = creador;
-        //const datos = {user};
-        //const guardados = this.#searchByUser.all(datos);//llega aquí
-        const guardados = this.#searchall.all();
-        console.log(guardados);
+        const datos = {user};
+        const guardados = this.#searchByUser.all(datos);
+        //console.log(guardados);
         return guardados;
     }
 
