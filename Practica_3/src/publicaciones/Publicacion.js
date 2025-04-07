@@ -20,7 +20,7 @@ export class Publicacion {
         this.#searchByCreador = db.prepare('SELECT * FROM Posts WHERE creador_1 = @creador OR creador_2 = @creador OR creador_3 = @creador OR creador_4 = @creador OR creador_5 = @creador');
         this.#searchBest = db.prepare('SELECT * FROM Posts ORDER BY likes DESC');
         this.#searchById = db.prepare('SELECT * FROM Posts WHERE id = @id_search');
-        this.#searchallOrderByDate = db.prepare('SELECT * FROM Posts ORDER BY fecha ASC');
+        this.#searchallOrderByDate = db.prepare('SELECT * FROM Posts ORDER BY fecha DESC');
     }
 
     static getPublicacionesOrderedByDate(){
