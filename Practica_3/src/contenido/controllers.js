@@ -61,18 +61,25 @@ export function viewPerfil(req, res) {
 }
 
 export function viewRecetario(req, res) {
-    let contenido = 'paginas/normal';
-    const g = null;
+    let contenido = 'paginas/normal';  //variable con alcance limitado al bloque
     if (req.session !== null && req.session.login) {
         contenido = 'paginas/recetario';
         const username = req.session.username; // Obtener el username desde la sesión
-        //g = Guardado.getGuardadosByUser(username);
+        const g = Guardado.getGuardadosByUser(username);
+        const guardados = [];
+        g.forEach((guardado) => guardados.push(Publicacion.getPublicacionById(guardado.id)));
+        //guardados.forEach((element) => console.log(element));
+        res.render('pagina', {
+            contenido,
+            session: req.session,
+            guardados: guardados
+        });
+    } else {
+        res.render('pagina', {
+            contenido,
+            session: req.session
+        });
     }
-    res.render('pagina', {
-        contenido,
-        session: req.session,
-        guardados: g
-    });
     
 }
 
@@ -80,16 +87,20 @@ export function viewChat(req, res) {
     let contenido = 'paginas/normal';
     if (req.session !== null && req.session.login) {
         contenido = 'paginas/chat';
+        const sessionUsername = req.session.username; 
+        const chats = Chat.getChatsByUsername(sessionUsername);
+    
+        res.render('pagina', {
+            contenido,
+            session: req.session,
+            chats, 
+            sessionUsername
+        });
+    }else{
+        res.render('pagina', {
+            contenido,
+            session: req.session
+        });
     }
-    //let chats = Chat.getChatsByUsername(req.session.username);
-    const chats = [
-        { contacto: "Juan", ultimo_mensaje: "Hola, ¿cómo estás?" },
-        { contacto: "María", ultimo_mensaje: "Nos vemos mañana" },
-        { contacto: "Carlos", ultimo_mensaje: "Te envío los documentos" }
-    ];
-    res.render('pagina', {
-        contenido,
-        session: req.session,
-        chats
-    });
+    
 }

@@ -56,7 +56,6 @@ export class Publicacion {
         //const creadosql = creador;
         const datos = {id_search};
         const publicacion = this.#searchById.all(datos);
-        console.log(publicacion);
         return publicacion;
     }
 
