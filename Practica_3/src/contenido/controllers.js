@@ -11,9 +11,11 @@ export function viewContenidoNormal(req, res) {
     }
     res.render('pagina', {
         contenido,
-        session: req.session
+        session: req.session,
     });
 }
+
+
 
 export function viewTop(req, res) {
     let contenido = 'paginas/top_del_fogon';

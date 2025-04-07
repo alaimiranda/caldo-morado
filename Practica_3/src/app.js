@@ -11,8 +11,8 @@ import { config } from './config.js';
 import usuariosRouter from './usuarios/router.js';
 import contenidoRouter from './contenido/router.js';
 import publicacionesRouter from './publicaciones/router.js';
+import { Publicacion } from './publicaciones/Publicacion.js';
 import chatRouter from './chat/router.js';
-
 
 export const app = express();
 
@@ -26,7 +26,8 @@ app.use('/', express.static(config.recursos));
 app.get('/', (req, res) => {
     res.render('pagina', {
         contenido: 'paginas/index',
-        session: req.session
+        session: req.session,
+        publicaciones : Publicacion.getPublicacionesOrderedByDate()
     });
 })
 app.use('/usuarios', usuariosRouter);
