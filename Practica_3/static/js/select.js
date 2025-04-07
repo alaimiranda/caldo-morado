@@ -11,7 +11,7 @@ document.getElementById('add-colab').addEventListener('click', function() {
     var selectedValue = select.value;
     if (selectedValue !== "" && selectedValue !== "Elige un colaborador...") {
         if(!colaboradores.includes(selectedValue)){
-            if(colaboradores.length <4){
+            if(colaboradores.length < 5){
                 // nuevo elemento
                 var li = document.createElement('li');
                 
@@ -47,7 +47,6 @@ document.getElementById('add-colab').addEventListener('click', function() {
 
 document.getElementById('colaborador-input').addEventListener('input', function() {
     var input = this.value.toLowerCase();
-    // to-do: filtrar los colaboradores en la lista desplegable
     var options = document.querySelectorAll('#colab-select option');
     options.forEach(option => {
         if (option.value.toLowerCase().includes(input)) {

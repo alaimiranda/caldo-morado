@@ -25,13 +25,11 @@ export class Publicacion {
 
     static getPublicacionesOrderedByDate(){
         const publicaciones = this.#searchallOrderByDate.all();
-        console.log(publicaciones);
         return publicaciones;
     }
 
     static getMejoresPublicaciones(){
         const publicaciones = this.#searchBest.all();
-        console.log(publicaciones);
         return publicaciones;
     }
 
@@ -48,7 +46,6 @@ export class Publicacion {
         //const creadosql = creador;
         const datos = {creador};
         const publicaciones = this.#searchByCreador.all(datos);
-        console.log(publicaciones);
         return publicaciones;
     }
 

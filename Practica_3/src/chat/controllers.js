@@ -13,7 +13,6 @@ export function newMessage(req, res){
 export function showChat(req, res){
     let contenido = 'paginas/mensajes'
     const chatId = req.params.chatId;
-    console.log(chatId);
     const messages = Mensaje.getMessagesByChat(chatId);
  
     const chat = Chat.getChatById(chatId);

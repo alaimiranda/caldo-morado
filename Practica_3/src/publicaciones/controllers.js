@@ -18,6 +18,13 @@ export function publish(req, res) {
         let colab4 = colaboradores[3] || null;
         let colab5 = colaboradores[4] || null;
 
+        if (!colab2) {
+            return res.render('pagina', {
+                contenido: 'paginas/cocinar',
+                error: 'Error al publicar la receta'
+            })
+        }
+
         const publicacion = new Publicacion(titulo, colab1, colab2, colab3, colab4, colab5, dateToString);
         
         publicacion.persist();  

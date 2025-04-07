@@ -52,7 +52,6 @@ export function viewContenidoAdmin(req, res) {
 export function viewPerfil(req, res) {
     let contenido = 'paginas/perfil';
     const username = req.session.username; // Obtener el username desde la sesión
-    console.log(username);
     res.render('pagina', {
         contenido,
         session: req.session,
