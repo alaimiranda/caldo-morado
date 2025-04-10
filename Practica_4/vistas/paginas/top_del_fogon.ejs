@@ -1,0 +1,34 @@
+<link rel="stylesheet" href="/css/tabla.css">
+<h1>Top del fogón</h1>
+<p>Este es el ranking de recetas de Caldo Morado</p>
+<div>
+    <table id="tabla-clasificacion" class="tabla-clasificacion">
+        <thead>
+            <tr>
+                <th class = "col1">Posición</th>
+                <th class = "col2">Publicación</th>
+                <th>Usuarios</th>
+                <th>Likes</th>
+            </tr>
+        </thead>
+        <% for (let i = 0; i < Math.min(publicaciones.length, 10); i++) { %>
+            <tr>
+                <td class="col1"><%= i + 1 %></td>
+                <td class="col2"><%= publicaciones[i].titulo %></td>
+                <td>
+                    <%= publicaciones[i].creador_1 %>, <%= publicaciones[i].creador_2 %>
+                    <% if (publicaciones[i].creador_3 != null) { %>
+                        , <%= publicaciones[i].creador_3%>
+                        <% if (publicaciones[i].creador_4 != null) { %>
+                            , <%= publicaciones[i].creador_4 %>
+                            <% if (publicaciones[i].creador_5 != null) { %>
+                                , <%= publicaciones[i].creador_5 %>
+                            <% } %>
+                        <% } %>
+                    <% } %>
+                </td>
+                <td><%= publicaciones[i].likes %></td>
+            </tr>
+        <% } %>
+    </table>
+</div>

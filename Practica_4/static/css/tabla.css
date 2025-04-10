@@ -1,0 +1,21 @@
+.col1{
+    text-align: center;
+    max-width: 5%;
+    width: 5%;
+}
+.col2{
+    width: 40%;
+}
+
+th{
+    background-color: #eddec9;
+    color: #635239;
+    padding: 10px;
+    text-align: left;
+    align-items: center;
+}
+
+table{
+    width: 100%;
+    margin-top: 20px;
+}

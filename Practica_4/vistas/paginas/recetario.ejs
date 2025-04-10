@@ -1,0 +1,30 @@
+<link rel="stylesheet" href="/css/perfil.css">
+
+
+<div class="general">
+    <div class="cabecera-recetario">
+        <div class="texto-cabecera-perfil">
+            <!-- <img src="/iconos/save_relleno.jpg" alt="No encontrada" class="perfil-img"> -->
+            <h1>Recetario</h1>
+        </div>
+        <h3>Aquí encontrarás todas tus recetas guardadas</h3>
+    </div>
+    <div class="publicaciones">
+        <% for (let i = 0; i < guardados.length; i++) { %>
+            <div class="publicacion">
+                <img src="/iconos/perfil_imagen.jpg" alt="Imagen" class="contributor-img">
+                <div class="texto-publicacion">
+                    <h3><%= guardados[i][0].titulo %></h3>
+                    <%= guardados[i][0].creador_1 %>, <%= guardados[i][0].creador_2 %>
+                    <% if (guardados[i][0].creador_3 != null) { %> , <%= guardados[i][0].creador_3%>
+                        <% if (guardados[i][0].creador_4 != null) { %> , <%= guardados[i][0].creador_4 %>
+                            <% if (guardados[i][0].creador_5 != null) { %> , <%= guardados[i][0].creador_5 %>
+                            <% } %>
+                        <% } %>
+                    <% } %>
+                </div>
+            </div> 
+        <% } %>            
+    </div>
+</div>
+

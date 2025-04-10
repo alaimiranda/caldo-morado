@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="/css/mensajes.css">
+<link rel="stylesheet" href="/css/chat.css">
+<body>
+    <div class="msg-container">
+      <div class="msg-header">
+        <strong><%= user_2.username %></strong>
+        <a href="/contenido/chat" ><button class="msg-button" type="menu" >←</button></a>
+      </div>
+  
+      <div class="msg-messages">
+        <% messages.forEach(m => { %>
+          <div class="msg-mensaje <%= m.emisor === user_1.username ? 'msg-mio' : 'msg-otro' %>">
+            <%= m.mensaje %>
+          </div>
+        <% }) %>
+      </div>
+  
+      <form class="msg-input" method="POST" action="/chat/<%= user_1.username %>/<%= user_2.username %>">
+        <input type="text" name="msg-mensaje" placeholder="Escribir..." required autocomplete="off">
+        <button type="submit">Enviar</button>
+      </form>
+    </div>
+  </body>

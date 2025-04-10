@@ -1,0 +1,21 @@
+<%
+/**
+ * Muestra el saludo si el usuario esta registrado, en caso de que no lo este,
+ * muestra que es un usuario desconocido.
+ */
+function mostrarSaludo(session){
+	if (session == null || ! session.login){
+		return `<p>Usuario desconocido. <a href="/usuarios/signup">Sign up</a> <a href="/usuarios/login">Login</a></p>`;
+	}
+
+	return `<p>Bienvenido <a href="/contenido/perfil">${session.username}</a>. <a href="/usuarios/logout">(salir)</a></p>`;
+}
+%><header>
+		<div class="logohead">
+			<img src="/imagen-corporativa/logosinfondo.png" width="40" height="40" alt="Error al cargar">
+		</div>
+		<h1>CaldoMorado</h1>
+		<div class="saludo">
+			<%- mostrarSaludo(session) %>
+		</div>
+</header>

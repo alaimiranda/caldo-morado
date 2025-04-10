@@ -1,0 +1,53 @@
+<link rel="stylesheet" href="/css/perfil.css">
+
+<!--
+<%
+function mostrarUsername(session){
+	return `<h1>${session.username}</h1>`;
+}
+%>
+-->
+
+<div class="general">
+    <div class="cabecera-perfil">
+        <img src="/iconos/perfil_imagen.jpg" alt="Imagen de perfil" class="perfil-img">
+        <div class="texto-cabecera-perfil">
+            <div class="username">
+                <%-`<h1>${session.username}</h1>` %>
+            </div>
+            <div class="stats">
+                <div class="stat-item">
+                    <h3>Seguidores</h3>
+                    <p>0</p>
+                </div>
+                <div class="stat-item">
+                    <h3>Seguidos</h3>
+                    <p>0</p>
+                </div>
+                <div class="stat-item">
+                    <h3>Ajustes</h3>
+                    <p>0</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="publicaciones">
+        <% for (let i = 0; i < publicaciones.length; i++) { %>
+            <div class="publicacion">
+                <img src="/iconos/perfil_imagen.jpg" alt="Imagen" class="contributor-img">
+                <div class="texto-publicacion">
+                    <h3><%= publicaciones[i].titulo %></h3>
+                    <%= publicaciones[i].creador_1 %>, <%= publicaciones[i].creador_2 %>
+                    <% if (publicaciones[i].creador_3 != null) { %> , <%= publicaciones[i].creador_3%>
+                        <% if (publicaciones[i].creador_4 != null) { %> , <%= publicaciones[i].creador_4 %>
+                            <% if (publicaciones[i].creador_5 != null) { %> , <%= publicaciones[i].creador_5 %>
+                            <% } %>
+                        <% } %>
+                    <% } %>
+                </div>
+            </div> 
+        <% } %>            
+    </div>
+</div>
+

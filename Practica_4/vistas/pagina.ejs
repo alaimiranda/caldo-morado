@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <%- include('./partials/head.ejs') %>
+</head>
+
+<body>
+
+ <div id="contenedor">
+  <%- include('./partials/cabecera.ejs', { session: locals.session }) %>
+  <%- include('./partials/sidebarIzq.ejs') %>
+
+  <main>
+    <article>
+    <%- include(contenido) %>
+    </article>
+  </main>
+
+  <%- include('./partials/pie.ejs') %>
+</div> <!-- Fin del contenedor -->
+
+</body>
+</html>
