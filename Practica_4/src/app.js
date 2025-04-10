@@ -13,6 +13,7 @@ import contenidoRouter from './contenido/router.js';
 import publicacionesRouter from './publicaciones/router.js';
 import { Publicacion } from './publicaciones/Publicacion.js';
 import chatRouter from './chat/router.js';
+import msgRouter from './mensaje/router.js';
 
 export const app = express();
 
@@ -34,3 +35,4 @@ app.use('/usuarios', usuariosRouter);
 app.use('/publicaciones', publicacionesRouter);
 app.use('/contenido', contenidoRouter);
 app.use('/chat', chatRouter);
+app.use('/mensaje', msgRouter);

@@ -15,8 +15,8 @@
         <% }) %>
       </div>
   
-      <form class="msg-input" method="POST" action="/chat/<%= user_1.username %>/<%= user_2.username %>">
-        <input type="text" name="msg-mensaje" placeholder="Escribir..." required autocomplete="off">
+      <form class="msg-input" method="POST" action="/mensaje/sendMsg">
+        <input type="text" name="msg_mensaje" placeholder="Escribir mensaje..." required>
         <button type="submit">Enviar</button>
       </form>
     </div>
