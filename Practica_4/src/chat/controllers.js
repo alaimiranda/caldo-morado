@@ -25,6 +25,7 @@ export function showChat(req, res){
         session: req.session,
         messages,
         user_1,
-        user_2
+        user_2,
+        chatId
     });
 }

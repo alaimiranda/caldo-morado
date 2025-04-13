@@ -6,7 +6,7 @@ export class Mensaje{
         if (this.#getMessagesByChat !== null) return;
     
         this.#getMessagesByChat = db.prepare('SELECT * FROM Mensajes WHERE id_chat = @id_chat ORDER BY fecha ASC');
-        this.#insertStmt = db.prepare('INSERT INTO Mensajes(id_chat, username, mensaje, fecha) VALUES (@id_chat, @username, @mensaje, @fecha)');
+        this.#insertStmt = db.prepare('INSERT INTO Mensajes(id_chat, username, mensaje, fecha) VALUES (@id_chat, @username, @mensaje_texto, @fecha)');
     }
 
     static getMessagesByChat(id_chat) {
@@ -42,12 +42,12 @@ export class Mensaje{
     #mensaje;
     #fecha;
 
-    constructor(id = null, id_chat, username, mensaje, fecha) {
-        this.#id = id;
+    constructor(id_chat, username, mensaje, fecha, id = null) {
         this.#id_chat = id_chat;
         this.#username = username;
         this.#mensaje = mensaje;
         this.#fecha = fecha;
+        this.#id = id;
     }
 
     get id() {
@@ -70,7 +70,7 @@ export class Mensaje{
         return this.#fecha;
     }
 
-    persists() {
+    persist() {
         if (this.#id === null) return Mensaje.#insert(this);
         return MensajeNoEncontrado(this);
     }
