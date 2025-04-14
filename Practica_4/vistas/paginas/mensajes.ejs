@@ -9,7 +9,7 @@
   
       <div class="msg-messages">
         <% messages.forEach(m => { %>
-          <div class="msg-mensaje <%= m.emisor === user_1.username ? 'msg-mio' : 'msg-otro' %>">
+          <div class="msg-mensaje <%= m.username === user_1.username ? 'msg-mio' : 'msg-otro' %>">
             <%= m.mensaje %>
           </div>
         <% }) %>

@@ -12,7 +12,7 @@ export function sendMsg(req, res){
         let chatId = req.body.chatId;
         let username = req.session.username;
         const mensaje = new Mensaje(chatId, username, texto_mensaje, dateToString);
-        //mensaje.persist();
+        mensaje.persist();
 
         const messages = Mensaje.getMessagesByChat(chatId);
         const chat = Chat.getChatById(chatId);
