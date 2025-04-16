@@ -13,6 +13,7 @@ export const config = {
     port: !isNaN(port) ? port : DEFAULT_PORT,
     recursos: join(dirname(import.meta.dirname), 'static'),
     vistas: join(dirname(import.meta.dirname), 'vistas'),
+    uploads: join(dirname(import.meta.dirname), 'uploads'),
     session: {
         resave: false,
         saveUninitialized: true,

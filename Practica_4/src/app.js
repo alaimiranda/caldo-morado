@@ -7,6 +7,7 @@ https://appsupport.academy/play-by-play-nodejs-express-sessions-storage-configur
 */
 import express from 'express';
 import session from 'express-session';
+import multer from "multer";
 import { config } from './config.js';
 import usuariosRouter from './usuarios/router.js';
 import contenidoRouter from './contenido/router.js';
@@ -15,6 +16,8 @@ import { Publicacion } from './publicaciones/Publicacion.js';
 import chatRouter from './chat/router.js';
 
 export const app = express();
+
+//const upload = multer({ dest: config.uploads }); //Para la subida de archivos
 
 app.set('view engine', 'ejs');
 app.set('views', config.vistas);
