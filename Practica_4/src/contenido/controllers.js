@@ -16,7 +16,6 @@ export function viewContenidoNormal(req, res) {
 }
 
 
-
 export function viewTop(req, res) {
     let contenido = 'paginas/top_del_fogon';
     res.render('pagina', {
@@ -25,6 +24,7 @@ export function viewTop(req, res) {
         publicaciones: Publicacion.getMejoresPublicaciones()
     });
 }
+
 export function viewCocinar(req, res) {
     let contenido = 'paginas/normal';
     if (req.session !== null && req.session.login) {
@@ -52,9 +52,11 @@ export function viewContenidoAdmin(req, res) {
 export function viewPerfil(req, res) {
     let contenido = 'paginas/perfil';
     const username = req.session.username; // Obtener el username desde la sesión
+    const user = Usuario.getUsuarioByUsername(username);
     res.render('pagina', {
         contenido,
         session: req.session,
+        fotoperfil: user.fotoperfil,
         publicaciones: Publicacion.getPublicacionesByCreador(username)
     });
 }
