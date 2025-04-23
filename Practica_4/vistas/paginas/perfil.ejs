@@ -10,7 +10,12 @@ function mostrarUsername(session){
 
 <div class="general">
     <div class="cabecera-perfil">
-        <img src="/iconos/perfil_imagen.jpg" alt="Imagen de perfil" class="perfil-img">
+        <% if (fotoperfil != null) { %>
+            <img src="/imagen/<%= fotoperfil %>" alt="Imagen de perfil" class="perfil-img">
+        <% } else { %>
+            <img src="/iconos/perfil_imagen.jpg" alt="Imagen de perfil" class="perfil-img">
+        <% } %>
+        
         <div class="texto-cabecera-perfil">
             <div class="username">
                 <%-`<h1>${session.username}</h1>` %>
