@@ -1,4 +1,5 @@
 import bcrypt from "bcryptjs";
+import { Multimedia } from "../multimedia/Multimedia.js";
 
 export class Publicacion {
     static #getByTituloStmt = null;
@@ -72,6 +73,9 @@ export class Publicacion {
             result = this.#insertStmt.run(datos);
 
             publicacion.#id = result.lastInsertRowid;
+
+            Multimedia.createNew(publicacion.#id);
+
         } catch(e) { // SqliteError: https://github.com/WiseLibs/better-sqlite3/blob/master/docs/api.md#class-sqliteerror
             if (e.code === 'SQLITE_CONSTRAINT') {
                 throw new PublicacionYaExiste(publicacion.#titulo);
@@ -107,6 +111,7 @@ export class Publicacion {
     #creador_5;
     #likes;
     #fecha;
+    
 
     constructor(titulo, creador_1, creador_2, creador_3, creador_4, creador_5, fecha, likes=0, id = null) {
         this.#titulo = titulo;

@@ -18,6 +18,7 @@ export function publish(req, res) {
         let colab4 = colaboradores[3] || null;
         let colab5 = colaboradores[4] || null;
 
+
         if (!colab2) {
             return res.render('pagina', {
                 contenido: 'paginas/cocinar',
