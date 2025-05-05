@@ -3,6 +3,7 @@ import { Publicacion } from "./publicaciones/Publicacion.js";
 import { Chat } from "./chat/Chat.js";
 import { Mensaje } from "./mensaje/Mensaje.js";
 import { Guardado } from "./guardados/Guardado.js";
+import { Multimedia } from "./multimedia/Multimedia.js";
 
 export function inicializaModelos(db) {
     Usuario.initStatements(db);
@@ -10,4 +11,5 @@ export function inicializaModelos(db) {
     Chat.initStatemests(db);
     Mensaje.initStatements(db);
     Guardado.initStatements(db);
+    Multimedia.initStatements(db);
 }
