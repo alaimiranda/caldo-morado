@@ -67,7 +67,6 @@ export function viewRecetario(req, res) {
         const g = Guardado.getGuardadosByUser(username);
         const guardados = [];
         g.forEach((guardado) => guardados.push(Publicacion.getPublicacionById(guardado.id)));
-        //guardados.forEach((element) => console.log(element));
         res.render('pagina', {
             contenido,
             session: req.session,

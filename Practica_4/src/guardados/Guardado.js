@@ -20,7 +20,6 @@ export class Guardado {
     static getGuardadosByUser(user) {
         const datos = {user};
         const guardados = this.#searchByUser.all(datos);
-        //console.log(guardados);
         return guardados;
     }
 

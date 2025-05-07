@@ -26,7 +26,6 @@ export class Usuario {
     
     static getAllUsers(){
         const usuarios = this.#searchall.all();
-        console.log(usuarios);
         return usuarios;
     }
 
