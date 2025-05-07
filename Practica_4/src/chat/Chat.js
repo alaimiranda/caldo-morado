@@ -31,6 +31,10 @@ export class Chat{
     static getChatsByUsername(username) {
         const chats = this.#getChatsByUsername.all({ username });
         if (chats === undefined) throw new ChatNoEncontrado(username);
+        let cht = new Array();
+        chats.forEach(c => {
+            cht.push(new Chat(c.username_1, c.username_2, c.id));
+        });
         return chats;
     }
 

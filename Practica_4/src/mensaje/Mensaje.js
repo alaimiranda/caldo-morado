@@ -12,7 +12,11 @@ export class Mensaje{
     static getMessagesByChat(id_chat) {
         const mensajes = this.#getMessagesByChat.all({ id_chat });
         if (mensajes === undefined) throw new MensajeNoEncontrado(id_chat);
-        return mensajes;
+        let msgs = new Array();
+        mensajes.forEach(m => {
+            msgs.push(new Mensaje(m.id_chat, m.username, m.mensaje, m.fecha, m.id));
+        });
+        return msgs;
     }
 
     static #insert(mensaje) {
