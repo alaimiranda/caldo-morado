@@ -22,7 +22,7 @@ export function viewTop(req, res) {
     res.render('pagina', {
         contenido,
         session: req.session,
-        publicaciones: Publicacion.getMejoresPublicaciones()
+        publicaciones: Publicacion.getMejoresPublicacionesUltimos7dias()
     });
 }
 export function viewCocinar(req, res) {
