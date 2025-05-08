@@ -34,6 +34,24 @@ export class Publicacion {
         return publicaciones;
     }
 
+    
+    static getMejoresPublicacionesUltimos7dias() {
+        const publicaciones = this.#searchBest.all();
+        const ahora = new Date();
+        const publicacionesRecientes = publicaciones.filter(publicacion => {
+            const fechaPublicacion = new Date(publicacion.fecha.replace(/\//g, '-')); // Convertir a formato válido
+            const diferenciaDias = (ahora - fechaPublicacion) / (1000 * 60 * 60 * 24); // Diferencia en días
+            console.log("diferencia", diferenciaDias); // Imprimir diferencia de días
+            return diferenciaDias <= 7;
+            
+        });
+
+        console.log("recientes", publicacionesRecientes.length); // Imprimir publicaciones recientes
+        console.log("total",publicaciones.length); // Imprimir total de publicaciones
+        return publicacionesRecientes;
+    }
+
+
     static getPublicacionByTitulo(username) {
         const publicacion = this.#getByTituloStmt.get({ username });
         if (publicacion === undefined) throw new PublicacionNoEncontrada(titulo);
