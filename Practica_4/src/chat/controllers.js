@@ -8,9 +8,6 @@ export function newChat(req, res){
     
 }
 
-export function newMessage(req, res){
-    
-}
 export function showChat(req, res){
     const result = validationResult(req);
     if(!result.isEmpty()){
