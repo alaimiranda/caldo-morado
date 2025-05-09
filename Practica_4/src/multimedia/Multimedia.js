@@ -12,10 +12,15 @@ export class Multimedia {
         if (this.#getByTituloStmt !== null) return;
 
         //this.#getByTituloStmt = db.prepare('SELECT * FROM Multimedia WHERE id_ois = @titulo and creador_1 = @creador_1');
-        this.#insertStmt = db.prepare('INSERT INTO Multimedia (post_id, pos, archivo, tipo, texto) VALUES (@post_id, @pos, @archivo, @tipo, @texto)');
+        this.#insertStmt = db.prepare('INSERT INTO Multimedia (post_id, pos, archivo, texto) VALUES (@post_id, @pos, @archivo, @texto)');
         this.#updateStmt = db.prepare('UPDATE Multimedia SET post_id = @post_id, pos = @pos, archivo = @archivo, texto = @texto WHERE post_id = @post_id');
         this.#searchall = db.prepare('SELECT * FROM Multimedia');
         this.#searchById = db.prepare('SELECT * FROM Multimedia WHERE post_id = @id_search');
+    }
+
+    static getAllMultimedia(){
+        const multimedia = this.#searchall.all();
+        return multimedia;
     }
 
     static getMejoresMultimedia(){
@@ -65,7 +70,6 @@ export class Multimedia {
         const pos = multimedia.#pos;
         const archivo = multimedia.#archivo;
         const texto = multimedia.#texto;
-        const tipo = multimedia.#tipo;
         const datos = {post_id, pos, archivo, tipo, texto};
         
         const result = this.#updateStmt.run(datos);
@@ -78,15 +82,13 @@ export class Multimedia {
     #pos;
     #archivo;
     #texto;
-    #tipo;
 
 
-    constructor(post_id, pos, archivo, tipo, texto) {
+    constructor(post_id, pos, archivo, texto) {
         this.#post_id = post_id;
         this.#pos = pos;
         this.#archivo = archivo;
         this.#texto = texto;
-        this.#tipo = tipo;
     }
 
 
@@ -103,16 +105,13 @@ export class Multimedia {
     get texto() {
         return this.#texto;
     }
-    get tipo() {
-        return this.#tipo;
-    }
 
     static createNew(post_id) {
         let multimedia = JSON.parse(req.body.multimedia || '[]'); // Default to an empty array if not provided
         let element;
         for (let i = 0; i < multimedia; i++) {
             //pos_id, pos, archivo, texto
-            element = new Multimedia(post_id, i, multimedia.fotos[i], "tipo" , multimedia.descripciones[i]);
+            element = new Multimedia(post_id, i, multimedia.fotos[i], multimedia.descripciones[i]);
             this.#insertStmt.run(element);
         }
     }

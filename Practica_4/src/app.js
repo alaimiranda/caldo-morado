@@ -15,6 +15,7 @@ import publicacionesRouter from './publicaciones/router.js';
 import { Publicacion } from './publicaciones/Publicacion.js';
 import chatRouter from './chat/router.js';
 import { join } from 'node:path';
+import { Multimedia } from './multimedia/Multimedia.js';
 
 export const app = express();
 
@@ -31,7 +32,8 @@ app.get('/', (req, res) => {
     res.render('pagina', {
         contenido: 'paginas/index',
         session: req.session,
-        publicaciones : Publicacion.getPublicacionesOrderedByDate()
+        publicaciones : Publicacion.getPublicacionesOrderedByDate(),
+        multimedia : Multimedia.getAllMultimedia()
     });
 })
 app.use('/usuarios', usuariosRouter);

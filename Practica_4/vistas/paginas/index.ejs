@@ -1,6 +1,8 @@
 
 <% for (let i = 0; i < publicaciones.length; i++) { %>
-    <div class="feed_post">
+
+
+    <div class="feed_post" post_id = "<%= publicaciones[i].id %>" >
 
         <div class="feed_head">
         <div class="feed_tit"><h2><%= publicaciones[i].titulo %></h2></div>
@@ -11,16 +13,17 @@
         </div>
         </div>
 
-        <div class = "imgs">
+        <div class = "feed_imgs">
         <!--Carrusel de fotos-->
-        <!-- <button type="button" class = "carroussel-btn" id="anterior">←</button> -->
+        <button type="button" class = "carroussel-btn" id="feed_anterior">←</button>
         <div>
-            <div id="myImage"><img src="/iconos/Placeholder.png" width="200" alt="a"></div>
-            <input name="files" id="imagenes" type="file" multiple class="input_foto" style="display: none;">
-            <p id="pie-de-foto" class = "pie-de-foto">Aqui va el pie de foto</textarea>
+            <div id="feed_image"></div>
+            <p id="feed_pie-de-foto" class = "pie-de-foto">Aqui va el pie de foto</textarea>
         </div>
-        <!-- <button type="button" class = "carroussel-btn" id="siguiente">→</button> -->
+        <button type="button" class = "carroussel-btn" id="feed_siguiente">→</button>
         </div>
 
     </div>
   <% } %>
+
+  <script src="/js/carruselFeed.js"></script>
