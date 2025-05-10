@@ -6,7 +6,7 @@ export function publish(req, res) {
     
     try { 
         // TO-DO
-        let id_post ="";
+        let id_post ="";    // pasar por req.body ?
         let pos ="";
         let archivo ="";
         let text ="";
