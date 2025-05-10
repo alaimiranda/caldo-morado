@@ -15,7 +15,7 @@ export class Multimedia {
         this.#insertStmt = db.prepare('INSERT INTO Multimedia (post_id, pos, archivo, texto) VALUES (@post_id, @pos, @archivo, @texto)');
         this.#updateStmt = db.prepare('UPDATE Multimedia SET post_id = @post_id, pos = @pos, archivo = @archivo, texto = @texto WHERE post_id = @post_id');
         this.#searchall = db.prepare('SELECT * FROM Multimedia');
-        this.#searchById = db.prepare('SELECT * FROM Multimedia WHERE post_id = @id_search');
+        this.#searchById = db.prepare('SELECT pos, archivo, texto FROM Multimedia WHERE post_id = @id_search ORDER BY pos');
     }
 
     static getAllMultimedia(){
@@ -40,8 +40,12 @@ export class Multimedia {
     static getMultimediaById(id_search) {
         //const creadosql = creador;
         const datos = {id_search};
-        const multimedia = this.#searchById.all(datos);
-        return multimedia;
+        const resultados = this.#searchById.all(datos);
+        return resultados.map(item => ({
+            pos: item.pos,
+            archivo: item.archivo,
+            texto: item.texto || ""
+        }));
     }
 
     static #insert(multimedia) {

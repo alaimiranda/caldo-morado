@@ -29,17 +29,26 @@ app.use(session(config.session));
 
 app.use('/', express.static(config.recursos));
 app.get('/', (req, res) => {
+
+    const publicaciones = Publicacion.getPublicacionesOrderedByDate();
+    const multimediaPorPost = {};
+
+    publicaciones.forEach(post => {
+        multimediaPorPost[post.id] = Multimedia.getMultimediaById(post.id);
+    });
+
     res.render('pagina', {
         contenido: 'paginas/index',
         session: req.session,
-        publicaciones : Publicacion.getPublicacionesOrderedByDate(),
-        multimedia : Multimedia.getAllMultimedia()
+        publicaciones,
+        multimediaPorPost: JSON.stringify(multimediaPorPost)
     });
 })
 app.use('/usuarios', usuariosRouter);
 app.use('/publicaciones', publicacionesRouter);
 app.use('/contenido', contenidoRouter);
 app.use('/chat', chatRouter);
+
 
 
 app.get("/imagen/:id", (req, res) => {

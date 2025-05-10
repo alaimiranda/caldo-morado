@@ -1,73 +1,60 @@
-import { Multimedia } from "../../src/multimedia/Multimedia";
+document.addEventListener("DOMContentLoaded", function () {
 
+            const multimediaData = JSON.parse('<%- multimediaPorPost %>');
 
-let posicionActual = 1;
-let multimedia = Multimedia.getMultimediaById(post_id);
+            document.querySelectorAll(".feed_post").forEach(post => {
+                const postId = post.getAttribute("post_id");
+                const multimedia = multimediaData[postId] || [];
 
-const antBoton = document.getElementById('feed_anterior');
-const sigBoton = document.getElementById('feed_siguiente');
+                console.log("Multimedia para post", postId, multimedia);
+                if (!multimedia || multimedia.length === 0) return;
 
+                let posicionActual = 1;
 
+                const antBoton = document.getElementById(`feed_anterior_${postId}`);
+                const sigBoton = document.getElementById(`feed_siguiente_${postId}`);
+                const imagenContainer = document.getElementById(`feed_image_${postId}`);
+                const pieDeFoto = document.getElementById(`feed_pie-de-foto_${postId}`);
 
-function pasarFoto() {
-    if (posicionActual < multimedia.length) {
-        posicionActual++;
-    } 
-    renderizarImagen();
-}
+                console.log("imagenContainer", imagenContainer);
 
-function retrocederFoto() {
-    if (posicionActual > 1) {
-        posicionActual--;
-    }
-    renderizarImagen();
-}
+                function renderizarImagen() {
+                    console.log("renderizando imagen para post", postId);
+                    const actual = multimedia.find(m => m.pos === posicionActual);
+                    console.log("imagen actual", actual);
+                    if (!actual) return;
 
-function renderizarImagen() {
-    const imagenContainer = document.getElementById("feed_image");
-    // Solo se muestran los botones de siguiente y anterior si hay más de una foto
-    if (multimedia.length === 1){
-        sigBoton.style.opacity = 0;
-        antBoton.style.opacity = 0;
-    }else{
-        // Si hay más de una foto se comprueba si es la primera o última foto para mostrar u ocultar los botones 
-        if(posicionActual === 1){
-            antBoton.style.opacity = 0;
-            sigBoton.style.opacity = 1;
-            sigBoton.disabled = false;
-        }else if(posicionActual === multimedia.length){
-            antBoton.style.opacity = 1;
-            sigBoton.style.opacity = 0;
-            antBoton.disabled = false;
-        }else{
-            antBoton.style.opacity = 1;
-            sigBoton.style.opacity = 1;
-            antBoton.disabled = false;
-            sigBoton.disabled = false;
-        }
-    } 
+                    imagenContainer.style.backgroundImage = `url('/imagen/${actual.archivo}')`;
+                    imagenContainer.style.backgroundSize = "contain";
+                    imagenContainer.style.backgroundRepeat = "no-repeat";
+                    imagenContainer.style.backgroundPosition = "center";
+                    imagenContainer.style.width = "450px";
+                    imagenContainer.style.height = "450px";
 
-    let found = false;
-    let i = 1;
-    let actual;
-    while(!found || i <= multimedia.length){
-        if(multimedia[i].pos === posicionActual){
-            actual = multimedia[i];
-            found = true;
-        }
-        else i++;
-    }
+                    pieDeFoto.textContent = actual.pie || ""; // Asume que hay una propiedad "pie"
 
-    if (imagenContainer) {
-        imagenContainer.style.backgroundImage = `url('${/imagen/actual.archivo}')`;
-        imagenContainer.style.backgroundSize = "contain"; 
-        imagenContainer.style.backgroundRepeat = "no-repeat";
-        imagenContainer.style.backgroundPosition = "center";
-        imagenContainer.style.width = "450px";
-        imagenContainer.style.height = "450px";
-    }
-}
+                    // Control de botones
+                    antBoton.style.opacity = posicionActual === 1 ? 0 : 1;
+                    sigBoton.style.opacity = posicionActual === multimedia.length ? 0 : 1;
+                }
 
-document.getElementById('feed_anterior').addEventListener('click', retrocederFoto);
-document.getElementById('feed_siguiente').addEventListener('click', pasarFoto);
-renderizarImagen();
+                function pasarFoto() {
+                    if (posicionActual < multimedia.length) {
+                        posicionActual++;
+                        renderizarImagen();
+                    }
+                }
+
+                function retrocederFoto() {
+                    if (posicionActual > 1) {
+                        posicionActual--;
+                        renderizarImagen();
+                    }
+                }
+
+                antBoton.addEventListener("click", retrocederFoto);
+                sigBoton.addEventListener("click", pasarFoto);
+
+                renderizarImagen();
+            });
+        });
