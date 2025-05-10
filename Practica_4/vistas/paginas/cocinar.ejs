@@ -1,47 +1,46 @@
-<link rel="stylesheet" href="/css/cocinar.css">
 
 <h1>Publica tu nueva receta!</h1>
 
 <form action="/publicaciones/newPost" method="POST">
     
-    <div class="general">
-        <div class = "titulo">
-            <input class = "titulo_receta" type="text" id="titulo" name="titulo" required placeholder="Introduce el título de tu receta...">
-            <button type="reset" class = "cancel-btn" onclick="borrarFotos()"> X </button>
+    <div class="cocinar-general">
+        <div class = "cocinar-titulo">
+            <input class = "cocinar-titulo_receta" type="text" id="titulo" name="titulo" required placeholder="Introduce el título de tu receta...">
+            <button type="reset" class = "cocinar-cancel-btn" onclick="borrarFotos()"> X </button>
         </div>
-        <div class="columnas">
-            <div class = "col1">
+        <div class="cocinar-columnas">
+            <div class = "cocinar-col1">
                 <!--Carrusel de fotos-->
-                <button type="button" class = "carroussel-btn" id="anterior">←</button>
+                <button type="button" class = "cocinar-carroussel-btn" id="anterior">←</button>
                 <div>
-                    <div id="myImage"></div>
-                    <button class="carroussel-btn" id="add-image-btn">+</button>
-                    <input name="files" id="imagenes" type="file" multiple class="input_foto" style="display: none;">
-                    <button class="carroussel-btn delete-btn" id="delete-image-btn">🗑</button>
-                    <textarea id="pie-de-foto" class = "pie-de-foto">Introduce un pie de foto...</textarea>
+                    <div id="cocinar-myImage"></div>
+                    <button class="cocinar-carroussel-btn" id="add-image-btn">+</button>
+                    <input name="files" id="imagenes" type="file" multiple class="cocinar-input_foto" style="display: none;">
+                    <button class="cocinar-carroussel-btn delete-btn" id="delete-image-btn">🗑</button>
+                    <textarea id="pie-de-foto" class = "cocinar-pie-de-foto">Introduce un pie de foto...</textarea>
                 </div>
-                <button type="button" class = "carroussel-btn" id="siguiente">→</button>
+                <button type="button" class = "cocinar-carroussel-btn" id="siguiente">→</button>
             </div>
-            <div class = col2>
+            <div class = cocinar-col2>
                 <label>Colaboradores:</label>
-                <div class = "colab-container">
-                    <input type="text" id="colaborador-input" class="colaborador-input" placeholder="Busca colaboradores..." oninput="fillSelect()">
-                    <div class = "select-container">
-                        <select name ="Colaboradores" id="colab-select" class ="colab-select">
+                <div class = "cocinar-colab-container">
+                    <input type="text" id="colaborador-input" class="cocinar-colaborador-input" placeholder="Busca colaboradores..." oninput="fillSelect()">
+                    <div class = "cocinar-select-container">
+                        <select name ="Colaboradores" id="colab-select" class ="cocinar-colab-select">
                             <option>Elige un colaborador...</option>
                             <% for (let i = 0; i < usuarios.length; i++) { %>
                                 <option><%= usuarios[i].username %></option>
                             <% } %>
                         </select>
-                        <button type="button" class = "col-btn" id="add-colab">Añadir</button>
+                        <button type="button" class = "cocinar-col-btn" id="add-colab">Añadir</button>
                     </div>
-                    <ul id="colablist">
-                        <%-`<li class = "hidden-item">${session.username}</li>` %>
+                    <ul id="cocinar-colablist">
+                        <%-`<li class = "cocinar-hidden-item">${session.username}</li>` %>
                     </ul>
                     </div>
-                <div class = "publish-container">
+                <div class = "cocinar-publish-container">
                     <input type="hidden" name="colaboradores" id="colaboradores-hidden">
-                    <button type="submit" class = "publish-btn">Publicar</button>
+                    <button type="submit" class = "cocinar-publish-btn">Publicar</button>
                 </div>
             </div>
         </div>

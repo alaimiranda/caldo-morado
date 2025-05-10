@@ -32,7 +32,7 @@ document.getElementById('add-colab').addEventListener('click', function() {
 
                 li.appendChild(deleteSpan);
                 colaboradores[colaboradores.length] = selectedValue;
-                document.getElementById('colablist').appendChild(li);
+                document.getElementById('cocinar-colablist').appendChild(li);
             } else{
                 alert("No puedes añadir más colaboradores.");
             }

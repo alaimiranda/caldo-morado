@@ -1,12 +1,12 @@
 
-.general {
+.cocinar-general {
     padding: 20px;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-self: center;
 }
-.titulo_receta {
+.cocinar-titulo_receta {
     width:94% ;
     padding: 8px;
     border: 1px solid #ccc;
@@ -14,7 +14,7 @@
     height: 25px;
 }
 
-.titulo{
+.cocinar-titulo{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -27,7 +27,7 @@ label{
 }
 
 
-.columnas {
+.cocinar-columnas {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -35,18 +35,18 @@ label{
     margin-top: 30px;
 }
 
-.col1{
+.cocinar-col1{
     align-items: center;
     width: 40%;
     display: flex;
 }
 
-.col2{
+.cocinar-col2{
     width: 45%;
 }
 
 
-.image-placeholder {
+.cocinar-image-placeholder {
     width: 450px;
     height: 450px;
     background: #ddd;
@@ -57,7 +57,7 @@ label{
     
 }
 
-.cancel-btn {
+.cocinar-cancel-btn {
     background:  #a80e0e;
     margin-left: 20px;
     height: 40px;
@@ -66,7 +66,7 @@ label{
     border: 0px;
     color: white;
 }
-.publish-btn {
+.cocinar-publish-btn {
     background: #325d32;
     color: white;
     align-self: flex-end;
@@ -77,7 +77,7 @@ label{
     height: 30px;
 }
 
-.pie-de-foto{
+.cocinar-pie-de-foto{
     margin-top: 10px;
     width:450px;
     height: 50px;
@@ -85,16 +85,16 @@ label{
     min-width: 450px;
     min-height: 50px;
 }
-.colaboradores{
+.cocinar-colaboradores{
     width: 100%;
     height: 100px;
 }
-.carroussel-btn{
+.cocinar-carroussel-btn{
     width: 40px;
     height: 40px;
 }
 
-#myImage {
+#cocinar-myImage {
     width: 450px;
     height: 450px;
     background-size: cover;
@@ -103,17 +103,17 @@ label{
     background-color: rgb(195, 195, 195);
     border-radius: 5px;
 }
-#add-image-btn{
+#cocinar-add-image-btn{
     margin-left: 45%;
 }
 
-.colab-select {
+.cocinar-colab-select {
     width: 70%;
     height: 30px;
     line-height: 30px; /* Asegura que el texto esté centrado */
 }
 
-.col-btn {
+.cocinar-col-btn {
     height: 30px;
     width: 60px; 
     display: flex;
@@ -124,7 +124,7 @@ label{
     border-radius: 5px;
 }
 
-.select-container {
+.cocinar-select-container {
     display: flex;
     align-items: center;
     width: 100%;
@@ -132,7 +132,7 @@ label{
     
 }
 
-.colab-container{
+.cocinar-colab-container{
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -140,7 +140,7 @@ label{
     max-height: 300px;
 }
 
-.publish-container{
+.cocinar-publish-container{
     display: flex;
     justify-content: right;
     width: 100%;
@@ -148,7 +148,7 @@ label{
     justify-self: flex-end;
 }
 
-#colablist li {
+#cocinar-colablist li {
     width: 60%;
     background-color: #ddd;
     padding: 8px;
@@ -160,7 +160,7 @@ label{
     border: #000 1px solid;
 }
 
-.colaborador-input{
+.cocinar-colaborador-input{
     width: 70%;
     height: 30px;
     min-height: 30px;
@@ -168,6 +168,6 @@ label{
     border-radius: 5px;
     border: 1px;
 }
-.hidden-item {
+.cocinar-hidden-item {
     display: none !important; /* Oculta completamente el elemento */
 }

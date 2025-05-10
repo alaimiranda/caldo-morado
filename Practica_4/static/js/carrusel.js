@@ -74,7 +74,7 @@ function borrarFotos(){
 }
 
 function renderizarImagen() {
-    const imagenContainer = document.getElementById("myImage");
+    const imagenContainer = document.getElementById("cocinar-myImage");
     const descripcionInput = document.getElementById("pie-de-foto");
     // Solo se muestran los botones de siguiente y anterior si hay más de una foto
     if(fotos.length === 0){

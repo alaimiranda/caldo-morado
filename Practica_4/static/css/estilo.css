@@ -227,3 +227,365 @@ thead{
     content: url("/iconos/save_relleno.png");
 }
 
+
+#chat-list {
+    flex-grow: 1;  /* Hace que la lista de chats se expanda */
+    overflow-y: auto;
+}
+
+/* Cada chat debe adaptarse */
+.chat-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    cursor: pointer;
+}
+
+.chat-item:hover {
+    background: #f5f5f5;
+}
+
+.chat-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin-right: 15px;
+}
+
+.chat-info {
+    flex-grow: 1;
+}
+
+.chat-info strong {
+    display: block;
+    font-size: 16px;
+}
+
+.chat-info .last-message {
+    color: gray;
+    font-size: 14px;
+}
+
+.chat-time {
+    font-size: 12px;
+    color: gray;
+}
+
+.msg-container {
+	display: flex;
+	flex-direction: column;
+	height: 1000px;
+}
+
+.msg-header {
+	padding: 10px;
+	background: #eddec9;
+	display: flex;
+	align-items: center;
+}
+
+.msg-messages {
+	flex: 1;
+	overflow-y: auto;
+	padding: 10px;
+	background: #faf0e2;
+}
+
+.msg-mensaje {
+	max-width: 60%;
+	margin: 5px 0;
+	padding: 10px;
+	border-radius: 10px;
+}
+
+.msg-mio {
+	background: #eddec9;
+	margin-left: auto;
+	text-align: right;
+}
+
+.msg-otro {
+	background: #eddec9;
+	margin-right: auto;
+	text-align: left;
+}
+
+.msg-input {
+	display: flex;
+	padding: 10px;
+	border-top: 1px solid #eddec9;
+	background: #faf0e2;
+}
+.tab-col1{
+    text-align: center;
+    max-width: 5%;
+    width: 5%;
+}
+.tab-col2{
+    width: 40%;
+}
+
+th{
+    background-color: #eddec9;
+    color: #635239;
+    padding: 10px;
+    text-align: left;
+    align-items: center;
+}
+
+table{
+    width: 100%;
+    margin-top: 20px;
+}
+
+
+.cocinar-general {
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
+.cocinar-titulo_receta {
+    width:94% ;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 25px;
+}
+
+.cocinar-titulo{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+}
+
+label{
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+
+.cocinar-columnas {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2%;
+    margin-top: 30px;
+}
+
+.cocinar-col1{
+    align-items: center;
+    width: 40%;
+    display: flex;
+}
+
+.cocinar-col2{
+    width: 45%;
+}
+
+
+.cocinar-image-placeholder {
+    width: 450px;
+    height: 450px;
+    background: #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    
+}
+
+.cocinar-cancel-btn {
+    background:  #a80e0e;
+    margin-left: 20px;
+    height: 40px;
+    width: 40px;
+    border-radius: 5px;
+    border: 0px;
+    color: white;
+}
+.cocinar-publish-btn {
+    background: #325d32;
+    color: white;
+    align-self: flex-end;
+    margin-top: 20px;
+    border-radius: 5%;
+    border: 0px;
+    width: 60px;
+    height: 30px;
+}
+
+.cocinar-pie-de-foto{
+    margin-top: 10px;
+    width:450px;
+    height: 50px;
+    max-width: 450px;
+    min-width: 450px;
+    min-height: 50px;
+}
+.cocinar-colaboradores{
+    width: 100%;
+    height: 100px;
+}
+.cocinar-carroussel-btn{
+    width: 40px;
+    height: 40px;
+}
+
+#cocinar-myImage {
+    width: 450px;
+    height: 450px;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid #ccc; 
+    background-color: rgb(195, 195, 195);
+    border-radius: 5px;
+}
+#cocinar-add-image-btn{
+    margin-left: 45%;
+}
+
+.cocinar-colab-select {
+    width: 70%;
+    height: 30px;
+    line-height: 30px; /* Asegura que el texto esté centrado */
+}
+
+.cocinar-col-btn {
+    height: 30px;
+    width: 60px; 
+    display: flex;
+    align-items: center;
+    border: 1px solid #000;
+    justify-content: center;
+    padding: 0;
+    border-radius: 5px;
+}
+
+.cocinar-select-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    
+}
+
+.cocinar-colab-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100px;
+    max-height: 300px;
+}
+
+.cocinar-publish-container{
+    display: flex;
+    justify-content: right;
+    width: 100%;
+    height: 70%;
+    justify-self: flex-end;
+}
+
+#cocinar-colablist li {
+    width: 60%;
+    background-color: #ddd;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: #000 1px solid;
+}
+
+.cocinar-colaborador-input{
+    width: 70%;
+    height: 30px;
+    min-height: 30px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px;
+}
+.cocinar-hidden-item {
+    display: none !important; /* Oculta completamente el elemento */
+}
+
+/* Estilos generales para la cabecera del perfil */
+.cabecera-perfil {
+    display: flex;
+    align-items: center;
+    background-color: #eddec9;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px #635239;
+    padding: 20px;
+    margin: 20px auto;
+}
+
+.perfil-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.texto-cabecera-perfil {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.username {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* barra horizontal de estadisticas */
+.stats {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-item p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #635239;
+}
+
+
+/* publicaciones */
+.publicaciones {
+    margin-top: 20px;
+}
+
+.publicacion{
+    display: flex;
+    border-top: #635239 1.5px solid;
+    /*border-bottom: #635239 1px solid;*/
+    align-items: center;
+}
+
+.contributor-img{
+    margin: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.texto-publicacion{
+    margin: 10px;
+    margin-left: 20px;
+}
