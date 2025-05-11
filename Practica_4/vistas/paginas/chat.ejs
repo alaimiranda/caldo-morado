@@ -17,9 +17,17 @@
                     <% } else { %>
                         <strong><%= chat.username_1 %></strong>
                     <% } %>
-                    <span class="last-message">Último mensaje...</span>
+                    <span class="last-message">
+                        <% if (chat.ult_mensaje.length > 20) { %>
+                            <%= chat.ult_mensaje.substring(0, 20) + "..." %>
+                        <% } else { %>
+                            <%= chat.ult_mensaje %>
+                        <% } %>
+                    </span>
                 </div>
-                <div class="chat-time">12:34</div>
+                <div class="chat-time">
+                    <%= chat.fecha_ult %>
+                </div>
             </a>
         <% }) %>
     <% } else { %>

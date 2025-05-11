@@ -9,6 +9,16 @@ export class Mensaje{
         this.#insertStmt = db.prepare('INSERT INTO Mensajes(id_chat, username, mensaje, fecha) VALUES (@id_chat, @username, @mensaje_texto, @fecha)');
     }
 
+    static getLastMessageFromChat(id_chat){
+        const mensajes = this.#getMessagesByChat.all({ id_chat });
+        if (mensajes === undefined) throw new MensajeNoEncontrado(id_chat);
+        let msgs = new Array();
+        mensajes.forEach(m => {
+            msgs.push(new Mensaje(m.id_chat, m.username, m.mensaje, m.fecha, m.id));
+        });
+        return msgs[msgs.length()];
+    }
+
     static getMessagesByChat(id_chat) {
         const mensajes = this.#getMessagesByChat.all({ id_chat });
         if (mensajes === undefined) throw new MensajeNoEncontrado(id_chat);

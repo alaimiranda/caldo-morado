@@ -89,7 +89,14 @@ export function viewChat(req, res) {
         contenido = 'paginas/chat';
         const sessionUsername = req.session.username; 
         const chats = Chat.getChatsByUsername(sessionUsername);
-    
+        chats.forEach((chat) => {
+            chat.fecha_ult = new Date(chat.fecha_ult);
+            let hora_aux = chat.fecha_ult.getHours() < 10 ? '0' + chat.fecha_ult.getHours() : chat.fecha_ult.getHours();
+            hora_aux = hora_aux + ':' + (chat.fecha_ult.getMinutes() < 10 ? '0' + chat.fecha_ult.getMinutes() : chat.fecha_ult.getMinutes());
+            chat.fecha_ult = hora_aux;
+        });
+        console.log(chats);
+        
         res.render('pagina', {
             contenido,
             session: req.session,
