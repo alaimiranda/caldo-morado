@@ -1,9 +1,12 @@
 import express from "express";
-import { newChat, newMessage, showChat } from "./controllers.js";
+import { newChat,showChat } from "./controllers.js";
+import { autenticado } from '../middleware/auth.js';
+import asyncHandler from 'express-async-handler';
+
 
 const chatRouter = express.Router();
 
-chatRouter.post('/newChat', newChat);
-chatRouter.get('/:chatId', showChat);
+chatRouter.post('/newChat', autenticado(null), asyncHandler(newChat)); // TODO: FALTA COMPROBAR QUE NO ESTA VACIO EL CAMPO DEL USUARIO
+chatRouter.get('/:chatId', autenticado(null), asyncHandler(showChat));
 
 export default chatRouter;

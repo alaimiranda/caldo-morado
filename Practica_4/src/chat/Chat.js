@@ -17,7 +17,7 @@ export class Chat{
         const chat = this.#getChatById.get({ id });
         if (chat === undefined) throw new ChatNoEncontrado(id);
         const {username_1, username_2} = chat;
-        return new Chat(id, username_1, username_2);
+        return new Chat(username_1, username_2, id);
     }
 
     static getChatByUsernames(username_1, username_2) {
@@ -25,12 +25,16 @@ export class Chat{
         if (chat === undefined) throw new ChatNoEncontrado(username_1, username_2);
 
         const {id} = chat;
-        return new Chat(id, username_1, username_2);
+        return new Chat(username_1, username_2, id);
     }
 
     static getChatsByUsername(username) {
         const chats = this.#getChatsByUsername.all({ username });
         if (chats === undefined) throw new ChatNoEncontrado(username);
+        let cht = new Array();
+        chats.forEach(c => {
+            cht.push(new Chat(c.username_1, c.username_2, c.id));
+        });
         return chats;
     }
 
@@ -57,10 +61,10 @@ export class Chat{
     #username_1;
     #username_2;
 
-    constructor(id = null, username_1, username_2) {
-        this.#id = id;
+    constructor(username_1, username_2, id = null) {
         this.#username_1 = username_1;
         this.#username_2 = username_2;
+        this.#id = id;
     }
 
     get id() {
