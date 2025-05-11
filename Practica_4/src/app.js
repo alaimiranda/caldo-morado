@@ -15,6 +15,7 @@ import publicacionesRouter from './publicaciones/router.js';
 import { Publicacion } from './publicaciones/Publicacion.js';
 import chatRouter from './chat/router.js';
 import { join } from 'node:path';
+import { Multimedia } from './multimedia/Multimedia.js';
 
 export const app = express();
 
@@ -28,16 +29,26 @@ app.use(session(config.session));
 
 app.use('/', express.static(config.recursos));
 app.get('/', (req, res) => {
+
+    const publicaciones = Publicacion.getPublicacionesOrderedByDate();
+    const multimediaPorPost = {};
+
+    publicaciones.forEach(post => {
+        multimediaPorPost[post.id] = Multimedia.getMultimediaById(post.id);
+    });
+
     res.render('pagina', {
         contenido: 'paginas/index',
         session: req.session,
-        publicaciones : Publicacion.getPublicacionesOrderedByDate()
+        publicaciones,
+        multimediaPorPost: JSON.stringify(multimediaPorPost)
     });
 })
 app.use('/usuarios', usuariosRouter);
 app.use('/publicaciones', publicacionesRouter);
 app.use('/contenido', contenidoRouter);
 app.use('/chat', chatRouter);
+
 
 
 app.get("/imagen/:id", (req, res) => {
