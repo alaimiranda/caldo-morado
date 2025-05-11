@@ -1,3 +1,4 @@
+import {Chat} from '../chat/Chat.js';
 export class Mensaje{
    static #getMessagesByChat = null;
    static #insertStmt = null;
@@ -39,6 +40,12 @@ export class Mensaje{
             const datos = { id_chat, username, mensaje_texto, fecha };
 
             result = this.#insertStmt.run(datos);
+            let chat = Chat.getChatById(id_chat);
+            console.log(chat.id);
+            chat.ult_mensaje = mensaje_texto;
+            chat.fecha_ult = fecha;
+            
+            chat.persists();
 
             mensaje.#id = result.lastInsertRowid;
         } catch (error) {

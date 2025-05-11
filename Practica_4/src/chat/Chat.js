@@ -5,6 +5,7 @@ export class Chat{
     static #insertStmt = null;
     static #getChatsByUsername = null;
     static #getChatById = null;
+    static #updateStmt = null;
    
     static initStatemests(db) {
         if (this.#getChatByUsernames !== null) return;
@@ -13,6 +14,7 @@ export class Chat{
         this.#insertStmt = db.prepare('INSERT INTO Chats(username_1, username_2, ult_mensaje, fecha_ult) VALUES (@username_1, @username_2, @ult_mensaje, @fecha_ult)');
         this.#getChatsByUsername = db.prepare('SELECT * FROM Chats WHERE username_1 = @username OR username_2 = @username ORDER BY fecha_ult DESC');
         this.#getChatById = db.prepare('SELECT * FROM Chats WHERE id = @id');
+        this.#updateStmt = db.prepare('UPDATE Chats SET ult_mensaje = @ult_mensaje, fecha_ult = @fecha_ult WHERE username_1 = @username_1 AND username_2 = @username_2');
     }
      
     static getChatById(id) {
@@ -62,6 +64,18 @@ export class Chat{
         return result;
     }
 
+        static #update(chat) {
+            const username_1 = chat.#username_1;
+            const username_2 = chat.#username_2;
+            const fecha_ult = chat.#fecha_ult;
+            const ult_mensaje = chat.#ult_mensaje;
+            const datos = { username_1, username_2, fecha_ult, ult_mensaje };
+            const result = this.#updateStmt.run(datos);
+            if (result.changes === 0) throw new ChatNoEncontrado(titulo);
+    
+            return chat;
+        }
+
     #id;
     #username_1;
     #username_2;
@@ -91,10 +105,16 @@ export class Chat{
     get ult_mensaje() {
         return this.#ult_mensaje;
     }
+    set fecha_ult(fecha_ult) {
+        this.#fecha_ult = fecha_ult;
+    }
+    set ult_mensaje(ult_mensaje) {
+        this.#ult_mensaje = ult_mensaje;
+    }
 
     persists(){
         if (this.#id === null) return Chat.#insert(this);
-        return ChatNoEncontrado(this);
+        return Chat.#update(this);
     }
         
 }
