@@ -18,7 +18,7 @@ export class Usuario {
         if (this.#getByUsernameStmt !== null) return;
 
         this.#getByUsernameStmt = db.prepare('SELECT * FROM Usuarios WHERE username = @username');
-        this.#insertStmt = db.prepare('INSERT INTO Usuarios(username, password, email, rol) VALUES (@username, @password, @email, @rol)');
+        this.#insertStmt = db.prepare('INSERT INTO Usuarios(username, password, email, rol, fotoperfil) VALUES (@username, @password, @email, @rol, @fotoperfil)');
         this.#updateStmt = db.prepare('UPDATE Usuarios SET username = @username, password = @password, rol = @rol, email = @email WHERE id = @id');
         this.#searchall = db.prepare('SELECT * FROM Usuarios');
         this.#searchlike = db.prepare('SELECT * FROM Usuarios WHERE username LIKE @username');
@@ -26,7 +26,6 @@ export class Usuario {
     
     static getAllUsers(){
         const usuarios = this.#searchall.all();
-        console.log(usuarios);
         return usuarios;
     }
 
@@ -39,9 +38,9 @@ export class Usuario {
         const usuario = this.#getByUsernameStmt.get({ username });
         if (usuario === undefined) throw new UsuarioNoEncontrado(username);
 
-        const { password, rol, email, id } = usuario;
+        const { password, rol, email, id, fotoperfil } = usuario;
 
-        return new Usuario(username, password, email, rol, id);
+        return new Usuario(username, password, email, fotoperfil, rol, id);
     }
 
     static getUsuarioLike(username) {
@@ -58,8 +57,9 @@ export class Usuario {
             const nuevoPassword = usuario.#password;
             const password = bcrypt.hashSync(nuevoPassword);
             const email = usuario.email;
+            const fotoperfil = usuario.fotoperfil;
             const rol = usuario.rol;
-            const datos = {username, password, email, rol};
+            const datos = {username, password, email, rol, fotoperfil};
 
             result = this.#insertStmt.run(datos);
 
@@ -106,11 +106,13 @@ export class Usuario {
     #password;
     rol;
     email;
+    fotoperfil;
 
-    constructor(username, password, email, rol = RolesEnum.USUARIO, id = null) {
+    constructor(username, password, email, fotoperfil, rol = RolesEnum.USUARIO, id = null) {
         this.#username = username;
         this.#password = password;
         this.email = email;
+        this.fotoperfil = fotoperfil;
         this.rol = rol;
         this.#id = id;
     }

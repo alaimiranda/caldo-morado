@@ -1,4 +1,5 @@
 import bcrypt from "bcryptjs";
+import { Multimedia } from "../multimedia/Multimedia.js";
 
 export class Publicacion {
     static #getByTituloStmt = null;
@@ -23,36 +24,63 @@ export class Publicacion {
         this.#searchallOrderByDate = db.prepare('SELECT * FROM Posts ORDER BY fecha DESC');
     }
 
-    static getPublicacionesOrderedByDate(){
-        const publicaciones = this.#searchallOrderByDate.all();
-        return publicaciones;
+    static getPublicacionesOrderedByDate() {
+            const publicaciones = this.#searchallOrderByDate.all();
+            return publicaciones;
     }
 
-    static getMejoresPublicaciones(){
+    static getMejoresPublicaciones() {
         const publicaciones = this.#searchBest.all();
         return publicaciones;
     }
+
+    
+    static getMejoresPublicacionesUltimos7dias() {
+        const publicaciones = this.#searchBest.all();
+        const ahora = new Date();
+        const publicacionesRecientes = publicaciones.filter(publicacion => {
+            const fechaPublicacion = new Date(publicacion.fecha.replace(/\//g, '-')); // Convertir a formato válido
+            const diferenciaDias = (ahora - fechaPublicacion) / (1000 * 60 * 60 * 24); // Diferencia en días
+            console.log("diferencia", diferenciaDias); // Imprimir diferencia de días
+            return diferenciaDias <= 7;
+            
+        });
+
+        console.log("recientes", publicacionesRecientes.length); // Imprimir publicaciones recientes
+        console.log("total",publicaciones.length); // Imprimir total de publicaciones
+        return publicacionesRecientes;
+    }
+
 
     static getPublicacionByTitulo(username) {
         const publicacion = this.#getByTituloStmt.get({ username });
         if (publicacion === undefined) throw new PublicacionNoEncontrada(titulo);
 
-        const { creador_1, creador_2, creador_3, creador_4, creador_5, fecha, likes, id} = publicacion;
+        const { titulo, creador_1, creador_2, creador_3, creador_4, creador_5, fecha, likes, id } = publicacion;
 
-        return new Publicacion(titulo, creador_1, creador_2, creador_3, creador_4, creador_5, fecha, likes, id);
+        return new Publicacion( titulo, creador_1, creador_2, creador_3, creador_4, creador_5, fecha, likes, id );
     }
 
     static getPublicacionesByCreador(creador) {
-        //const creadosql = creador;
-        const datos = {creador};
-        const publicaciones = this.#searchByCreador.all(datos);
-        return publicaciones;
+        const datos = { creador };
+        const publicacionesData = this.#searchByCreador.all(datos);
+
+        if (!publicacionesData || publicacionesData.length === 0)
+        throw new PublicacionNoEncontrada(creador);
+
+        let ret = [];
+        for (let i = 0; i < publicacionesData.length; i++) {
+            const { titulo, creador_1, creador_2, creador_3, creador_4, creador_5, fecha, likes, id } = publicacionesData[i];
+            ret.push(new Publicacion(titulo, creador_1, creador_2, creador_3, creador_4, creador_5, fecha, likes, id));
+        }
+
+        return ret;
     }
 
     static getPublicacionById(id_search) {
         //const creadosql = creador;
         const datos = {id_search};
-        const publicacion = this.#searchById.all(datos);
+        const publicacion = new Publicacion(this.#searchById.all(datos));
         return publicacion;
     }
 
@@ -70,8 +98,10 @@ export class Publicacion {
             const datos = {titulo, creador_1, creador_2, creador_3, creador_4, creador_5, likes, fecha};
 
             result = this.#insertStmt.run(datos);
-
             publicacion.#id = result.lastInsertRowid;
+
+            Multimedia.createNew(publicacion.#id);
+
         } catch(e) { // SqliteError: https://github.com/WiseLibs/better-sqlite3/blob/master/docs/api.md#class-sqliteerror
             if (e.code === 'SQLITE_CONSTRAINT') {
                 throw new PublicacionYaExiste(publicacion.#titulo);
@@ -120,7 +150,6 @@ export class Publicacion {
         this.#id = id;
     }
 
-
     //getters
     get titulo() {
         return this.#titulo;
@@ -149,20 +178,20 @@ export class Publicacion {
     get fecha(){
         return this.#fecha;
     }
-    
-    get creators_tostring(){
-        if(this.#creador_1 == null|| this.#creador_2 == null)
-            throw NumeroDeColaboradoresNoValido();
+
+    get creators_tostring() {
+        if (this.#creador_1 == null || this.#creador_2 == null)
+        throw NumeroDeColaboradoresNoValido();
 
         let str = this.#creador_1 + ", " + this.#creador_2;
-        if(this.#creador_3 != null){
-            str += ", " + this.#creador_3;
-            if(this.#creador_4 != null){
-                str += ", " + this.#creador_4;
-                if(this.#creador_5 != null){
-                    str += ", " + this.#creador_5;
-                }
+        if (this.#creador_3 != null) {
+        str += ", " + this.#creador_3;
+        if (this.#creador_4 != null) {
+            str += ", " + this.#creador_4;
+            if (this.#creador_5 != null) {
+            str += ", " + this.#creador_5;
             }
+        }
         }
         return str;
     }
@@ -180,8 +209,8 @@ export class Publicacion {
 
 export class PublicacionNoEncontrada extends Error {
     /**
-     * 
-     * @param {string} titulo 
+     *
+     * @param {string} titulo
      * @param {ErrorOptions} [options]
      */
     constructor(titulo, options) {

@@ -196,28 +196,52 @@ thead{
 	margin-top: 20px;
 }
 
+
+
+
 .feed_post {
-	margin-left: 20%;
-	width: 50%;
+    width: 85%;
+    max-width: 650px;
+    margin: 30px auto;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
+.feed_post:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
 
 .feed_head {
-	display: flex;	
-	align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 22px;
+    border-bottom: 2px solid #f0e6d6;
 }
 
-.feed_tit {
-	font-size: 22px;
+.feed_tit h2 {
+    margin: 0;
+    color: #5a3921;
+    font-family: "carlito-bold";
 }
 
 .feed_butt {
-	width: 100%;
-	text-align: right;
+    display: flex;
+    gap: 10px;
 }
 
-.feed_butt img {
-    transition: opacity 0.3s ease-in-out;
+.feed_butt button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    transition: all 0.3s ease;
+}
+
+.feed_butt button:hover {
+    transform: scale(1.15);
 }
 
 .feed_like:hover img {
@@ -227,3 +251,44 @@ thead{
     content: url("/iconos/save_relleno.png");
 }
 
+.feed_imgs {
+    display: grid;
+    grid-template-columns: 60px 1fr 60px;
+    align-items: center;
+    justify-items: center;
+    min-height: 450px;
+}
+
+.feed_carroussel-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #967c59;
+    color: white;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+.feed_carroussel-btn:hover {
+    background: #7a6547;
+    transform: scale(1.05);
+}
+
+.feed_image {
+	margin-top: -5%;
+	margin-bottom: -10%;
+}
+
+.feed_pie-de-foto {
+    padding: 16px 22px;
+    background: #f9f4eb;
+    color: #5a3921;
+    font-family: "carlito-italic";
+    line-height: 1.4;
+    border-top: 1px solid #f0e6d6;
+    margin: 0;
+}
+
+.feed_multimedia {
+	max-width: 450px;
+}

@@ -1,35 +1,4 @@
-
-<% for (let i = 0; i < publicaciones.length; i++) { %>
-
-
-    <div class="feed_post" post_id="<%= publicaciones[i].id %>">
-
-        <div class="feed_head">
-            <div class="feed_tit"><h2><%= publicaciones[i].titulo %></h2></div>
-            <div class="feed_butt">
-                <button class="feed_like"><img src="/iconos/like_vacio.png" width="30" alt="a"></button>
-                <button class="feed_save"><img src="/iconos/save_vacio.png" width="30" alt="a"></button>
-                <button class="feed_comment"><img src="/iconos/comentario.png" width="30" alt="a"></button>
-            </div>
-        </div>
-    
-        <div class="feed_imgs">
-            <button type="button" class="feed_carroussel-btn" id="feed_anterior_<%= publicaciones[i].id %>">←</button>
-            <div class="feed_multimedia">
-                <div id="feed_image_<%= publicaciones[i].id %>" class="feed_image"></div>
-                <p id="feed_pie-de-foto_<%= publicaciones[i].id %>" class="feed_pie-de-foto">Aquí va el pie de foto</p>
-            </div>
-            <button type="button" class="feed_carroussel-btn" id="feed_siguiente_<%= publicaciones[i].id %>">→</button>
-        </div>
-    
-    </div>
-    
-<% } %>
-
-  <!-- <script type="module" src="/js/carruselFeed.js"></script> -->
-
-  <script>
-        document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
 
             const multimediaData = JSON.parse('<%- multimediaPorPost %>');
 
@@ -37,6 +6,7 @@
                 const postId = post.getAttribute("post_id");
                 const multimedia = multimediaData[postId] || [];
 
+                console.log("Multimedia para post", postId, multimedia);
                 if (!multimedia || multimedia.length === 0) return;
 
                 let posicionActual = 1;
@@ -46,9 +16,12 @@
                 const imagenContainer = document.getElementById(`feed_image_${postId}`);
                 const pieDeFoto = document.getElementById(`feed_pie-de-foto_${postId}`);
 
+                console.log("imagenContainer", imagenContainer);
 
                 function renderizarImagen() {
+                    console.log("renderizando imagen para post", postId);
                     const actual = multimedia.find(m => m.pos === posicionActual);
+                    console.log("imagen actual", actual);
                     if (!actual) return;
 
                     imagenContainer.style.backgroundImage = `url('/imagen/${actual.archivo}')`;
@@ -58,7 +31,7 @@
                     imagenContainer.style.width = "450px";
                     imagenContainer.style.height = "450px";
 
-                    pieDeFoto.textContent = actual.texto || ""; 
+                    pieDeFoto.textContent = actual.pie || ""; // Asume que hay una propiedad "pie"
 
                     // Control de botones
                     antBoton.style.opacity = posicionActual === 1 ? 0 : 1;
@@ -85,6 +58,3 @@
                 renderizarImagen();
             });
         });
-
-  </script>
-  

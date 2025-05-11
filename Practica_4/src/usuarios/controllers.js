@@ -82,9 +82,13 @@ export function doSignup(req, res) {
     const password = req.body.password.trim();
     const email = req.body.email.trim();
     const rol = 'U';
+    let fotoperfil = null;
+    if (req.file) {
+        fotoperfil = req.file.filename;
+    }
 
     try {
-        const nuevaUsuario = new Usuario(username, password, email, rol);
+        const nuevaUsuario = new Usuario(username, password, email, fotoperfil, rol);
         nuevaUsuario.persist();
 
         return res.render('pagina', {

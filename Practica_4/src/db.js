@@ -11,7 +11,7 @@ export function getConnection() {
 
 function createConnection() {
     const options = {
-        verbose: console.log // Opcional y sólo recomendable durante desarrollo.
+        //verbose: console.log // Opcional y sólo recomendable durante desarrollo.
     };
     const db = new Database(join(dirname(import.meta.dirname), 'data', 'aw_sw.db'), options);
     db.pragma('journal_mode = WAL'); // Necesario para mejorar la durabilidad y el rendimiento
