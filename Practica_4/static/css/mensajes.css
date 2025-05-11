@@ -18,10 +18,10 @@
 .msg-messages {
 	display: flex;
   flex-direction: column;
-  gap: 10px; /* espacio entre mensajes */
+  gap: 10px; 
   padding: 10px;
-  max-height: none; /* asegurate de que no haya límites */
-  overflow: visible; /* que no haga scroll */
+  max-height: none; 
+  overflow: visible;
 }
 
 .msg-mensaje {

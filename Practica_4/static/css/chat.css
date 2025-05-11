@@ -1,9 +1,8 @@
 #chat-list {
-    flex-grow: 1;  /* Hace que la lista de chats se expanda */
+    flex-grow: 1;  
     overflow-y: auto;
 }
 
-/* Cada chat debe adaptarse */
 .chat-item {
     display: flex;
     align-items: center;
