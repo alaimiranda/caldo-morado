@@ -4,6 +4,7 @@ import { Chat } from "./chat/Chat.js";
 import { Mensaje } from "./mensaje/Mensaje.js";
 import { Guardado } from "./guardados/Guardado.js";
 import { Multimedia } from "./multimedia/Multimedia.js";
+import { Like } from "./likes/Like.js";
 
 export function inicializaModelos(db) {
     Usuario.initStatements(db);
@@ -12,4 +13,5 @@ export function inicializaModelos(db) {
     Mensaje.initStatements(db);
     Guardado.initStatements(db);
     Multimedia.initStatements(db);
+    Like.initStatements(db);
 }

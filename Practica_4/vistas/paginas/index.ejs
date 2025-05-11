@@ -32,9 +32,12 @@
         document.addEventListener("DOMContentLoaded", function () {
 
             const multimediaData = JSON.parse('<%- multimediaPorPost %>');
+            const userLikes = JSON.parse('<%- userLikes || "[]" %>');
+            const userId = '<%- session.user?.id || "" %>';
 
             document.querySelectorAll(".feed_post").forEach(post => {
                 const postId = post.getAttribute("post_id");
+                //codigo carrusel:
                 const multimedia = multimediaData[postId] || [];
 
                 if (!multimedia || multimedia.length === 0) return;
@@ -83,8 +86,45 @@
                 sigBoton.addEventListener("click", pasarFoto);
 
                 renderizarImagen();
+                //fin codigo carrusel
+            });
+                //codigo botón like
+                // Configurar like inicial
+            const likeButton = post.querySelector(".feed_like");
+            const likeImg = likeButton.querySelector("img");
+            
+            if (userId && userLikes.includes(parseInt(postId))) {
+                likeImg.src = "/iconos/like_relleno.png";
+                likeButton.classList.add("liked");
+            }
+
+            // Manejar clic en like
+            likeButton.addEventListener("click", () => {
+                if (!userId) {
+                    alert("Debes iniciar sesión para dar like");
+                    return;
+                }
+
+                fetch(`/like/${postId}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.action === "liked") {
+                        likeImg.src = "/iconos/like_relleno.png";
+                        likeButton.classList.add("liked");
+                    } else {
+                        likeImg.src = "/iconos/like_vacio.png";
+                        likeButton.classList.remove("liked");
+                    }
+                });
+                //fin codigo like
+
             });
         });
 
   </script>
-  
+ 
