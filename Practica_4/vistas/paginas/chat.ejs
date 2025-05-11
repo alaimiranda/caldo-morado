@@ -1,10 +1,11 @@
 <link rel="stylesheet" href="/css/chat.css">
 <div class="chat-header">
     <h2>Mis Chats</h2>
-    <a href="">
-        <button type="button" class="chat-new-chat">+</button>
-        <input type="text" id="chat-buscador" class="chat-buscador" placeholder="Busca colaboradores..."> <!-- Falta hacer el buscador segun los amigos (seguidores mutuos) -->
-    </a>
+    <div class="chat-header-buttons">
+        <input type="text" id="chat-buscar" class="chat-buscador" placeholder="Buscar amigos..."> 
+        <button type="button" class="chat-buscador" onclick="buscar()">Buscar</button>
+        <ul id="chat-results" class="chat-results"></ul>
+    </div>
 </div>
 <div id="chat-list">
     <% if (chats && chats.length > 0) { %>
@@ -34,3 +35,5 @@
         <p>No hay chats disponibles</p>
     <% } %>
 </div>
+
+<script src="/js/busquedaAmigos.js"></script>
