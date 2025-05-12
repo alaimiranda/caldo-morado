@@ -14,6 +14,7 @@ import contenidoRouter from './contenido/router.js';
 import publicacionesRouter from './publicaciones/router.js';
 import { Publicacion } from './publicaciones/Publicacion.js';
 import chatRouter from './chat/router.js';
+import msgRouter from './mensaje/router.js';
 import { join } from 'node:path';
 import { Multimedia } from './multimedia/Multimedia.js';
 import { Like } from './likes/Like.js';
@@ -63,12 +64,11 @@ app.use('/usuarios', usuariosRouter);
 app.use('/publicaciones', publicacionesRouter);
 app.use('/contenido', contenidoRouter);
 app.use('/chat', chatRouter);
-
-
-
+app.use('/mensaje', msgRouter);
 app.get("/imagen/:id", (req, res) => {
     res.sendFile(join(config.uploads, req.params.id));
 });
+
 
 app.post('/like/:postId', (req, res) => {
 
@@ -99,3 +99,4 @@ app.post('/like/:postId', (req, res) => {
         });
     }
 });
+

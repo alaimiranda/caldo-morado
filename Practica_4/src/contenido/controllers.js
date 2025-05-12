@@ -2,6 +2,7 @@ import { Usuario } from '../../src/usuarios/Usuario.js';
 import { Publicacion } from '../../src/publicaciones/Publicacion.js';
 import { Guardado } from '../../src/guardados/Guardado.js';
 import { Chat } from '../../src/chat/Chat.js';
+import { Seguimiento } from '../seguimiento/Seguimiento.js';
 
 
 export function viewContenidoNormal(req, res) {
@@ -21,7 +22,7 @@ export function viewTop(req, res) {
     res.render('pagina', {
         contenido,
         session: req.session,
-        publicaciones: Publicacion.getMejoresPublicaciones()
+        publicaciones: Publicacion.getMejoresPublicacionesUltimos7dias()
     });
 }
 
@@ -69,7 +70,6 @@ export function viewRecetario(req, res) {
         const g = Guardado.getGuardadosByUser(username);
         const guardados = [];
         g.forEach((guardado) => guardados.push(Publicacion.getPublicacionById(guardado.id)));
-        //guardados.forEach((element) => console.log(element));
         res.render('pagina', {
             contenido,
             session: req.session,
@@ -90,12 +90,22 @@ export function viewChat(req, res) {
         contenido = 'paginas/chat';
         const sessionUsername = req.session.username; 
         const chats = Chat.getChatsByUsername(sessionUsername);
-    
+      
+        chats.forEach((chat) => {
+            chat.fecha_ult = new Date(chat.fecha_ult);
+            let hora_aux = chat.fecha_ult.getHours() < 10 ? '0' + chat.fecha_ult.getHours() : chat.fecha_ult.getHours();
+            hora_aux = hora_aux + ':' + (chat.fecha_ult.getMinutes() < 10 ? '0' + chat.fecha_ult.getMinutes() : chat.fecha_ult.getMinutes());
+            chat.fecha_ult = hora_aux;
+        });
+
+        let amigos = Seguimiento.getAmigosByUsername(sessionUsername);
+
         res.render('pagina', {
             contenido,
             session: req.session,
             chats, 
-            sessionUsername
+            sessionUsername,
+            amigos
         });
     }else{
         res.render('pagina', {
