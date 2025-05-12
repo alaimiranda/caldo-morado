@@ -7,7 +7,13 @@
         <div class="feed_head">
             <div class="feed_tit"><h2><%= publicaciones[i].titulo %></h2></div>
             <div class="feed_butt">
-                <button class="feed_like"><img src="/iconos/like_vacio.png" width="30" alt="a"></button>
+                <span class="feed_like-counter">
+                    <%= publicaciones[i].likes || 0 %>
+                </span>
+                <button class="feed_like" data-liked="<%= userLikes.includes(publicaciones[i].id) %>">
+                    <img src="<%= userLikes.includes(publicaciones[i].id) ? '/iconos/like_relleno.png' : '/iconos/like_vacio.png' %>" 
+                        width="30" alt="like">
+                </button>
                 <button class="feed_save"><img src="/iconos/save_vacio.png" width="30" alt="a"></button>
                 <button class="feed_comment"><img src="/iconos/comentario.png" width="30" alt="a"></button>
             </div>
@@ -26,15 +32,20 @@
     
 <% } %>
 
-  <!-- <script type="module" src="/js/carruselFeed.js"></script> -->
-
   <script>
+
         document.addEventListener("DOMContentLoaded", function () {
 
             const multimediaData = JSON.parse('<%- multimediaPorPost %>');
 
+            const userLikes = JSON.parse('<%- userLikes || "[]" %>');
+            let userId = '<%= userId || "null" %>';
+            if (userId === 'null') userId = null;
+
             document.querySelectorAll(".feed_post").forEach(post => {
                 const postId = post.getAttribute("post_id");
+
+                //codigo carrusel:
                 const multimedia = multimediaData[postId] || [];
 
                 if (!multimedia || multimedia.length === 0) return;
@@ -60,7 +71,6 @@
 
                     pieDeFoto.textContent = actual.texto || ""; 
 
-                    // Control de botones
                     antBoton.style.opacity = posicionActual === 1 ? 0 : 1;
                     sigBoton.style.opacity = posicionActual === multimedia.length ? 0 : 1;
                 }
@@ -83,8 +93,54 @@
                 sigBoton.addEventListener("click", pasarFoto);
 
                 renderizarImagen();
+                //fin codigo carrusel
+
+                //codigo botón like
+                const likeButton = post.querySelector(".feed_like");
+                const likeImg = likeButton.querySelector("img");
+                
+                if (userLikes.includes(postId)) {
+                    likeImg.src = "/iconos/like_relleno.png";
+                    likeButton.classList.add("liked");
+                }
+
+                likeButton.addEventListener("click", () => {
+
+                    if (userId === null) {
+                        alert("Debes iniciar sesión para dar like");
+                        return;
+                    }
+
+                    fetch(`/like/${postId}`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Error en la respuesta");
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.liked) {
+                            likeImg.src = "/iconos/like_relleno.png";
+                            likeButton.classList.add("liked");
+                        } else {
+                            likeImg.src = "/iconos/like_vacio.png";
+                            likeButton.classList.remove("liked");
+                        }
+                    })
+                    .catch(error => {
+                        alert("Error al procesar el like");
+                    });
+                    //fin codigo like
+
+                });
             });
+            
         });
 
   </script>
-  
+ 

@@ -207,7 +207,6 @@ thead{
     border-radius: 15px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
-
 .feed_post:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
@@ -239,7 +238,6 @@ thead{
     padding: 5px;
     transition: all 0.3s ease;
 }
-
 .feed_butt button:hover {
     transform: scale(1.15);
 }
@@ -247,6 +245,16 @@ thead{
 .feed_like:hover img {
     content: url("/iconos/like_relleno.png");
 }
+.feed_like.liked img {
+    content: url("/iconos/like_relleno.png");
+}
+.feed_like-counter {
+    font-size: 1.5em;
+    color: #5a3921;
+    font-family: "carlito-bold";
+    padding: 5px 0px;
+}
+
 .feed_save:hover img {
     content: url("/iconos/save_relleno.png");
 }
