@@ -17,6 +17,7 @@ import chatRouter from './chat/router.js';
 import { join } from 'node:path';
 import { Multimedia } from './multimedia/Multimedia.js';
 import { Like } from './likes/Like.js';
+import { Usuario } from './usuarios/Usuario.js';
 
 export const app = express();
 
@@ -38,14 +39,24 @@ app.get('/', (req, res) => {
         multimediaPorPost[post.id] = Multimedia.getMultimediaById(post.id);
     });
 
-    const userLikes = req.session.user ? Like.getLikesByUser(req.session.user.id) : [];
+    let user = null;
+    let userLikes = [];
+    let userId = null;
 
+    if(req.session.username !== undefined){
+        user = Usuario.getUsuarioByUsername(req.session.username);
+        userLikes = Like.getLikesByUser(user.id);
+        userId = user.id;
+    }
+
+    console.log(userId);
     res.render('pagina', {
         contenido: 'paginas/index',
         session: req.session,
         publicaciones,
         multimediaPorPost: JSON.stringify(multimediaPorPost),
-        userlikes: JSON.stringify(userLikes.map(like => like.idPost))
+        userId: userId,
+        userLikes: JSON.stringify(userLikes)
     });
 })
 app.use('/usuarios', usuariosRouter);
@@ -60,32 +71,26 @@ app.get("/imagen/:id", (req, res) => {
 });
 
 app.post('/like/:postId', (req, res) => {
-    if (!req.session.user) {
+
+    if (!req.session.login) {
         return res.status(401).json({ error: "Debes iniciar sesión para dar like" });
     }
 
     const postId = req.params.postId;
-    const userId = req.session.user.id;
+    const userId = Usuario.getUsuarioByUsername(req.session.username).id;
     
     try {
-        // Verificar si el usuario ya dio like a este post
-        const existingLike = Like.getLikeFromUser(postId, userId);
+        const existingLike = Like.getLikeFromUserInPost(postId, userId);
         
         if (existingLike) {
-            // Si ya existe, quitamos el like
-            Like.deleteLike(postId, userId);
-            return res.json({ 
-                action: "unliked",
-                liked: false
-            });
+            Like.delete(postId, userId);
+            Publicacion.decrementLikes(postId);
+            return res.json({ liked: false });
         } else {
-            // Si no existe, añadimos el like
             const like = new Like(postId, userId);
             like.persist();
-            return res.json({ 
-                action: "liked",
-                liked: true
-            });
+            Publicacion.incrementLikes(postId);
+            return res.json({ liked: true });
         }
     } catch (error) {
         console.error("Error al manejar like:", error);

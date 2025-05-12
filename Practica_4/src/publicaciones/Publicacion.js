@@ -10,6 +10,8 @@ export class Publicacion {
     static #searchBest = null;
     static #searchById = null;
     static #searchallOrderByDate = null;
+    static #incrementLikes = null;
+    static #decrementLikes = null;
 
     static initStatements(db) {
         if (this.#getByTituloStmt !== null) return;
@@ -22,6 +24,19 @@ export class Publicacion {
         this.#searchBest = db.prepare('SELECT * FROM Posts ORDER BY likes DESC');
         this.#searchById = db.prepare('SELECT * FROM Posts WHERE id = @id_search');
         this.#searchallOrderByDate = db.prepare('SELECT * FROM Posts ORDER BY fecha DESC');
+        this.#incrementLikes = db.prepare('UPDATE Posts SET likes = likes + 1 WHERE id = @postId')
+        this.#decrementLikes = db.prepare('UPDATE Posts SET likes = likes - 1 WHERE id = @postId')
+    }
+
+    static incrementLikes(postId){
+        const datos = {postId};
+        const result = this.#incrementLikes.run(datos);
+        return result;
+    }
+    static decrementLikes(postId){
+        const datos = {postId};
+        const result = this.#decrementLikes.run(datos);
+        return result;
     }
 
     static getPublicacionesOrderedByDate(){

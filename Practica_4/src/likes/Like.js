@@ -14,10 +14,10 @@ export class Like {
         this.#deleteStmt = db.prepare('DELETE FROM Likes WHERE idPost = @idPost AND idUsuario = @idUsuario');
         this.#searchAll = db.prepare('SELECT * FROM Likes');
         this.#searchByPost = db.prepare('SELECT * FROM Likes WHERE idPost = @idPost');
-        this.#likesByUser = db.prepare('SELECT idPost FROM Likes WHERE idUsuario = ?');
+        this.#likesByUser = db.prepare('SELECT idPost FROM Likes WHERE idUsuario = @idUsuario');
         this.#getLikeFromUserInPost = db.prepare('SELECT * FROM Likes WHERE idPost = @idPost AND idUsuario = @idUsuario');
     }
-
+    
     static getLikeFromUserInPost(idPost, idUsuario){
         const datos = {idPost, idUsuario};
 
@@ -27,7 +27,7 @@ export class Like {
 
     static getLikesByUser(idUsuario){
         const datos = {idUsuario};
-        const likes = this.#likesByUser.all(datos);
+        const likes = this.#likesByUser.all(datos).map(row => row.idPost);
 
         return likes;
     }
@@ -62,20 +62,11 @@ export class Like {
         return result;
     }
 
-    static delete(like) {
-        let result = null;
-        try {
-            const idPost = like.#idPost;
-            const idUsuario = like.#idUsuario;
-            const datos = {idPost, idUsuario};
+    static delete(idPost, idUsuario) {
+        const datos = {idPost, idUsuario};
 
-            result = this.#deleteStmt.run(datos);
-        } catch(e) {
-            if(e.code === 'SQLITE_CONSTRAINT') {
-                throw new LikeNoExiste(like.#idPost, like.#idUsuario);
-            }
-            throw new ErrorDatos('No se ha borrado el like', { cause: e });
-        }
+        const result = this.#deleteStmt.run(datos);
+
         return result;
     }
 
