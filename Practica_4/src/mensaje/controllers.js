@@ -16,6 +16,7 @@ export function sendMsg(req, res){
     let texto_mensaje = req.body.msg_mensaje;
     try{
         let date = new Date().toISOString();
+        
         let chatId = req.body.chatId;
         let username = req.session.username;
         const mensaje = new Mensaje(chatId, username, texto_mensaje, date);

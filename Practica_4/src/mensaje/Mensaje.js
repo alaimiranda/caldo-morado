@@ -1,3 +1,4 @@
+import {Chat} from '../chat/Chat.js';
 export class Mensaje{
    static #getMessagesByChat = null;
    static #insertStmt = null;
@@ -7,6 +8,16 @@ export class Mensaje{
     
         this.#getMessagesByChat = db.prepare('SELECT * FROM Mensajes WHERE id_chat = @id_chat ORDER BY fecha ASC');
         this.#insertStmt = db.prepare('INSERT INTO Mensajes(id_chat, username, mensaje, fecha) VALUES (@id_chat, @username, @mensaje_texto, @fecha)');
+    }
+
+    static getLastMessageFromChat(id_chat){
+        const mensajes = this.#getMessagesByChat.all({ id_chat });
+        if (mensajes === undefined) throw new MensajeNoEncontrado(id_chat);
+        let msgs = new Array();
+        mensajes.forEach(m => {
+            msgs.push(new Mensaje(m.id_chat, m.username, m.mensaje, m.fecha, m.id));
+        });
+        return msgs[msgs.length()];
     }
 
     static getMessagesByChat(id_chat) {
@@ -29,6 +40,12 @@ export class Mensaje{
             const datos = { id_chat, username, mensaje_texto, fecha };
 
             result = this.#insertStmt.run(datos);
+            let chat = Chat.getChatById(id_chat);
+            console.log(chat.id);
+            chat.ult_mensaje = mensaje_texto;
+            chat.fecha_ult = fecha;
+            
+            chat.persists();
 
             mensaje.#id = result.lastInsertRowid;
         } catch (error) {

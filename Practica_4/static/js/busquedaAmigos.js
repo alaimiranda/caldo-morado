@@ -1,3 +1,4 @@
+
 let amigos = ["Ruben", "Diego", "Diana", "Alai", "Alba", "Gallo", "Garcia"]; // TODO: Falta importar la lista de seguidores
 
 function buscar(){
@@ -32,3 +33,5 @@ function seleccionarUsuario(usuario){
     document.getElementById('chat-redirect-form').action = `/chat/${usuario}`;
     document.getElementById('chat-redirect-form').submit();
 }
+
+

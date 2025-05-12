@@ -6,6 +6,7 @@ import asyncHandler from 'express-async-handler';
 
 const chatRouter = express.Router();
 
+
 chatRouter.post('/:user_2', autenticado(null), asyncHandler(newChat));
 chatRouter.get('/:chatId', autenticado(null), asyncHandler(showChat));
 
