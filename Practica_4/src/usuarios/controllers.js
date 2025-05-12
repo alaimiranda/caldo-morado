@@ -1,5 +1,7 @@
-import { body } from 'express-validator';
+import { body, validationResult, matchedData } from 'express-validator';
 import { Usuario, RolesEnum, UsuarioYaExiste } from './Usuario.js';
+import { render } from '../utils/render.js';
+
 
 export function viewLogin(req, res) {
     let contenido = 'paginas/login';
@@ -73,34 +75,52 @@ export function viewSignup(req, res) {
     });
 }
 
-export function doSignup(req, res) {
-    body('username').escape();
-    body('password').escape();
-    body('email').escape();
+export async function doSignup(req, res) {
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+        const errores = result.mapped();
+        const datos = matchedData(req);
+        return render(req, res, 'paginas/signup', {
+            datos,
+            errores
+        });
+    }
+
     // Capturo las variables username y password
     const username = req.body.username.trim();
     const password = req.body.password.trim();
     const email = req.body.email.trim();
     const rol = 'U';
     let fotoperfil = null;
+
+
     if (req.file) {
         fotoperfil = req.file.filename;
     }
 
     try {
-        const nuevaUsuario = new Usuario(username, password, email, fotoperfil, rol);
-        nuevaUsuario.persist();
+        const nuevaUsuario = await Usuario.creaUsuario(username, password, email, fotoperfil, rol);
+        //nuevaUsuario.persist();
 
-        return res.render('pagina', {
-            contenido: 'paginas/home',
-            session: req.session
-        });
+        req.session.login = true;
+        req.session.username = nuevaUsuario.username;
+        req.session.rol = nuevaUsuario.rol;
 
+        return res.redirect('/contenido/perfil');
     } catch (e) {
+        let error = 'No se ha podido crear el usuario';
         if (e instanceof UsuarioYaExiste) {
-            res.status(409).json({ message: e.message });
-        } else {
-            res.status(500).json({ message: 'Error creating user', e: e.message });
+            error = 'El nombre de usuario ya está utilizado';
         }
+        const datos = matchedData(req);
+        delete datos.password;
+        req.log.error("Problemas al registrar un nuevo usuario '%s'", username);
+        req.log.debug('El usuario no ha podido registrarse: %s', e);
+        render(req, res, 'paginas/signup', {
+            error,
+            datos: {},
+            errores: {}
+        });
     }
+
 }

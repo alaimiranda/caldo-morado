@@ -1,4 +1,4 @@
-
+import { ErrorDatos } from "../db.js";
 import bcrypt from "bcryptjs";
 
 export const RolesEnum = Object.freeze({
@@ -55,8 +55,7 @@ export class Usuario {
         let result = null;
         try {
             const username = usuario.#username;
-            const nuevoPassword = usuario.#password;
-            const password = bcrypt.hashSync(nuevoPassword);
+            const password = usuario.#password;
             const email = usuario.email;
             const fotoperfil = usuario.fotoperfil;
             const rol = usuario.rol;
@@ -88,7 +87,7 @@ export class Usuario {
     }
 
 
-    static login(username, password) {
+    static async login(username, password) {
         let usuario = null;
         try {
             usuario = this.getUsuarioByUsername(username);
@@ -96,9 +95,16 @@ export class Usuario {
             throw new UsuarioOPasswordNoValido(username, { cause: e });
         }
 
-        // XXX: En el ej3 / P3 lo cambiaremos para usar async / await o Promises
-        if ( ! bcrypt.compareSync(password, usuario.#password) ) throw new UsuarioOPasswordNoValido(username);
+        const passwordMatch = await bcrypt.compare(password, usuario.#password);
+        if ( ! passwordMatch ) throw new UsuarioOPasswordNoValido(username);
 
+        return usuario;
+    }
+
+    static async creaUsuario(username, password, email, fotoperfil, rol) {
+        const usuario = new Usuario(username, password, email, fotoperfil, rol);
+        await usuario.cambiaPassword(password);
+        usuario.persist();
         return usuario;
     }
 
@@ -122,9 +128,8 @@ export class Usuario {
         return this.#id;
     }
 
-    set password(nuevoPassword) {
-        // XXX: En el ej3 / P3 lo cambiaremos para usar async / await o Promises
-        this.#password = bcrypt.hashSync(nuevoPassword);
+    async cambiaPassword(nuevoPassword) {
+        this.#password = bcrypt.hashSync(nuevoPassword);    
     }
 
     get username() {
