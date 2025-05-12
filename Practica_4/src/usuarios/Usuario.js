@@ -51,6 +51,26 @@ export class Usuario {
 
     }
 
+    static getUsuariosByPublicaciones(publicaciones) {
+        let usuariosp = [];
+        for (let i = 0; i < publicaciones.length; i++){
+            let usuarios = [];
+            usuarios.push(this.getUsuarioByUsername(publicaciones[i].creador_1));
+            usuarios.push(this.getUsuarioByUsername(publicaciones[i].creador_2));
+            if (publicaciones[i].creador_3 != null) {
+                usuarios.push(this.getUsuarioByUsername(publicaciones[i].creador_3));
+                if (publicaciones[i].creador_4 != null) {
+                    usuarios.push(this.getUsuarioByUsername(publicaciones[i].creador_4));
+                    if (publicaciones[i].creador_5 != null) {
+                        usuarios.push(this.getUsuarioByUsername(publicaciones[i].creador_5));
+                    }
+                }
+            }
+            usuariosp.push(usuarios);
+        }
+        return usuariosp;
+    }
+
     static #insert(usuario) {
         let result = null;
         try {

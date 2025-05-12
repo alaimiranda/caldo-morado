@@ -53,11 +53,14 @@ export function viewPerfil(req, res) {
     let contenido = 'paginas/perfil';
     const username = req.session.username; // Obtener el username desde la sesión
     const user = Usuario.getUsuarioByUsername(username);
+    const publicaciones = Publicacion.getPublicacionesByCreador(username);
+    const usuarios = Usuario.getUsuariosByPublicaciones(publicaciones);
     res.render('pagina', {
         contenido,
         session: req.session,
         fotoperfil: user.fotoperfil,
-        publicaciones: Publicacion.getPublicacionesByCreador(username)
+        publicaciones: publicaciones,
+        usuarios: usuarios
     });
 }
 

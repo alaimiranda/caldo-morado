@@ -21,7 +21,13 @@ export class Guardado {
         const datos = {user};
         const guardados = this.#searchByUser.all(datos);
         //console.log(guardados);
-        return guardados;
+        let arr = new Array();
+        guardados.forEach(guardado => {
+            let g = new Guardado(guardado.user, guardado.id);
+            arr.push(g);
+        }
+        );
+        return arr;
     }
 
     static #insert(guardado) {
