@@ -20,7 +20,14 @@ export class Guardado {
     static getGuardadosByUser(user) {
         const datos = {user};
         const guardados = this.#searchByUser.all(datos);
-        return guardados;
+        //console.log(guardados);
+        let arr = new Array();
+        guardados.forEach(guardado => {
+            let g = new Guardado(guardado.user, guardado.id);
+            arr.push(g);
+        }
+        );
+        return arr;
     }
 
     static #insert(guardado) {
@@ -57,13 +64,13 @@ export class Guardado {
     get id() {
         return this.#id;
     }
-    
-    
+
+
     get creators_tostring(){
         let str = this.#user + ", " + this.#id;
         return str;
     }
-    
+
 
     // setters
     /*
@@ -79,8 +86,8 @@ export class Guardado {
 
 export class GuardadoNoEncontrado extends Error {
     /**
-     * 
-     * @param {string} titulo 
+     *
+     * @param {string} titulo
      * @param {ErrorOptions} [options]
      */
     constructor(titulo, options) {
@@ -92,8 +99,8 @@ export class GuardadoNoEncontrado extends Error {
 
 export class GuardadoYaExiste extends Error {
     /**
-     * 
-     * @param {string} user 
+     *
+     * @param {string} user
      * @param {ErrorOptions} [options]
      */
     constructor(user, options) {

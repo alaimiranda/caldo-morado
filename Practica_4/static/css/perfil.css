@@ -38,13 +38,14 @@
 }
 
 .stat-item {
-    text-align: center;
+    display: flex;
 }
 
 .stat-item p {
     font-size: 18px;
     font-weight: bold;
     color: #635239;
+    margin-left: 10px;
 }
 
 
@@ -66,10 +67,11 @@
     height: 50px;
     border-radius: 50%;
     object-fit: cover;
-    margin-right: 10px;
+    margin-right: -45px;
+    
 }
 
 .texto-publicacion{
     margin: 10px;
-    margin-left: 20px;
+    margin-left: 70px;
 }
