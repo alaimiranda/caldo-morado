@@ -64,13 +64,13 @@ export class Guardado {
     get id() {
         return this.#id;
     }
-    
-    
+
+
     get creators_tostring(){
         let str = this.#user + ", " + this.#id;
         return str;
     }
-    
+
 
     // setters
     /*
@@ -86,8 +86,8 @@ export class Guardado {
 
 export class GuardadoNoEncontrado extends Error {
     /**
-     * 
-     * @param {string} titulo 
+     *
+     * @param {string} titulo
      * @param {ErrorOptions} [options]
      */
     constructor(titulo, options) {
@@ -99,8 +99,8 @@ export class GuardadoNoEncontrado extends Error {
 
 export class GuardadoYaExiste extends Error {
     /**
-     * 
-     * @param {string} user 
+     *
+     * @param {string} user
      * @param {ErrorOptions} [options]
      */
     constructor(user, options) {
