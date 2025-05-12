@@ -21,7 +21,7 @@ export function doLogin(req, res) {
     const username = req.body.username.trim();
     const password = req.body.password.trim();
     // Proceso las variables comprobando si es un usuario valido
-   
+
     try {
         const usuario = Usuario.login(username, password);
         req.session.login = true;

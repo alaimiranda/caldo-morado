@@ -88,16 +88,16 @@ export function viewRecetario(req, res) {
             session: req.session
         });
     }
-    
+
 }
 
 export function viewChat(req, res) {
     let contenido = 'paginas/normal';
     if (req.session !== null && req.session.login) {
         contenido = 'paginas/chat';
-        const sessionUsername = req.session.username; 
+        const sessionUsername = req.session.username;
         const chats = Chat.getChatsByUsername(sessionUsername);
-      
+
         chats.forEach((chat) => {
             chat.fecha_ult = new Date(chat.fecha_ult);
             let hora_aux = chat.fecha_ult.getHours() < 10 ? '0' + chat.fecha_ult.getHours() : chat.fecha_ult.getHours();
@@ -115,7 +115,7 @@ export function viewChat(req, res) {
         res.render('pagina', {
             contenido,
             session: req.session,
-            chats, 
+            chats,
             sessionUsername,
             amigos
         });
@@ -125,5 +125,5 @@ export function viewChat(req, res) {
             session: req.session
         });
     }
-    
+
 }
