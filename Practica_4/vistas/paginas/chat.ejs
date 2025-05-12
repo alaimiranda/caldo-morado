@@ -3,8 +3,12 @@
     <h2>Mis Chats</h2>
     <div class="chat-header-buttons">
         <input type="text" id="chat-buscar" class="chat-buscador" placeholder="Buscar amigos..."> 
-        <button type="button" class="chat-buscador" onclick="buscar()">Buscar</button>
+        <button type="button" class="chat-buscador-boton" onclick="buscar()">Buscar</button>
+    </div>
+    <div>
         <ul id="chat-results" class="chat-results"></ul>
+        <form id="chat-redirect-form" method="post" action="/chat" style="display: none;">
+        </form>
     </div>
 </div>
 <div id="chat-list">
