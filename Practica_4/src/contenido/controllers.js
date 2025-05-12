@@ -98,8 +98,13 @@ export function viewChat(req, res) {
             chat.fecha_ult = hora_aux;
         });
 
-        let amigos = Seguimiento.getAmigosByUsername(sessionUsername);
-
+        let amigos_aux = Seguimiento.getAmigosByUsername(sessionUsername);
+        let amigos = new Array();
+        amigos_aux.forEach((amigo) => {
+            if(Chat.getChatByUsernames(sessionUsername, amigo) === undefined){
+                amigos.push(Usuario.getUsuarioByUsername(amigo));
+            }
+        });
         res.render('pagina', {
             contenido,
             session: req.session,

@@ -45,5 +45,8 @@ function seleccionarUsuario(usuario){
     document.getElementById('chat-redirect-form').action = `/chat/${usuario}`;
     document.getElementById('chat-redirect-form').submit();
 }
+document.getElementById('chat-buscar').addEventListener('keyup', (e) => {
+    if (e.key === 'Enter') buscar();
+});
 
 
