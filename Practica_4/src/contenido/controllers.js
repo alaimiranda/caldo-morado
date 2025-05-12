@@ -56,12 +56,16 @@ export function viewPerfil(req, res) {
     const user = Usuario.getUsuarioByUsername(username);
     const publicaciones = Publicacion.getPublicacionesByCreador(username);
     const usuarios = Usuario.getUsuariosByPublicaciones(publicaciones);
+    const seguidores = Seguimiento.getSeguidoresByUsername(username).length;
+    const seguidos = Seguimiento.getSeguidosByUsername(username).length;
     res.render('pagina', {
         contenido,
         session: req.session,
         fotoperfil: user.fotoperfil,
         publicaciones: publicaciones,
-        usuarios: usuarios
+        usuarios: usuarios,
+        seguidores: seguidores,
+        seguidos: seguidos
     });
 }
 

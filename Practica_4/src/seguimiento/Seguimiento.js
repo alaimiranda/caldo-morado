@@ -40,6 +40,27 @@ export class Seguimiento{
         if(seguimiento === undefined) throw new SeguimientoNoExiste(seguidor, seguido);
         return new Seguimiento(seguidor, seguido);
     }
+
+    static getSeguidoresByUsername(username){
+        const seguidores = this.#getSeguidoresByUsername.all({username});
+        let arr = new Array();
+        seguidores.forEach(seguido => {
+            let seg = new Seguimiento(seguido.seguidor, seguido.seguido);
+            arr.push(seg);
+        });
+        return arr;
+    }
+    
+    static getSeguidosByUsername(username){
+        const seguidos = this.#getSeguidosByUsername.all({username});
+        let arr = new Array();
+        seguidos.forEach(seguidor => {
+            let seg = new Seguimiento(seguidor.seguidor, seguidor.seguido);
+            arr.push(seg);
+        });
+        return arr;
+    }
+
     static #insert(seguimiento){
         let result = null;
         try{
