@@ -18,7 +18,11 @@ import { errorHandler } from './middleware/error.js';
 import publicacionesRouter from './publicaciones/router.js';
 import { Publicacion } from './publicaciones/Publicacion.js';
 import chatRouter from './chat/router.js';
+import msgRouter from './mensaje/router.js';
 import { join } from 'node:path';
+import { Multimedia } from './multimedia/Multimedia.js';
+import { Like } from './likes/Like.js';
+import { Usuario } from './usuarios/Usuario.js';
 
 export const app = express();
 
@@ -32,20 +36,72 @@ app.use(flashMessages);
 
 app.use('/', express.static(config.recursos));
 app.get('/', (req, res) => {
+
+    const publicaciones = Publicacion.getPublicacionesOrderedByDate();
+    const multimediaPorPost = {};
+
+    publicaciones.forEach(post => {
+        multimediaPorPost[post.id] = Multimedia.getMultimediaById(post.id);
+    });
+
+    let user = null;
+    let userLikes = [];
+    let userId = null;
+
+    if(req.session.username !== undefined){
+        user = Usuario.getUsuarioByUsername(req.session.username);
+        userLikes = Like.getLikesByUser(user.id);
+        userId = user.id;
+    }
+
+    console.log(userId);
     res.render('pagina', {
         contenido: 'paginas/index',
         session: req.session,
-        publicaciones : Publicacion.getPublicacionesOrderedByDate()
+        publicaciones,
+        multimediaPorPost: JSON.stringify(multimediaPorPost),
+        userId: userId,
+        userLikes: JSON.stringify(userLikes)
     });
 })
 app.use('/usuarios', usuariosRouter);
 app.use('/publicaciones', publicacionesRouter);
 app.use('/contenido', contenidoRouter);
 app.use('/chat', chatRouter);
-
-
+app.use('/mensaje', msgRouter);
 app.get("/imagen/:id", (req, res) => {
     res.sendFile(join(config.uploads, req.params.id));
+});
+
+
+app.post('/like/:postId', (req, res) => {
+
+    if (!req.session.login) {
+        return res.status(401).json({ error: "Debes iniciar sesión para dar like" });
+    }
+
+    const postId = req.params.postId;
+    const userId = Usuario.getUsuarioByUsername(req.session.username).id;
+    
+    try {
+        const existingLike = Like.getLikeFromUserInPost(postId, userId);
+        
+        if (existingLike) {
+            Like.delete(postId, userId);
+            Publicacion.decrementLikes(postId);
+            return res.json({ liked: false });
+        } else {
+            const like = new Like(postId, userId);
+            like.persist();
+            Publicacion.incrementLikes(postId);
+            return res.json({ liked: true });
+        }
+    } catch (error) {
+        console.error("Error al manejar like:", error);
+        return res.status(500).json({ 
+            error: "Error del servidor al procesar el like" 
+        });
+    }
 });
 
 app.use(errorHandler);

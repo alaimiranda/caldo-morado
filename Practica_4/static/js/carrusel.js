@@ -123,8 +123,20 @@ function renderizarImagen() {
     }
 }
 
+function createJSON(){
+    const json = {
+        fotos: [],
+        descripciones: []
+    };
+    for(let i=0; i<fotos.length; i++){
+        json.fotos.push(fotos[i]);
+        json.descripciones.push(descripciones[i]);
+    }
+    req.body.multimedia = json;
+}
+
 document.getElementById('anterior').addEventListener('click', retrocederFoto);
 document.getElementById('siguiente').addEventListener('click', pasarFoto);
 document.getElementById('pie-de-foto').addEventListener('input', guardarDescripcion);
-
+document.getElementById('publish-btn').addEventListener('click', createJSON);
 renderizarImagen();
