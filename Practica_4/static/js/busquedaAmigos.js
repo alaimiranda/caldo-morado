@@ -1,7 +1,19 @@
+function obtenerAmigosDesdeHTML() {
+    const amigosHidden = document.getElementById('chat-amigos-data');
+    if (!amigosHidden) return [];
+    
+    try {
+        return JSON.parse(amigosHidden.value);
+    } catch (error) {
+        console.error('Error al parsear amigos:', error);
+        return [];
+    }
+}
 
-let amigos = ["Ruben", "Diego", "Diana", "Alai", "Alba", "Gallo", "Garcia"]; // TODO: Falta importar la lista de seguidores
+let amigos = obtenerAmigosDesdeHTML(); 
 
 function buscar(){
+    console.log(amigos);
     let query = document.getElementById('chat-buscar').value;
     if(query.trim() === ""){
         return;

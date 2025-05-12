@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="/css/chat.css">
 <div class="chat-header">
     <h2>Mis Chats</h2>
+    <input type="hidden" id="chat-amigos-data" value='<%= JSON.stringify(amigos) %>'>
     <div class="chat-header-buttons">
         <input type="text" id="chat-buscar" class="chat-buscador" placeholder="Buscar amigos..."> 
         <button type="button" class="chat-buscador-boton" onclick="buscar()">Buscar</button>

@@ -41,7 +41,7 @@ export class Mensaje{
 
             result = this.#insertStmt.run(datos);
             let chat = Chat.getChatById(id_chat);
-            console.log(chat.id);
+
             chat.ult_mensaje = mensaje_texto;
             chat.fecha_ult = fecha;
             
