@@ -6,7 +6,8 @@ import asyncHandler from 'express-async-handler';
 
 const chatRouter = express.Router();
 
-chatRouter.post('/:user_2', autenticado(null), asyncHandler(newChat)); // TODO: FALTA COMPROBAR QUE NO ESTA VACIO EL CAMPO DEL USUARIO
+
+chatRouter.post('/:user_2', autenticado(null), asyncHandler(newChat));
 chatRouter.get('/:chatId', autenticado(null), asyncHandler(showChat));
 
 export default chatRouter;
