@@ -16,7 +16,6 @@
     <% if (chats && chats.length > 0) { %>
         <% chats.forEach(chat => { %>
             <a href="/chat/<%= chat.id %>" class="chat-item">
-                <div class="chat-avatar"></div>
                 <div class="chat-info">
                     <% if (chat.username_1 === sessionUsername) { %>
                         <strong><%= chat.username_2 %></strong>
