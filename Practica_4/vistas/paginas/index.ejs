@@ -6,6 +6,16 @@
 
         <div class="feed_head">
             <div class="feed_tit"><h2><%= publicaciones[i].titulo %></h2></div>
+            <div class="feed_pfp">
+                <% for (let j = 0; j < usuarios[i].length; j++) { 
+                    let usuariosi = usuarios[i];%>
+                    <% if (usuariosi[j].fotoperfil !== null) { %>
+                        <img src="/imagen/<%= fotoperfil %>" alt="Imagen de perfil" class="contributor-img">
+                    <% } else { %>
+                        <img src="/iconos/perfil_imagen.jpg" alt="Imagen de perfil" class="contributor-img">
+                    <% } %>
+                <% } %>  
+            </div>
             <div class="feed_butt">
                 <span class="feed_like-counter">
                     <%= publicaciones[i].likes || 0 %>
@@ -14,8 +24,7 @@
                     <img src="<%= userLikes.includes(publicaciones[i].id) ? '/iconos/like_relleno.png' : '/iconos/like_vacio.png' %>" 
                         width="30" alt="like">
                 </button>
-                <button class="feed_save"><img src="/iconos/save_vacio.png" width="30" alt="a"></button>
-                <button class="feed_comment"><img src="/iconos/comentario.png" width="30" alt="a"></button>
+                <button class="feed_save"><img src="/iconos/save_vacio.png" width="35" alt="a"></button>
             </div>
         </div>
     

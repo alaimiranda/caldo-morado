@@ -43,6 +43,7 @@ app.get('/', (req, res) => {
     publicaciones.forEach(post => {
         multimediaPorPost[post.id] = Multimedia.getMultimediaById(post.id);
     });
+    const usuarios = Usuario.getUsuariosByPublicaciones(publicaciones);
 
     let user = null;
     let userLikes = [];
@@ -59,6 +60,7 @@ app.get('/', (req, res) => {
         contenido: 'paginas/index',
         session: req.session,
         publicaciones,
+        usuarios,
         multimediaPorPost: JSON.stringify(multimediaPorPost),
         userId: userId,
         userLikes: JSON.stringify(userLikes)
