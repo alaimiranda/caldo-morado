@@ -51,7 +51,7 @@ export function publish(req, res) {
         );
         //let multimedia = req.body.multimedia;
 
-        //publicacion.persist();
+        publicacion.persist();
 
         return res.render('pagina', {
             contenido: 'paginas/postConExito',
