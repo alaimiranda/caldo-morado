@@ -10,3 +10,6 @@ Practica_1/.DS_Store
 .DS_Store
 /Practica_3/node_modules
 /Practica_4/node_modules
+.vscode/launch.json
+package-lock.json
+Practica_4/data/aw_sw.db

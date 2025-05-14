@@ -5,6 +5,9 @@ export class Guardado {
     static #updateStmt = null;
     static #searchByUser = null;
     static #searchall = null;
+    static #getSaveFromUserInPost = null;
+    static #savesByUser = null;
+    static #deleteStmt = null;
 
     static initStatements(db) {
         //if (this.#getByTituloStmt !== null) return;
@@ -14,8 +17,23 @@ export class Guardado {
         //this.#updateStmt = db.prepare('UPDATE Guardados SET titulo = @titulo, creador_1 = @creador_1, creador_2 = @creador_2, creador_3 = @creador_3, creador_4 = @creador_4, creador_5 = @creador_5, likes = @likes, fecha = @fecha WHERE titulo = @titulo');
         this.#searchall = db.prepare('SELECT * FROM Guardados');
         this.#searchByUser = db.prepare('SELECT * FROM Guardados WHERE user = @user');
+        this.#getSaveFromUserInPost = db.prepare('SELECT * FROM Guardados WHERE user = @user AND id = @id')
+        this.#savesByUser = db.prepare('SELECT id FROM Guardados WHERE user = @user');
+        this.#deleteStmt = db.prepare('DELETE FROM Guardados WHERE user = @user AND id = @id');
     }
 
+    static getSaveFromUserInPost(user, id){
+        const datos = {user, id};
+
+        const saves = this.#getSaveFromUserInPost.get(datos);
+        return saves;
+    }
+    static getSavesByUser(user){
+        const datos = {user};
+        const saves = this.#savesByUser.all(datos).map(row => row.id);
+
+        return saves;
+    }
 
     static getGuardadosByUser(user) {
         const datos = {user};
@@ -45,6 +63,14 @@ export class Guardado {
             }
             throw new ErrorDatos('No se ha insertado el guardado', { cause: e });
         }
+        return result;
+    }
+
+    static delete(user, id) {
+        const datos = {user, id};
+
+        const result = this.#deleteStmt.run(datos);
+
         return result;
     }
 
