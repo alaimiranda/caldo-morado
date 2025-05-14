@@ -117,7 +117,7 @@ export class Publicacion {
             result = this.#insertStmt.run(datos);
             publicacion.#id = result.lastInsertRowid;
 
-            Multimedia.createNew(publicacion.#id);
+            //Multimedia.createNew(publicacion.#id);
 
         } catch(e) { // SqliteError: https://github.com/WiseLibs/better-sqlite3/blob/master/docs/api.md#class-sqliteerror
             if (e.code === 'SQLITE_CONSTRAINT') {
