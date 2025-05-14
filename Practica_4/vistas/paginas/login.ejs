@@ -6,7 +6,16 @@
 		<p><strong><%= locals.error %></strong></p>
 	<% } %>
 	<legend>Usuario y contraseña</legend>
-	<div><label>Nombre:</label> <input type="text" name="username" /></div>
-	<div><label>Contraseña:</label> <input type="password" name="password" /></div>
+	<div><label>Nombre:</label> <input type="text" name="username" />
+		<% if (errores.username) { %>
+			<span class="rojo"><%= errores.username.msg %></span>
+		<% } %>
+	</div>
+	<div><label>Contraseña:</label> <input type="password" name="password" />
+		<% if (errores.password) { %>
+			<span class="rojo"><%= errores.password.msg %></span>
+		<% } %>
+	</div>
 	<button type="submit">Enviar</button>
 </fieldset>
+</form>

@@ -14,11 +14,11 @@
             <div class="publicacion">
                 <img src="/iconos/perfil_imagen.jpg" alt="Imagen" class="contributor-img">
                 <div class="texto-publicacion">
-                    <h3><%= guardados[i][0].titulo %></h3>
-                    <%= guardados[i][0].creador_1 %>, <%= guardados[i][0].creador_2 %>
-                    <% if (guardados[i][0].creador_3 != null) { %> , <%= guardados[i][0].creador_3%>
-                        <% if (guardados[i][0].creador_4 != null) { %> , <%= guardados[i][0].creador_4 %>
-                            <% if (guardados[i][0].creador_5 != null) { %> , <%= guardados[i][0].creador_5 %>
+                    <h3><%= guardados[i].titulo %></h3>
+                    <%= guardados[i].creador_1 %>, <%= guardados[i].creador_2 %>
+                    <% if (guardados[i].creador_3 != null) { %> , <%= guardados[i].creador_3%>
+                        <% if (guardados[i].creador_4 != null) { %> , <%= guardados[i].creador_4 %>
+                            <% if (guardados[i].creador_5 != null) { %> , <%= guardados[i].creador_5 %>
                             <% } %>
                         <% } %>
                     <% } %>

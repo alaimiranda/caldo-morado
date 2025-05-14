@@ -10,11 +10,6 @@ import session from 'express-session';
 import { config } from './config.js';
 import usuariosRouter from './usuarios/router.js';
 import contenidoRouter from './contenido/router.js';
-import { logger } from './logger.js';
-import pinoHttp  from 'pino-http';
-const pinoMiddleware = pinoHttp(config.logger.http(logger));
-import { flashMessages } from './middleware/flash.js';
-import { errorHandler } from './middleware/error.js';
 import publicacionesRouter from './publicaciones/router.js';
 import { Publicacion } from './publicaciones/Publicacion.js';
 import chatRouter from './chat/router.js';
@@ -24,6 +19,11 @@ import { Multimedia } from './multimedia/Multimedia.js';
 import { Like } from './likes/Like.js';
 import { Usuario } from './usuarios/Usuario.js';
 import { Guardado } from './guardados/Guardado.js';
+import { logger } from './logger.js';
+import pinoHttp  from 'pino-http';
+const pinoMiddleware = pinoHttp(config.logger.http(logger));
+import { flashMessages } from './middleware/flash.js';
+import { errorHandler } from './middleware/error.js';
 
 export const app = express();
 

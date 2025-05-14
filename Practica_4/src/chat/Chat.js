@@ -26,8 +26,11 @@ export class Chat{
 
     static getChatByUsernames(username_1, username_2) {
         const chat = this.#getChatByUsernames.get({ username_1, username_2 });
-        if (chat === undefined) throw new ChatNoEncontrado(username_1, username_2);
-
+        if (chat === undefined) {
+            const chat2 = this.#getChatByUsernames.get({ username_1: username_2, username_2: username_1 });
+            if (chat2 === undefined) throw new ChatNoEncontrado(username_1, username_2);
+            return new Chat(username_2, username_1, chat2.fecha_ult, chat2.ult_mensaje, chat2.id);
+        }
         const {fecha_ult, ult_mensaje ,id} = chat;
         return new Chat(username_1, username_2, fecha_ult, ult_mensaje, id);
     }
@@ -38,7 +41,6 @@ export class Chat{
         let cht = new Array();
         chats.forEach(c => {
             cht.push(new Chat(c.username_1, c.username_2, c.fecha_ult, c.ult_mensaje, c.id));
-            console.log(c.fecha_ult);
         });
         return chats;
     }

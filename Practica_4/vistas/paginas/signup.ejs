@@ -1,4 +1,4 @@
- <h1>¡Regístrate!</h1>
+<h1>¡Regístrate!</h1>
 
 <form action="/usuarios/signup" method="POST" enctype="multipart/form-data">
 <fieldset>
@@ -6,9 +6,21 @@
 		<p><strong><%= locals.error %></strong></p>
 	<% } %>
 	<legend>Usuario y contraseña</legend>
-	<div><label>Username:</label> <input type="text" name="username" /></div>
-    <div><label>Email:</label> <input type="text" name="email" /></div>
-	<div><label>Contraseña:</label> <input type="password" name="password" /></div>
+	<div><label>Username:</label> <input type="text" name="username" /> 
+		<% if (errores.username) { %>
+			<span class="rojo"><%= errores.username.msg %></span>
+		<% } %>
+	</div>
+    <div><label>Email:</label> <input type="text" name="email" />
+		<% if (errores.email) { %>
+			<span class="rojo"><%= errores.email.msg %></span>
+		<% } %>
+	</div>
+	<div><label>Contraseña:</label> <input type="password" name="password" />
+		<% if (errores.password) { %>
+			<span class="rojo"><%= errores.password.msg %></span>
+		<% } %>
+	</div>
 	<div>
 		<label for="inputImagen">Foto:</label>
 		<input type="file" name="foto" id="inputImagen">

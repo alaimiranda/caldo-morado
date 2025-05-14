@@ -10,34 +10,48 @@ export function viewLogin(req, res) {
     }
     res.render('pagina', {
         contenido,
-        session: req.session
+        session: req.session,
+        errores: {}
     });
 }
 
-export function doLogin(req, res) {
+export async function doLogin(req, res) {
+    const result = validationResult(req);
+    if (! result.isEmpty()) {
+        const errores = result.mapped();
+        const datos = matchedData(req);
+        return render(req, res, 'paginas/login', {
+            errores,
+            datos
+        });
+    }
+
     body('username').escape();
     body('password').escape();
     // Capturo las variables username y password
-    const username = req.body.username.trim();
-    const password = req.body.password.trim();
-    // Proceso las variables comprobando si es un usuario valido
+    const username = req.body.username;
+    const password = req.body.password;
 
     try {
-        const usuario = Usuario.login(username, password);
+        const usuario = await Usuario.login(username, password);
         req.session.login = true;
-        req.session.username = username;
+        req.session.username = usuario.username;
         req.session.email = usuario.email;
+        req.session.rol = usuario.rol;
         req.session.esAdmin = usuario.rol === RolesEnum.ADMIN;
 
-        return res.render('pagina', {
-            contenido: 'paginas/home',
-            session: req.session
-        });
+        res.setFlash(`Encantado de verte de nuevo: ${usuario.username}`);
+        return res.redirect('/contenido/perfil');
+
     } catch (e) {
-        res.render('pagina', {
-            contenido: 'paginas/login',
-            error: 'El usuario o contraseña no son válidos'
-        })
+        const datos = matchedData(req);
+        req.log.warn("Problemas al hacer login del usuario '%s'", username);
+        req.log.debug('El usuario %s, no ha podido logarse: %s', username, e.message);
+        render(req, res, 'paginas/login', {
+            error: 'El usuario o contraseña no son válidos',
+            datos,
+            errores: {}
+        });
     }
 }
 
@@ -71,7 +85,8 @@ export function viewSignup(req, res) {
     }
     res.render('pagina', {
         contenido,
-        session: req.session
+        session: req.session,
+        errores: {}
     });
 }
 
