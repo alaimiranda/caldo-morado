@@ -132,7 +132,9 @@ function createJSON(){
         json.fotos.push(fotos[i]);
         json.descripciones.push(descripciones[i]);
     }
-    req.body.multimedia = json;
+    document.getElementById('multimedia').value = JSON.stringify(json);
+    console.log(document.getElementById('multimedia').value);
+    document.getElementById('cocinar-form').submit();
 }
 
 document.getElementById('anterior').addEventListener('click', retrocederFoto);
