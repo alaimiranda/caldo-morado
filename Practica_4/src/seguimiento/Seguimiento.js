@@ -36,9 +36,7 @@ export class Seguimiento{
     }
 
     static eliminarSeguimiento(seguidor, seguido){
-        const seguimiento = this.#eliminarSeguimiento.get({seguidor, seguido});
-        if(seguimiento === undefined) throw new SeguimientoNoExiste(seguidor, seguido);
-        return new Seguimiento(seguidor, seguido);
+        this.#eliminarSeguimiento.run({seguidor, seguido});
     }
 
     static getSeguidoresByUsername(username){
@@ -59,6 +57,18 @@ export class Seguimiento{
             arr.push(seg);
         });
         return arr;
+    }
+
+    static existeSeguimiento(seguidor, seguido){
+        const seguimiento = this.#getSeguimientoByUsernames.get({seguidor, seguido});
+        if(seguimiento === undefined) return false;
+        return true;
+    }
+
+    static async crearSeguimiento(seguidor, seguido){
+        const seguimiento = new Seguimiento(seguidor, seguido);
+        seguimiento.persists();
+        return seguimiento;
     }
 
     static #insert(seguimiento){
@@ -88,8 +98,7 @@ export class Seguimiento{
         return this.#seguido;
     }
     persists(){
-        if (Seguimiento.#getSeguimientoByUsernames(this.seguidor, this.seguido) === undefined) return Chat.#insert(this);
-        return Seguimiento.#eliminarSeguimiento(this);
+        return Seguimiento.#insert(this);
     }
 }
 export class SeguimientoYaExiste extends Error{
