@@ -12,7 +12,16 @@
     <div class="publicaciones">
         <% for (let i = 0; i < guardados.length; i++) { %>
             <div class="publicacion">
-                <img src="/iconos/perfil_imagen.jpg" alt="Imagen" class="contributor-img">
+                <div class="recetario_pfp">
+                    <% for (let j = 0; j < usuarios[i].length; j++) { 
+                        let usuariosi = usuarios[i];%>
+                        <% if (usuariosi[j].fotoperfil !== null) { %>
+                            <img src="/imagen/<%= usuariosi[j].fotoperfil %>" alt="Imagen de perfil" class="contributor-img">
+                        <% } else { %>
+                            <img src="/iconos/perfil_imagen.jpg" alt="Imagen de perfil" class="contributor-img">
+                        <% } %>
+                    <% } %>  
+                </div>
                 <div class="texto-publicacion">
                     <h3><%= guardados[i].titulo %></h3>
                     <%= guardados[i].creador_1 %>, <%= guardados[i].creador_2 %>

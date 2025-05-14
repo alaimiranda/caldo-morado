@@ -44,7 +44,7 @@ function mostrarUsername(session){
                 <% for (let j = 0; j < usuarios[i].length; j++) { 
                     let usuariosi = usuarios[i];%>
                     <% if (usuariosi[j].fotoperfil !== null) { %>
-                        <img src="/imagen/<%= fotoperfil %>" alt="Imagen de perfil" class="contributor-img">
+                        <img src="/imagen/<%= usuariosi[j].fotoperfil %>" alt="Imagen de perfil" class="contributor-img">
                     <% } else { %>
                         <img src="/iconos/perfil_imagen.jpg" alt="Imagen de perfil" class="contributor-img">
                     <% } %>

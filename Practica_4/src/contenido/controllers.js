@@ -76,11 +76,19 @@ export function viewRecetario(req, res) {
         const username = req.session.username; // Obtener el username desde la sesión
         const g = Guardado.getGuardadosByUser(username);
         const guardados = [];
-        g.forEach((guardado) => guardados.push(Publicacion.getPublicacionById(guardado.id)));
+        const usuariosPorPublicacion = [];
+        g.forEach((guardado) => {
+            const publicacion = Publicacion.getPublicacionById(guardado.id);
+            guardados.push(publicacion);
+
+            const usuarios = Usuario.getUsuariosByPublicacion(publicacion.id);
+            usuariosPorPublicacion.push(usuarios);
+        });
         res.render('pagina', {
             contenido,
             session: req.session,
-            guardados: guardados
+            guardados: guardados,
+            usuarios: usuariosPorPublicacion
         });
     } else {
         res.render('pagina', {

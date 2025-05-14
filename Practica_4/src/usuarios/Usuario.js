@@ -1,5 +1,6 @@
 import { ErrorDatos } from "../db.js";
 import bcrypt from "bcryptjs";
+import { Publicacion } from "../publicaciones/Publicacion.js";
 
 export const RolesEnum = Object.freeze({
     USUARIO: 'U',
@@ -48,6 +49,23 @@ export class Usuario {
         if (usuarios === undefined) throw new UsuarioNoEncontrado(username);
         return usuarios;
 
+    }
+
+    static getUsuariosByPublicacion(id){
+        const publicacion = Publicacion.getPublicacionById(id);
+        let usuarios = [];
+        usuarios.push(this.getUsuarioByUsername(publicacion.creador_1));
+        usuarios.push(this.getUsuarioByUsername(publicacion.creador_2));
+        if (publicacion.creador_3 != null) {
+            usuarios.push(this.getUsuarioByUsername(publicacion.creador_3));
+            if (publicacion.creador_4 != null) {
+                usuarios.push(this.getUsuarioByUsername(publicacion.creador_4));
+                if (publicacion.creador_5 != null) {
+                    usuarios.push(this.getUsuarioByUsername(publicacion.creador_5));
+                }
+            }
+        }
+        return usuarios;
     }
 
     static getUsuariosByPublicaciones(publicaciones) {
