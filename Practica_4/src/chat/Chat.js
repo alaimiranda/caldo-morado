@@ -28,7 +28,7 @@ export class Chat{
         const chat = this.#getChatByUsernames.get({ username_1, username_2 });
         if (chat === undefined) {
             const chat2 = this.#getChatByUsernames.get({ username_1: username_2, username_2: username_1 });
-            if (chat2 === undefined) throw new ChatNoEncontrado(username_1, username_2);
+            if (chat2 === undefined) return undefined;
             return new Chat(username_2, username_1, chat2.fecha_ult, chat2.ult_mensaje, chat2.id);
         }
         const {fecha_ult, ult_mensaje ,id} = chat;
