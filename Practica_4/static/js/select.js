@@ -6,9 +6,11 @@ let posicionActual = 0;
 
 document.querySelector('form').addEventListener('submit', function () {
     guardarDescripcion();
-    console.log("array", colaboradores);
     const hiddenInput = document.getElementById('colaboradores-hidden');
     hiddenInput.value = JSON.stringify(colaboradores);
+    document.getElementById('foto').value = `url('${fotos[0]}')`;
+    console.log(document.getElementById('foto').value);
+    console.log("hola");
 });
 
 document.getElementById('add-colab').addEventListener('click', function() {
@@ -78,7 +80,7 @@ document.getElementById('add-image-btn').addEventListener('click', function(even
     event.preventDefault();
     document.getElementById('imagenes').click();
 });
-
+/*
 document.getElementById('imagenes').addEventListener('change', function(event) {
     const files = event.target.files;
     if (files.length === 0) return;
@@ -86,7 +88,7 @@ document.getElementById('imagenes').addEventListener('change', function(event) {
     for (let file of files) {
         const reader = new FileReader();
         reader.onload = function(e) {
-            fotos.push(e.target.result); 
+            fotos.push(e.target.result);
             descripciones.push("Introduce un pie de foto...");
             if (fotos.length === 1) {
                 posicionActual = 0; 
@@ -99,6 +101,7 @@ document.getElementById('imagenes').addEventListener('change', function(event) {
 
     event.target.value = "";
 });
+*/
 
 document.getElementById('delete-image-btn').addEventListener('click', function() {
     if (fotos.length > 0) {
@@ -189,8 +192,6 @@ function renderizarImagen() {
     if (descripcionInput) {
         descripcionInput.value = fotos.length > 0 ? descripciones[posicionActual] : "Introduce un pie de foto...";
     }
-    console.log("fotos", fotos[posicionActual]);
-    console.log("descripciones", descripciones[posicionActual]);
 }
 
 document.getElementById('anterior').addEventListener('click', retrocederFoto);

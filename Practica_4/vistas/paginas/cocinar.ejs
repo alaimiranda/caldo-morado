@@ -2,7 +2,7 @@
 
 <h1>Publica tu nueva receta!</h1>
 
-<form action="/publicaciones/newPost" id="cocinar-form" method="POST">
+<form action="/publicaciones/newPost" id="cocinar-form" method="POST" enctype="multipart/form-data">
     
     <div class="general">
         <div class = "titulo">
@@ -16,9 +16,9 @@
                 <div>
                     <div id="myImage"></div>
                     <button class="carroussel-btn" id="add-image-btn">+</button>
-                    <input name="files" id="imagenes" type="file" multiple class="input_foto" style="display: none;">
-                    <button class="carroussel-btn delete-btn" id="delete-image-btn">🗑</button>
-                    <textarea id="pie-de-foto" class = "pie-de-foto">Introduce un pie de foto...</textarea>
+                    <input type="file" name="foto" id="imagenes">
+                    <button class="carroussel-btn delete-btn" id="delete-image-btn" type="button">🗑</button>
+                    <textarea id="pie-de-foto" name="pieDeFoto" class = "pie-de-foto" type="button">Introduce un pie de foto...</textarea>
                 </div>
                 <button type="button" class = "carroussel-btn" id="siguiente">→</button>
             </div>

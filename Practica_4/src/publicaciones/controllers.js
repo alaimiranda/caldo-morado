@@ -1,6 +1,7 @@
 import { body, validationResult, matchedData } from 'express-validator';
 import { Publicacion } from './Publicacion.js';
 import { render } from '../utils/render.js';
+import { Multimedia } from '../multimedia/Multimedia.js';
 
 
 export function viewCocinar(req, res) {
@@ -16,8 +17,24 @@ export function publish(req, res) {
     // y/o tipos de los parámetros
 
     // XXX Además de para casos de error, puedes usar matchedData(req) para sacar los datos que te interesan
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+        const errores = result.mapped();
+        const datos = matchedData(req);
+        return render(req, res, 'paginas/cocinar', {
+            datos,
+            errores
+        });
+    }
     body('titulo').escape();
     const titulo = req.body.titulo.trim();
+    body('pieDeFoto').escape();
+    const descripcion = req.body.pieDeFoto.trim();
+    console.log("descripcion", descripcion);
+    let fotos = null;
+    if(req.file) {
+        fotos = req.file.filename;
+    }
 
     try { 
         let date = new Date().toISOString();
@@ -52,6 +69,9 @@ export function publish(req, res) {
         //let multimedia = req.body.multimedia;
 
         publicacion.persist();
+        let multimedia = new Multimedia(publicacion.id, 0, fotos, descripcion);
+        multimedia.persist();
+
 
         return res.render('pagina', {
             contenido: 'paginas/postConExito',
