@@ -1,4 +1,16 @@
-
+<div class="feed-header">
+    <h2>Buscar usuarios</h2>
+    <input type="hidden" id="feed-amigos-data" value='<%= JSON.stringify(allUsers) %>'>
+    <div class="feed-header-buttons">
+        <input type="text" id="feed-buscar" class="feed-buscador" placeholder="Buscar usuario..."> 
+        <button type="button" class="feed-buscador-boton" onclick="buscar()">Buscar</button>
+    </div>
+    <div>
+        <ul id="feed-results" class="feed-results"></ul>
+        <form id="feed-redirect-form" method="post" action="/perfil" style="display: none;">
+        </form>
+    </div>
+</div>
 <% for (let i = 0; i < publicaciones.length; i++) { %>
 
 
@@ -43,8 +55,8 @@
     </div>
     
 <% } %>
-
-  <script>
+<script src="/js/busquedaUsuarios.js"></script>
+<script>
 
         document.addEventListener("DOMContentLoaded", function () {
 
@@ -193,5 +205,4 @@
 
             });
         });
-  </script>
- 
+</script>

@@ -58,6 +58,12 @@ app.get('/', (req, res) => {
         userId = user.id;
     }
 
+    let usuarios_aux = Usuario.getAllUsers();
+    let allUsers = new Array();
+    usuarios_aux.forEach((usuario) => {
+        allUsers.push(usuario.username);
+    });
+
     console.log(userId);
     res.render('pagina', {
         contenido: 'paginas/index',
@@ -67,7 +73,8 @@ app.get('/', (req, res) => {
         multimediaPorPost: JSON.stringify(multimediaPorPost),
         userId: userId,
         userLikes: JSON.stringify(userLikes),
-        userSaves: JSON.stringify(userSaves)
+        userSaves: JSON.stringify(userSaves),
+        allUsers
     });
 })
 app.use('/usuarios', usuariosRouter);

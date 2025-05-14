@@ -133,7 +133,6 @@ function createJSON(){
         json.descripciones.push(descripciones[i]);
     }
     document.getElementById('multimedia').value = JSON.stringify(json);
-    console.log(document.getElementById('multimedia').value);
     document.getElementById('cocinar-form').submit();
 }
 
