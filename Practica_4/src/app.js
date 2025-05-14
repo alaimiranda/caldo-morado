@@ -18,6 +18,7 @@ import { join } from 'node:path';
 import { Multimedia } from './multimedia/Multimedia.js';
 import { Like } from './likes/Like.js';
 import { Usuario } from './usuarios/Usuario.js';
+import { Seguimiento } from './seguimiento/Seguimiento.js';
 import { logger } from './logger.js';
 import pinoHttp  from 'pino-http';
 const pinoMiddleware = pinoHttp(config.logger.http(logger));
@@ -101,6 +102,33 @@ app.post('/like/:postId', (req, res) => {
         console.error("Error al manejar like:", error);
         return res.status(500).json({ 
             error: "Error del servidor al procesar el like" 
+        });
+    }
+});
+
+app.post('/follow/:username', (req, res) => {
+
+    if (!req.session.login) {
+        return res.status(401).json({ error: "Debes iniciar sesión para seguir" });
+    }
+    const username = req.params.username;
+
+    const userId = Usuario.getUsuarioByUsername(req.session.username).id;
+    
+    try {
+        const existingFollow = Seguimiento.existeSeguimiento(req.session.username, username);
+        
+        if (existingFollow) {
+            Seguimiento.eliminarSeguimiento(req.session.username, username);
+            return res.json({ followed: false });
+        } else {
+            const follow = Seguimiento.crearSeguimiento(req.session.username, username);
+            return res.json({ liked: true });
+        }
+    } catch (error) {
+        console.error("Error al manejar follow:", error);
+        return res.status(500).json({ 
+            error: "Error del servidor al procesar el follow" 
         });
     }
 });
