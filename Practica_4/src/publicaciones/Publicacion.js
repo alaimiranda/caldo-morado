@@ -76,9 +76,7 @@ export class Publicacion {
         const datos = { creador };
         const publicacionesData = this.#searchByCreador.all(datos);
 
-        if (!publicacionesData || publicacionesData.length === 0)
-        throw new PublicacionNoEncontrada(creador);
-
+       
         let ret = [];
         for (let i = 0; i < publicacionesData.length; i++) {
             const { titulo, creador_1, creador_2, creador_3, creador_4, creador_5, fecha, likes, id } = publicacionesData[i];
