@@ -13,7 +13,6 @@ function obtenerAmigosDesdeHTML() {
 let amigos = obtenerAmigosDesdeHTML(); 
 
 function buscar(){
-    console.log(amigos);
     let query = document.getElementById('chat-buscar').value;
     if(query.trim() === ""){
         return;
