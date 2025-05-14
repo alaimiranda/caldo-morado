@@ -69,7 +69,7 @@ export function publish(req, res) {
         //let multimedia = req.body.multimedia;
 
         publicacion.persist();
-        let multimedia = new Multimedia(publicacion.id, 0, fotos, descripcion);
+        let multimedia = new Multimedia(publicacion.id, 1, fotos, descripcion);
         multimedia.persist();
 
 
