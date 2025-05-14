@@ -1,3 +1,11 @@
+<link rel="stylesheet" href="/css/perfil.css">
+<!--
+<%
+function mostrarUsername(session){
+	return `<h1>${session.username}</h1>`;
+}
+%>
+-->
 
 <div class="general">
     <div class="cabecera-perfil">
@@ -8,28 +16,28 @@
         <% } %>
         
         <div class="texto-cabecera-perfil">
-            <div class="perfil-username">
+            <div class="username">
                 <%-`<h1>${session.username}</h1>` %>
             </div>
-            <div class="perfil-stats">
-                <div class="perfil-stat-item">
+            <div class="stats">
+                <div class="stat-item">
                     <h3>Seguidores </h3>
                     <p><%=seguidores%></p>
                 </div>
-                <div class="perfil-stat-item">
+                <div class="stat-item">
                     <h3>Seguidos </h3>
                     <p><%=seguidos%></p>
                 </div>
-                <div class="perfil-stat-item">
+                <div class="stat-item">
                     <h3>Ajustes</h3>
                 </div>
             </div>
         </div>
     </div>
     
-    <div class="perfil-publicaciones">
+    <div class="publicaciones">
         <% for (let i = 0; i < publicaciones.length; i++) { %>
-            <div class="perfil-publicacion">
+            <div class="publicacion">
                 <% for (let j = 0; j < usuarios[i].length; j++) { 
                     let usuariosi = usuarios[i];%>
                     <% if (usuariosi[j].fotoperfil !== null) { %>
@@ -38,7 +46,7 @@
                         <img src="/iconos/perfil_imagen.jpg" alt="Imagen de perfil" class="contributor-img">
                     <% } %>
                 <% } %>   
-                <div class="perfil-texto-publicacion">
+                <div class="texto-publicacion">
                     <h3><%= publicaciones[i].titulo %></h3>
                     <%= publicaciones[i].creador_1 %>, <%= publicaciones[i].creador_2 %>
                     <% if (publicaciones[i].creador_3 != null) { %> , <%= publicaciones[i].creador_3%>

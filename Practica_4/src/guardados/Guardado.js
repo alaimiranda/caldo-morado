@@ -38,6 +38,7 @@ export class Guardado {
     static getGuardadosByUser(user) {
         const datos = {user};
         const guardados = this.#searchByUser.all(datos);
+        //console.log(guardados);
         let arr = new Array();
         guardados.forEach(guardado => {
             let g = new Guardado(guardado.user, guardado.id);

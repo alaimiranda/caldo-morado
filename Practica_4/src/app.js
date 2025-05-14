@@ -65,6 +65,7 @@ app.get('/', (req, res) => {
         allUsers.push(usuario.username);
     });
 
+    console.log(userId);
     res.render('pagina', {
         contenido: 'paginas/index',
         session: req.session,

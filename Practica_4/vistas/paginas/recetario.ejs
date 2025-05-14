@@ -1,17 +1,19 @@
+<link rel="stylesheet" href="/css/perfil.css">
 
 
 <div class="general">
     <div class="cabecera-recetario">
         <div class="texto-cabecera-perfil">
+            <!-- <img src="/iconos/save_relleno.jpg" alt="No encontrada" class="perfil-img"> -->
             <h1>Recetario</h1>
         </div>
         <h3>Aquí encontrarás todas tus recetas guardadas</h3>
     </div>
-    <div class="perfil-publicaciones">
+    <div class="publicaciones">
         <% for (let i = 0; i < guardados.length; i++) { %>
-            <div class="perfil-publicacion">
+            <div class="publicacion">
                 <img src="/iconos/perfil_imagen.jpg" alt="Imagen" class="contributor-img">
-                <div class="perfil-texto-publicacion">
+                <div class="texto-publicacion">
                     <h3><%= guardados[i].titulo %></h3>
                     <%= guardados[i].creador_1 %>, <%= guardados[i].creador_2 %>
                     <% if (guardados[i].creador_3 != null) { %> , <%= guardados[i].creador_3%>
