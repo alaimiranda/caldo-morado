@@ -9,9 +9,11 @@ import { render } from '../utils/render.js';
 
 
 const upload = multer({ dest: config.uploads });
+
 const publicacionesRouter = express.Router();
+
 publicacionesRouter.get('/newPost', autenticado(null), asyncHandler(viewCocinar));
 
-publicacionesRouter.post('/newPost', publish);
+publicacionesRouter.post('/newPost', upload.single("foto"), body('titulo', 'El titulo tiene que tener entre 4 y 22 caracteres').trim().isLength({min: 4, max: 22}), body('pieDeFoto', 'La descripcion no puede ser vacio').trim().notEmpty(),asyncHandler(publish));
 
 export default publicacionesRouter;

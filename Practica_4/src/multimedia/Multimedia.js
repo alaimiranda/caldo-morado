@@ -126,8 +126,7 @@ export class Multimedia {
     }
 
     persist() {
-        if (this.#post_id === null) return Multimedia.#insert(this);
-        return Multimedia.#update(this);
+        return Multimedia.#insert(this);
     }
 }
 
