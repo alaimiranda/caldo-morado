@@ -133,7 +133,8 @@ export function viewUsuario(req, res) {
     const username = req.params.username; // Obtener el username desde la sesión
     let userFollow = [];
     if (req.session !== null && req.session.login) {
-        userFollow = Seguimiento.getSeguidosByUsername(req.session.username);
+        const seguimientos = Seguimiento.getSeguidosByUsername(req.session.username);
+        userFollow = seguimientos.map(seg => seg.seguido);
     }
     const user = Usuario.getUsuarioByUsername(username);
     const publicaciones = Publicacion.getPublicacionesByCreador(username);

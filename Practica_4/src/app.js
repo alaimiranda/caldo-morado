@@ -152,8 +152,6 @@ app.post('/follow/:username', (req, res) => {
         return res.status(401).json({ error: "Debes iniciar sesión para seguir" });
     }
     const username = req.params.username;
-
-    const userId = Usuario.getUsuarioByUsername(req.session.username).id;
     
     try {
         const existingFollow = Seguimiento.existeSeguimiento(req.session.username, username);
@@ -163,7 +161,7 @@ app.post('/follow/:username', (req, res) => {
             return res.json({ followed: false });
         } else {
             const follow = Seguimiento.crearSeguimiento(req.session.username, username);
-            return res.json({ liked: true });
+            return res.json({ followed: true });
         }
     } catch (error) {
         console.error("Error al manejar follow:", error);

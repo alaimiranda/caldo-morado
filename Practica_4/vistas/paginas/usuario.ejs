@@ -31,7 +31,7 @@ function mostrarUsername(session){
                 
                 <div class="stat-item">
                     <button class="follow-butt" data-follow="<%= userFollow.includes(username) %>">
-                        <%= userFollow.includes(username) ? 'Seguir' : 'Dejar de seguir' %>
+                        <%= userFollow.includes(username) ? 'Dejar de seguir' : 'Seguir' %>
                     </button>
                 </div>
             </div>
@@ -80,7 +80,7 @@ function mostrarUsername(session){
 
         followButton.addEventListener("click", () => {
 
-            if (login === false) {
+            if (login !== 'true') {
                 alert("Debes iniciar sesión para dar follow");
                 return;
             }
@@ -99,9 +99,11 @@ function mostrarUsername(session){
             })
             .then(data => {
                 if (data.followed) {
-                    followButton.classList.add("followed");
+                    followButton.textContent = 'Dejar de seguir';
+                    console.log(userFollow);
                 } else {
-                    followButton.classList.remove("followed");
+                    followButton.textContent = 'Seguir'
+                    console.log(userFollow);
                 }
             })
             .catch(error => {
