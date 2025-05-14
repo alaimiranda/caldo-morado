@@ -12,11 +12,6 @@ export function viewCocinar(req, res) {
 }
 
 export function publish(req, res) {
-    // TODO:
-    // XXX Faltan validaciones con express-validator + lógica apropiada para verificar la existencia
-    // y/o tipos de los parámetros
-
-    // XXX Además de para casos de error, puedes usar matchedData(req) para sacar los datos que te interesan
     const result = validationResult(req);
     if (!result.isEmpty()) {
         const errores = result.mapped();
@@ -30,7 +25,6 @@ export function publish(req, res) {
     const titulo = req.body.titulo.trim();
     body('pieDeFoto').escape();
     const descripcion = req.body.pieDeFoto.trim();
-    console.log("descripcion", descripcion);
     let fotos = null;
     if(req.file) {
         fotos = req.file.filename;
@@ -39,8 +33,7 @@ export function publish(req, res) {
     try { 
         let date = new Date().toISOString();
 
-        const colaboradores = JSON.parse(req.body.colaboradores || '[]'); // Default to an empty array if not provided
-        console.log("colaboradores", colaboradores);
+        const colaboradores = JSON.parse(req.body.colaboradores || '[]');
         let colab1 = colaboradores[0] || null;
         let colab2 = colaboradores[1] || null;
         let colab3 = colaboradores[2] || null;

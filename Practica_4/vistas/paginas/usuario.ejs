@@ -100,10 +100,8 @@ function mostrarUsername(session){
             .then(data => {
                 if (data.followed) {
                     followButton.textContent = 'Dejar de seguir';
-                    console.log(userFollow);
                 } else {
                     followButton.textContent = 'Seguir'
-                    console.log(userFollow);
                 }
             })
             .catch(error => {

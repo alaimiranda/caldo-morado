@@ -13,7 +13,6 @@ function obtenerAmigosDesdeHTML() {
 let amigos = obtenerAmigosDesdeHTML(); 
 
 function buscar(){
-    console.log(amigos);
     let query = document.getElementById('feed-buscar').value;
     document.getElementById('feed-results').innerHTML = "";
     if(query.trim() === ""){

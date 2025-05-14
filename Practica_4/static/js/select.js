@@ -9,8 +9,6 @@ document.querySelector('form').addEventListener('submit', function () {
     const hiddenInput = document.getElementById('colaboradores-hidden');
     hiddenInput.value = JSON.stringify(colaboradores);
     document.getElementById('foto').value = `url('${fotos[0]}')`;
-    console.log(document.getElementById('foto').value);
-    console.log("hola");
 });
 
 document.getElementById('add-colab').addEventListener('click', function() {

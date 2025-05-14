@@ -11,7 +11,6 @@ export class Multimedia {
     static initStatements(db) {
         if (this.#getByTituloStmt !== null) return;
 
-        //this.#getByTituloStmt = db.prepare('SELECT * FROM Multimedia WHERE id_ois = @titulo and creador_1 = @creador_1');
         this.#insertStmt = db.prepare('INSERT INTO Multimedia (post_id, pos, archivo, texto) VALUES (@post_id, @pos, @archivo, @texto)');
         this.#updateStmt = db.prepare('UPDATE Multimedia SET post_id = @post_id, pos = @pos, archivo = @archivo, texto = @texto WHERE post_id = @post_id');
         this.#searchall = db.prepare('SELECT * FROM Multimedia');
@@ -112,9 +111,7 @@ export class Multimedia {
 
     // esto salta error
     static createNew(post_id) {
-        console.log("MULTIMEDIA");
         if(!req.body.multimedia) {
-            console.log (req.body.multimedia);
             let multimedia = JSON.parse(req.body.multimedia || '[]'); // Default to an empty array if not provided
             let element;
             for (let i = 0; i < multimedia; i++) {
