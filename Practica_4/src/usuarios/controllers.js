@@ -115,7 +115,6 @@ export async function doSignup(req, res) {
 
     try {
         const nuevaUsuario = await Usuario.creaUsuario(username, password, email, fotoperfil, rol);
-        //nuevaUsuario.persist();
 
         req.session.login = true;
         req.session.username = nuevaUsuario.username;

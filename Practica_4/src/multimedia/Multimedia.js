@@ -109,19 +109,6 @@ export class Multimedia {
         return this.#texto;
     }
 
-    // esto salta error
-    static createNew(post_id) {
-        if(!req.body.multimedia) {
-            let multimedia = JSON.parse(req.body.multimedia || '[]'); // Default to an empty array if not provided
-            let element;
-            for (let i = 0; i < multimedia; i++) {
-                //pos_id, pos, archivo, texto
-                element = new Multimedia(post_id, i, multimedia.fotos[i], multimedia.descripciones[i]);
-                this.#insertStmt.run(element);
-            }
-        } 
-    }
-
     persist() {
         return Multimedia.#insert(this);
     }

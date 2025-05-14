@@ -10,11 +10,8 @@ export class Guardado {
     static #deleteStmt = null;
 
     static initStatements(db) {
-        //if (this.#getByTituloStmt !== null) return;
 
-        //this.#getByTituloStmt = db.prepare('SELECT * FROM Guardados WHERE user = @user and id = @id');
         this.#insertStmt = db.prepare('INSERT INTO Guardados(user, id) VALUES (@user, @id)');
-        //this.#updateStmt = db.prepare('UPDATE Guardados SET titulo = @titulo, creador_1 = @creador_1, creador_2 = @creador_2, creador_3 = @creador_3, creador_4 = @creador_4, creador_5 = @creador_5, likes = @likes, fecha = @fecha WHERE titulo = @titulo');
         this.#searchall = db.prepare('SELECT * FROM Guardados');
         this.#searchByUser = db.prepare('SELECT * FROM Guardados WHERE user = @user');
         this.#getSaveFromUserInPost = db.prepare('SELECT * FROM Guardados WHERE user = @user AND id = @id')
@@ -95,14 +92,6 @@ export class Guardado {
         let str = this.#user + ", " + this.#id;
         return str;
     }
-
-
-    // setters
-    /*
-    set titulo(tituloNuevo){
-        this.#titulo = tituloNuevo;
-    }
-    */
 
     persist() {
         return Guardado.#insert(this);
