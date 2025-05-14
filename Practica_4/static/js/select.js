@@ -125,6 +125,8 @@ document.getElementById('imagenes').addEventListener('change', function(event) {
 */
 
 document.getElementById('delete-image-btn').addEventListener('click', function() {
+    document.getElementById('myImage').innerHTML = ' ';
+    document.getElementById('imagenes').value = '';
     if (fotos.length > 0) {
         fotos.splice(posicionActual, 1); 
         descripciones.splice(posicionActual, 1);
