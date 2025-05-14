@@ -24,7 +24,10 @@
                     <img src="<%= userLikes.includes(publicaciones[i].id) ? '/iconos/like_relleno.png' : '/iconos/like_vacio.png' %>" 
                         width="30" alt="like">
                 </button>
-                <button class="feed_save"><img src="/iconos/save_vacio.png" width="35" alt="a"></button>
+                <button class="feed_save">
+                    <img src="<%= userSaves.includes(publicaciones[i].id) ? '/iconos/save_relleno.png' : '/iconos/save_vacio.png' %>" 
+                    width="35" alt="a">
+                </button>
             </div>
         </div>
     
@@ -48,6 +51,7 @@
             const multimediaData = JSON.parse('<%- multimediaPorPost %>');
 
             const userLikes = JSON.parse('<%- userLikes || "[]" %>');
+            const userSaves = JSON.parse('<%- userSaves || "[]" %>')
             let userId = '<%= userId || "null" %>';
             if (userId === 'null') userId = null;
 
@@ -116,7 +120,7 @@
                 likeButton.addEventListener("click", () => {
 
                     if (userId === null) {
-                        alert("Debes iniciar sesión para dar like");
+                        alert("Debes iniciar sesión para dar like a una receta");
                         return;
                     }
 
@@ -144,12 +148,50 @@
                     .catch(error => {
                         alert("Error al procesar el like");
                     });
-                    //fin codigo like
+                }); //fin codigo like
 
+                const saveButton = post.querySelector(".feed_save");
+                const saveImg = saveButton.querySelector("img");
+                
+                if (userSaves.includes(postId)) {
+                    saveImg.src = "/iconos/save_relleno.png";
+                    saveButton.classList.add("saved");
+                }
+
+                saveButton.addEventListener("click", () => {
+
+                    if (userId === null) {
+                        alert("Debes iniciar sesión para guardar una receta");
+                        return;
+                    }
+
+                    fetch(`/save/${postId}`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Error en la respuesta");
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.saved) {
+                            saveImg.src = "/iconos/save_relleno.png";
+                            saveButton.classList.add("saved");
+                        } else {
+                            saveImg.src = "/iconos/save_vacio.png";
+                            saveButton.classList.remove("saved");
+                        }
+                    })
+                    .catch(error => {
+                        alert("Error al procesar el save");
+                    });
                 });
-            });
-            
-        });
 
+            });
+        });
   </script>
  

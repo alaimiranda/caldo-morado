@@ -258,6 +258,9 @@ thead{
 .feed_save:hover img {
     content: url("/iconos/save_relleno.png");
 }
+.feed_save.saved img {
+    content: url("/iconos/save_relleno.png");
+}
 
 .feed_imgs {
     display: grid;
