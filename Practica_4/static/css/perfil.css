@@ -48,6 +48,20 @@
     margin-left: 10px;
 }
 
+.follow-butt {
+    border-radius: 10px;
+    background: #7f328e;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 10px;
+}
+.follow-butt:hover {
+    background: #61246d;
+    transform: scale(1.05);
+}
+
 
 /* publicaciones */
 .publicaciones {
@@ -75,3 +89,4 @@
     margin: 10px;
     margin-left: 70px;
 }
+

@@ -66,10 +66,12 @@ export function publish(req, res) {
             colab5,
             date
         );
+        //let multimedia = req.body.multimedia;
 
         publicacion.persist();
         let multimedia = new Multimedia(publicacion.id, 0, fotos, descripcion);
         multimedia.persist();
+
 
         return res.render('pagina', {
             contenido: 'paginas/postConExito',

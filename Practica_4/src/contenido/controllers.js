@@ -127,3 +127,29 @@ export function viewChat(req, res) {
     }
 
 }
+
+export function viewUsuario(req, res) {
+    let contenido = 'paginas/usuario';
+    const username = req.params.username; // Obtener el username desde la sesión
+    let userFollow = [];
+    if (req.session !== null && req.session.login) {
+        const seguimientos = Seguimiento.getSeguidosByUsername(req.session.username);
+        userFollow = seguimientos.map(seg => seg.seguido);
+    }
+    const user = Usuario.getUsuarioByUsername(username);
+    const publicaciones = Publicacion.getPublicacionesByCreador(username);
+    const usuarios = Usuario.getUsuariosByPublicaciones(publicaciones);
+    const seguidores = Seguimiento.getSeguidoresByUsername(username).length;
+    const seguidos = Seguimiento.getSeguidosByUsername(username).length;
+    res.render('pagina', {
+        contenido,
+        session: req.session,
+        username: username,
+        fotoperfil: user.fotoperfil,
+        publicaciones: publicaciones,
+        usuarios: usuarios,
+        seguidores: seguidores,
+        seguidos: seguidos,
+        userFollow: JSON.stringify(userFollow)
+    });
+}

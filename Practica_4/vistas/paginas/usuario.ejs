@@ -1,0 +1,117 @@
+<link rel="stylesheet" href="/css/perfil.css">
+<!--
+<%
+function mostrarUsername(session){
+	return `<h1>${session.username}</h1>`;
+}
+%>
+-->
+
+<div class="general">
+    <div class="cabecera-perfil">
+        <% if (fotoperfil != null) { %>
+            <img src="/imagen/<%= fotoperfil %>" alt="Imagen de perfil" class="perfil-img">
+        <% } else { %>
+            <img src="/iconos/perfil_imagen.jpg" alt="Imagen de perfil" class="perfil-img">
+        <% } %>
+        
+        <div class="texto-cabecera-perfil">
+            <div class="username">
+                <h1><%=username%></h1>
+            </div>
+            <div class="stats">
+                <div class="stat-item">
+                    <h3>Seguidores </h3>
+                    <p><%=seguidores%></p>
+                </div>
+                <div class="stat-item">
+                    <h3>Seguidos </h3>
+                    <p><%=seguidos%></p>
+                </div>
+                
+                <div class="stat-item">
+                    <button class="follow-butt" data-follow="<%= userFollow.includes(username) %>">
+                        <%= userFollow.includes(username) ? 'Dejar de seguir' : 'Seguir' %>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="publicaciones">
+        <% for (let i = 0; i < publicaciones.length; i++) { %>
+            <div class="publicacion">
+                <% for (let j = 0; j < usuarios[i].length; j++) { 
+                    let usuariosi = usuarios[i];%>
+                    <% if (usuariosi[j].fotoperfil !== null) { %>
+                        <img src="/imagen/<%= fotoperfil %>" alt="Imagen de perfil" class="contributor-img">
+                    <% } else { %>
+                        <img src="/iconos/perfil_imagen.jpg" alt="Imagen de perfil" class="contributor-img">
+                    <% } %>
+                <% } %>   
+                <div class="texto-publicacion">
+                    <h3><%= publicaciones[i].titulo %></h3>
+                    <%= publicaciones[i].creador_1 %>, <%= publicaciones[i].creador_2 %>
+                    <% if (publicaciones[i].creador_3 != null) { %> , <%= publicaciones[i].creador_3%>
+                        <% if (publicaciones[i].creador_4 != null) { %> , <%= publicaciones[i].creador_4 %>
+                            <% if (publicaciones[i].creador_5 != null) { %> , <%= publicaciones[i].creador_5 %>
+                            <% } %>
+                        <% } %>
+                    <% } %>
+                </div>
+            </div> 
+        <% } %>            
+    </div>
+</div>
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const userFollow = JSON.parse('<%- userFollow || "[]" %>');
+        const username = '<%= username%>';
+        const login = '<%= session.login %>';
+
+        //codigo botón like
+        const followButton = document.querySelector(".follow-butt");
+        
+        if (userFollow.includes(username)) {
+            followButton.classList.add("followed");
+        }
+
+        followButton.addEventListener("click", () => {
+
+            if (login !== 'true') {
+                alert("Debes iniciar sesión para dar follow");
+                return;
+            }
+
+            fetch(`/follow/${username}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Error en la respuesta");
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.followed) {
+                    followButton.textContent = 'Dejar de seguir';
+                    console.log(userFollow);
+                } else {
+                    followButton.textContent = 'Seguir'
+                    console.log(userFollow);
+                }
+            })
+            .catch(error => {
+                alert("Error al procesar el follow");
+            });
+        });
+        
+        
+    });
+
+</script>

@@ -18,6 +18,7 @@ import { join } from 'node:path';
 import { Multimedia } from './multimedia/Multimedia.js';
 import { Like } from './likes/Like.js';
 import { Usuario } from './usuarios/Usuario.js';
+import { Seguimiento } from './seguimiento/Seguimiento.js';
 import { Guardado } from './guardados/Guardado.js';
 import { logger } from './logger.js';
 import pinoHttp  from 'pino-http';
@@ -58,6 +59,12 @@ app.get('/', (req, res) => {
         userId = user.id;
     }
 
+    let usuarios_aux = Usuario.getAllUsers();
+    let allUsers = new Array();
+    usuarios_aux.forEach((usuario) => {
+        allUsers.push(usuario.username);
+    });
+
     console.log(userId);
     res.render('pagina', {
         contenido: 'paginas/index',
@@ -67,7 +74,8 @@ app.get('/', (req, res) => {
         multimediaPorPost: JSON.stringify(multimediaPorPost),
         userId: userId,
         userLikes: JSON.stringify(userLikes),
-        userSaves: JSON.stringify(userSaves)
+        userSaves: JSON.stringify(userSaves),
+        allUsers
     });
 })
 app.use('/usuarios', usuariosRouter);
@@ -134,8 +142,34 @@ app.post('/save/:postId', (req, res) => {
         console.error("Error al manejar save:", error);
         return res.status(500).json({ 
             error: "Error del servidor al procesar el save" 
-        });
+          });
     }
 });
+
+app.post('/follow/:username', (req, res) => {
+
+    if (!req.session.login) {
+        return res.status(401).json({ error: "Debes iniciar sesión para seguir" });
+    }
+    const username = req.params.username;
+    
+    try {
+        const existingFollow = Seguimiento.existeSeguimiento(req.session.username, username);
+        
+        if (existingFollow) {
+            Seguimiento.eliminarSeguimiento(req.session.username, username);
+            return res.json({ followed: false });
+        } else {
+            const follow = Seguimiento.crearSeguimiento(req.session.username, username);
+            return res.json({ followed: true });
+        }
+    } catch (error) {
+        console.error("Error al manejar follow:", error);
+        return res.status(500).json({ 
+            error: "Error del servidor al procesar el follow" 
+          });
+    }
+});
+
 
 app.use(errorHandler);
