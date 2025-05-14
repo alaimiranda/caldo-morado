@@ -23,6 +23,7 @@ export function publish(req, res) {
         let date = new Date().toISOString();
 
         const colaboradores = JSON.parse(req.body.colaboradores || '[]'); // Default to an empty array if not provided
+        console.log("colaboradores", colaboradores);
         let colab1 = colaboradores[0] || null;
         let colab2 = colaboradores[1] || null;
         let colab3 = colaboradores[2] || null;
@@ -48,9 +49,8 @@ export function publish(req, res) {
             colab5,
             date
         );
-        //let multimedia = req.body.multimedia;
 
-        publicacion.persist();
+        //publicacion.persist();
 
         return res.render('pagina', {
             contenido: 'paginas/postConExito',

@@ -2,8 +2,11 @@ let colaboradores= [];
 
 
 document.querySelector('form').addEventListener('submit', function () {
+    console.log("array", colaboradores);
     const hiddenInput = document.getElementById('colaboradores-hidden');
     hiddenInput.value = JSON.stringify(colaboradores);
+    console.log("colaboradores", hiddenInput.value);
+
 });
 
 document.getElementById('add-colab').addEventListener('click', function() {

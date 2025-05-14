@@ -56,13 +56,9 @@ export class Publicacion {
         const publicacionesRecientes = publicaciones.filter(publicacion => {
             const fechaPublicacion = new Date(publicacion.fecha.replace(/\//g, '-')); // Convertir a formato válido
             const diferenciaDias = (ahora - fechaPublicacion) / (1000 * 60 * 60 * 24); // Diferencia en días
-            console.log("diferencia", diferenciaDias); // Imprimir diferencia de días
             return diferenciaDias <= 7;
             
         });
-
-        console.log("recientes", publicacionesRecientes.length); // Imprimir publicaciones recientes
-        console.log("total",publicaciones.length); // Imprimir total de publicaciones
         return publicacionesRecientes;
     }
 
