@@ -43,7 +43,7 @@ function buscar(){
 }
 
 function seleccionarUsuario(usuario){
-    document.getElementById('feed-redirect-form').action = `/perfil/${usuario}`;
+    document.getElementById('feed-redirect-form').action = `/contenido/${usuario}`;
     document.getElementById('feed-redirect-form').method = 'GET';
     document.getElementById('feed-redirect-form').submit();
 }
