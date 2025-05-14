@@ -95,7 +95,9 @@ export class Publicacion {
     static getPublicacionById(id_search) {
         //const creadosql = creador;
         const datos = {id_search};
-        const publicacion = new Publicacion(this.#searchById.all(datos));
+        const data = this.#searchById.all(datos);
+        const { titulo, creador_1, creador_2, creador_3, creador_4, creador_5, fecha, likes, id } = data[0];
+        const publicacion = new Publicacion(titulo, creador_1, creador_2, creador_3, creador_4, creador_5, fecha, likes, id);
         return publicacion;
     }
 
