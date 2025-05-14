@@ -78,6 +78,29 @@ document.getElementById('add-image-btn').addEventListener('click', function(even
     event.preventDefault();
     document.getElementById('imagenes').click();
 });
+
+// Alternativa para el carrusel de fotos, solo mostramos una foto en vez de todas ya que no hemos sido capaces de incluir varias imagenes en la base de datos
+document.getElementById('imagenes').addEventListener('change', function(event) {
+  const file = event.target.files[0];
+  const myImageDiv = document.getElementById('myImage');
+
+  if (file && file.type.startsWith('image/')) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      myImageDiv.innerHTML = '';
+      const img = document.createElement('img');
+      img.src = e.target.result;
+      img.style.maxWidth = '100%';  
+      img.style.maxHeight = '300px'; 
+
+      myImageDiv.appendChild(img);
+    };
+
+    reader.readAsDataURL(file);
+  } else {
+    myImageDiv.innerHTML = 'Archivo no válido';
+  }
+});
 /*
 document.getElementById('imagenes').addEventListener('change', function(event) {
     const files = event.target.files;
