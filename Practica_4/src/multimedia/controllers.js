@@ -5,6 +5,7 @@ import { Multimedia } from './Multimedia.js';
 export function publish(req, res) {
     
     try { 
+        console.log(req.body);
         // TO-DO
         let id_post ="";
         let pos ="";
@@ -23,7 +24,9 @@ export function publish(req, res) {
     } catch (e) {
         res.render('pagina', {
             contenido: 'paginas/cocinar',
-            error: 'Error al publicar la receta'
+            error: 'Error al publicar la receta',
+            usuarios: [],
+            session: req.session
         })
     }
     

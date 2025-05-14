@@ -33,7 +33,9 @@ export function publish(req, res) {
         if (!colab2) {
             return res.render('pagina', {
                 contenido: 'paginas/cocinar',
-                error: 'Error al publicar la receta'
+                error: 'Error al publicar la receta',
+                usuarios: [],
+                session: req.session
             })
         }
 
@@ -46,18 +48,21 @@ export function publish(req, res) {
             colab5,
             date
         );
+        //let multimedia = req.body.multimedia;
 
         publicacion.persist();
 
         return res.render('pagina', {
             contenido: 'paginas/postConExito',
-            session: req.session
+            session: req.session,
         });
        
     } catch (e) {
         res.render('pagina', {
             contenido: 'paginas/cocinar',
-            error: 'Error al publicar la receta'
+            error: 'Error al publicar la receta',
+            usuarios,
+            session: req.session
         })
     }
     
