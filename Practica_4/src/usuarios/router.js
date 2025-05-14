@@ -17,18 +17,18 @@ const upload = multer({ dest: config.uploads });
 
 usuariosRouter.get('/login', autenticado(null), asyncHandler(viewLogin));
 usuariosRouter.post('/login', autenticado(null, '/index')
-   // , body('username', 'No puede ser vacío').trim().notEmpty()
-   //, body('password', 'No puede ser vacío').trim().notEmpty()
+    , body('username', 'No puede ser vacío').trim().notEmpty()
+    , body('password', 'No puede ser vacío').trim().notEmpty()
     , asyncHandler(doLogin));
 
 usuariosRouter.get('/logout', doLogout);
 
 usuariosRouter.get('/signup', autenticado(null), asyncHandler(viewSignup));
-usuariosRouter.post('/signup'
-   // , body('username', 'Sólo puede contener números y letras').trim().matches(/^[A-Z0-9]*$/i)
-   // , body('email', 'Debes introducir un email').trim().isEmail()
-   // , body('username', 'No puede ser vacío').trim().notEmpty()
-   // , body('password', 'La contraseña no tiene entre 6 y 10 caracteres').trim().isLength({ min: 6, max: 10 })
-    , upload.single("foto"), asyncHandler(doSignup));
+usuariosRouter.post('/signup', upload.single("foto")
+    , body('username', 'Sólo puede contener números y letras').trim().matches(/^[A-Z0-9]*$/i)
+    , body('email', 'Debes introducir un email').trim().isEmail()
+    , body('username', 'No puede ser vacío').trim().notEmpty()
+    , body('password', 'La contraseña no tiene entre 6 y 10 caracteres').trim().isLength({ min: 6, max: 10 })
+    , asyncHandler(doSignup));
 
 export default usuariosRouter;
