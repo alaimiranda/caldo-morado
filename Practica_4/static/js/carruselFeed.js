@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 const postId = post.getAttribute("post_id");
                 const multimedia = multimediaData[postId] || [];
 
-                console.log("Multimedia para post", postId, multimedia);
                 if (!multimedia || multimedia.length === 0) return;
 
                 let posicionActual = 1;
@@ -16,12 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 const imagenContainer = document.getElementById(`feed_image_${postId}`);
                 const pieDeFoto = document.getElementById(`feed_pie-de-foto_${postId}`);
 
-                console.log("imagenContainer", imagenContainer);
 
                 function renderizarImagen() {
-                    console.log("renderizando imagen para post", postId);
                     const actual = multimedia.find(m => m.pos === posicionActual);
-                    console.log("imagen actual", actual);
                     if (!actual) return;
 
                     imagenContainer.style.backgroundImage = `url('/imagen/${actual.archivo}')`;

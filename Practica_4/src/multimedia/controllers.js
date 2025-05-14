@@ -5,7 +5,6 @@ import { Multimedia } from './Multimedia.js';
 export function publish(req, res) {
     
     try { 
-        console.log(req.body);
         // TO-DO
         let id_post ="";
         let pos ="";

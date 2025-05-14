@@ -1,11 +1,3 @@
-<link rel="stylesheet" href="/css/perfil.css">
-<!--
-<%
-function mostrarUsername(session){
-	return `<h1>${session.username}</h1>`;
-}
-%>
--->
 
 <div class="general">
     <div class="cabecera-perfil">
@@ -16,21 +8,21 @@ function mostrarUsername(session){
         <% } %>
         
         <div class="texto-cabecera-perfil">
-            <div class="username">
+            <div class="perfil-username">
                 <h1><%=username%></h1>
             </div>
-            <div class="stats">
-                <div class="stat-item">
+            <div class="perfil-stats">
+                <div class="perfil-stat-item">
                     <h3>Seguidores </h3>
                     <p><%=seguidores%></p>
                 </div>
-                <div class="stat-item">
+                <div class="perfil-stat-item">
                     <h3>Seguidos </h3>
                     <p><%=seguidos%></p>
                 </div>
                 
-                <div class="stat-item">
-                    <button class="follow-butt" data-follow="<%= userFollow.includes(username) %>">
+                <div class="perfil-stat-item">
+                    <button class="perfil-follow-butt" data-follow="<%= userFollow.includes(username) %>">
                         <%= userFollow.includes(username) ? 'Dejar de seguir' : 'Seguir' %>
                     </button>
                 </div>
@@ -38,9 +30,9 @@ function mostrarUsername(session){
         </div>
     </div>
     
-    <div class="publicaciones">
+    <div class="perfil-publicaciones">
         <% for (let i = 0; i < publicaciones.length; i++) { %>
-            <div class="publicacion">
+            <div class="perfil-publicacion">
                 <% for (let j = 0; j < usuarios[i].length; j++) { 
                     let usuariosi = usuarios[i];%>
                     <% if (usuariosi[j].fotoperfil !== null) { %>
@@ -49,7 +41,7 @@ function mostrarUsername(session){
                         <img src="/iconos/perfil_imagen.jpg" alt="Imagen de perfil" class="contributor-img">
                     <% } %>
                 <% } %>   
-                <div class="texto-publicacion">
+                <div class="perfil-texto-publicacion">
                     <h3><%= publicaciones[i].titulo %></h3>
                     <%= publicaciones[i].creador_1 %>, <%= publicaciones[i].creador_2 %>
                     <% if (publicaciones[i].creador_3 != null) { %> , <%= publicaciones[i].creador_3%>
@@ -100,10 +92,8 @@ function mostrarUsername(session){
             .then(data => {
                 if (data.followed) {
                     followButton.textContent = 'Dejar de seguir';
-                    console.log(userFollow);
                 } else {
                     followButton.textContent = 'Seguir'
-                    console.log(userFollow);
                 }
             })
             .catch(error => {

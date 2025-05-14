@@ -112,9 +112,7 @@ export class Multimedia {
 
     // esto salta error
     static createNew(post_id) {
-        console.log("MULTIMEDIA");
         if(!req.body.multimedia) {
-            console.log (req.body.multimedia);
             let multimedia = JSON.parse(req.body.multimedia || '[]'); // Default to an empty array if not provided
             let element;
             for (let i = 0; i < multimedia; i++) {

@@ -30,7 +30,6 @@ export function publish(req, res) {
     const titulo = req.body.titulo.trim();
     body('pieDeFoto').escape();
     const descripcion = req.body.pieDeFoto.trim();
-    console.log("descripcion", descripcion);
     let fotos = null;
     if(req.file) {
         fotos = req.file.filename;
@@ -40,7 +39,6 @@ export function publish(req, res) {
         let date = new Date().toISOString();
 
         const colaboradores = JSON.parse(req.body.colaboradores || '[]'); // Default to an empty array if not provided
-        console.log("colaboradores", colaboradores);
         let colab1 = colaboradores[0] || null;
         let colab2 = colaboradores[1] || null;
         let colab3 = colaboradores[2] || null;
